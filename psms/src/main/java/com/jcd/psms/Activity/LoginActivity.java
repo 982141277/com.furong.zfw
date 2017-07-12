@@ -68,6 +68,9 @@ public class LoginActivity extends Activity {
 
         });
 
+
+
+
 //		Intent intent = new Intent();
 //        intent.setAction("android.intent.action.VIEW");
 //        Uri content_url = Uri.parse("http://10.85.239.165:8080/jfjk/html5/psms/login.html");
