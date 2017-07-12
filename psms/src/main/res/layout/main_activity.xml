@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/activity_main"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+
+    tools:context="com.jcd.psms.Activity.MainActivity">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/xiaoxibd"
+        ></View>
+    <TextView
+        android:id="@+id/mprogress"
+        android:background="@color/colorgreens"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_below="@+id/mprogress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        >
+
+
+    </WebView>
+</RelativeLayout>

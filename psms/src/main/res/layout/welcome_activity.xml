@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background">
+<Button
+    android:id="@+id/welcometextview"
+    android:gravity="center"
+    android:layout_margin="30dp"
+    android:layout_alignParentRight="true"
+    android:textColor="@color/colorwhite"
+    android:textSize="16dp"
+    android:text="跳过 3"
+    android:background="@drawable/shape_textview"
+    android:layout_height="30dp"
+    android:layout_width="60dp" />
+    <ProgressBar
+        android:id="@+id/ProgressBars"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+       />
+</RelativeLayout>

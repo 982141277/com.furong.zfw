@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jcd.psms.Activity.AccountActivity">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/xiaoxibd"
+        ></View>
+    <TextView
+        android:id="@+id/accountprogress"
+        android:background="@color/colorgreens"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+    <WebView
+        android:id="@+id/accountwebview"
+        android:layout_below="@+id/accountprogress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        >
+
+
+    </WebView>
+</RelativeLayout>
