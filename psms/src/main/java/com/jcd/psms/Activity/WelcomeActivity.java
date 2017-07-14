@@ -16,46 +16,51 @@ import com.jcd.psms.Util.UpdateVersion;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by Administrator on 2017/6/13 0013.
  */
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends Activity implements View.OnClickListener{
+    @BindView(R.id.welcometextview)
+    Button welcometextview;
+    @BindView(R.id.ProgressBars)
+    ProgressBar ProgressBars;
     private int recLen = 3;
-    private Button welcometextview;
     private Handler handler = new Handler();
     List<User> user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
-        welcometextview=(Button)findViewById(R.id.welcometextview);
-        ProgressBar ProgressBars=(ProgressBar)findViewById(R.id.ProgressBars);
+        ButterKnife.bind(this);
         new UpdateVersion(WelcomeActivity.this,ProgressBars).checkUpdateInfo();
         UserDao mUserDao = PsmsApplication.getInstances().getDaoSession().getUserDao();
         user = mUserDao.loadAll();
-
-        welcometextview.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                recLen=5;
-                if(user.size()==0) {
-                    Intent intent = new Intent(WelcomeActivity.this,
-                            LoginActivity.class);
-                    startActivity(intent);
-                }else{
-                    Intent intent = new Intent(WelcomeActivity.this,
-                            MainActivity.class);
-                    startActivity(intent);
-
-                }
-            }
-        });
         // 开启定时器
         handler.postDelayed(runnable, 1000);
     }
 
+    @Override
+    @OnClick({ R.id.welcometextview })
+    public void onClick(View v) {
+        if(v.getId() == R.id.welcometextview) {
+        recLen=5;
+        if(user.size()==0) {
+            Intent intent = new Intent(WelcomeActivity.this,
+                    LoginActivity.class);
+            startActivity(intent);
+        }else{
+            Intent intent = new Intent(WelcomeActivity.this,
+                    MainActivity.class);
+            startActivity(intent);
+
+        }
+        }
+    }
 
     Runnable runnable = new Runnable() {
         @Override
@@ -81,6 +86,5 @@ public class WelcomeActivity extends Activity {
             }
         }
     };
-
 
 }

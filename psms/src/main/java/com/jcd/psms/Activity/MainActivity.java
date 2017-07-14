@@ -22,12 +22,16 @@ import com.jcd.psms.Util.APIUtil;
 import com.jcd.psms.Util.AndroidUtil;
 import com.jcd.psms.Util.SlowlyProgressBar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 
 public class MainActivity extends Activity {
-    private WebView webview;
+    @BindView(R.id.webview)
+    WebView webview;
+
     private SlowlyProgressBar slowlyProgressBar;
 
     private boolean mBound = false;
@@ -53,8 +57,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-//		 //实例化WebView对象
-        webview = (WebView) findViewById(R.id.webview);
+        ButterKnife.bind(this);
         webview.setBackgroundColor(0);
         webview.getBackground().setAlpha(2);
         //设置Web视图
@@ -129,7 +132,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("降低收费的释迦佛第三家公司打工！");
+                subscriber.onNext("测试用！");
             }
 
         });

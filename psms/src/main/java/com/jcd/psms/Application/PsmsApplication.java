@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.jcd.psms.GreenDao.DaoMaster;
 import com.jcd.psms.GreenDao.DaoSession;
+import com.squareup.leakcanary.LeakCanary;
 
 
 public class PsmsApplication extends BaseApplication {
@@ -16,6 +17,12 @@ public class PsmsApplication extends BaseApplication {
 	public void onCreate() {
 		super.onCreate();
 		instances = this;
+		if (LeakCanary.isInAnalyzerProcess(this)) {
+			// This process is dedicated to LeakCanary for heap analysis.
+			// You should not init your app in this process.
+			return;
+		}
+		LeakCanary.install(this);
 		setDatabase();
 
 	}

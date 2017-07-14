@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
@@ -42,9 +43,12 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:support-vector-drawable:24.2.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
     testCompile 'junit:junit:4.12'
     compile project(':myandroidlibrary')
-
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 
 }

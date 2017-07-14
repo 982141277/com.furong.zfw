@@ -12,14 +12,19 @@ import com.jcd.psms.R;
 import com.jcd.psms.Util.APIUtil;
 import com.jcd.psms.Util.SlowlyProgressBar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AccountActivity extends Activity {
-    private WebView webview;
+    @BindView(R.id.accountwebview)
+    WebView webview;
+
     private SlowlyProgressBar slowlyProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_activity);
-        webview = (WebView) findViewById(R.id.accountwebview);
+        ButterKnife.bind(this);
         webview.setBackgroundColor(0);
         webview.getBackground().setAlpha(2);
         //设置Web视图

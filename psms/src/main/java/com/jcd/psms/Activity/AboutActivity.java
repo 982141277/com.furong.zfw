@@ -12,15 +12,21 @@ import com.jcd.psms.R;
 import com.jcd.psms.Util.APIUtil;
 import com.jcd.psms.Util.SlowlyProgressBar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AboutActivity extends Activity {
 
-    private WebView webview;
+    @BindView(R.id.aboutwebview)
+    WebView webview;
+
     private SlowlyProgressBar slowlyProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_activity);
+        ButterKnife.bind(this);
         webview = (WebView) findViewById(R.id.aboutwebview);
         webview.setBackgroundColor(0);
         webview.getBackground().setAlpha(2);

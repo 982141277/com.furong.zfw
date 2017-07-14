@@ -1,30 +1,47 @@
 package com.jcd.psms.Activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.jcd.psms.CalledByJs;
 import com.jcd.psms.R;
 import com.jcd.psms.Util.APIUtil;
-import com.jcd.psms.Util.SlowlyProgressBar;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2017/6/8 0008.
  */
 
 public class LoginActivity extends Activity {
-    private WebView webview;
-    private SlowlyProgressBar slowlyProgressBar;
+    @BindView(R.id.webview)
+    WebView webview;
+
+    @BindView(R.id.progress)
+    ProgressBar mprogress;
+
+    boolean isAnimStart;
+    int currentProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-//		 //实例化WebView对象
-        webview = (WebView) findViewById(R.id.webview);
+        ButterKnife.bind(this);
+
         webview.setBackgroundColor(0);
         webview.getBackground().setAlpha(2);
         //设置Web视图
@@ -38,15 +55,18 @@ public class LoginActivity extends Activity {
         webSettings.setDomStorageEnabled(true);//支持Html5标签
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webview.getSettings().setDefaultTextEncodingName("GBK");//设置编码格式
-        slowlyProgressBar =
-                new SlowlyProgressBar
-                        (
-                                findViewById(R.id.mprogress),
-                                getWindowManager().getDefaultDisplay().getWidth()
-                        )
-                        .setViewHeight(3);
+
+
+
 
         webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                mprogress.setVisibility(View.VISIBLE);
+                mprogress.setAlpha(1.0f);
+            }
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 webview.loadUrl(url);
@@ -62,13 +82,60 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                slowlyProgressBar.setProgress(newProgress);
+                currentProgress = mprogress.getProgress();
+                if (newProgress >= 100 && !isAnimStart) {
+                    // 防止调用多次动画
+                    isAnimStart = true;
+                    mprogress.setProgress(newProgress);
+                    // 开启属性动画让进度条平滑消失
+                    startDismissAnimation(mprogress.getProgress());
+                } else {
+                    // 开启属性动画让进度条平滑递增
+                    startProgressAnimation(newProgress);
+                }
             }
 
         });
+    }
+/**
+ * progressBar消失动画
+ */
+        private void startDismissAnimation(final int progress) {
+            ObjectAnimator anim = ObjectAnimator.ofFloat(mprogress, "alpha", 1.0f, 0.0f);
+            anim.setDuration(1500);  // 动画时长
+            anim.setInterpolator(new DecelerateInterpolator());     // 减速
+            // 关键, 添加动画进度监听器
+            anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    float fraction = valueAnimator.getAnimatedFraction();      // 0.0f ~ 1.0f
+                    int offset = 100 - progress;
+                    mprogress.setProgress((int) (progress + offset * fraction));
+                }
+            });
 
+            anim.addListener(new AnimatorListenerAdapter() {
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    // 动画结束
+                    mprogress.setProgress(0);
+                    mprogress.setVisibility(View.GONE);
+                    isAnimStart = false;
+                }
+            });
+            anim.start();
+        }
+    /**
+     * progressBar递增动画
+     */
+    private void startProgressAnimation(int newProgress) {
+        ObjectAnimator animator = ObjectAnimator.ofInt(mprogress, "progress", currentProgress, newProgress);
+        animator.setDuration(300);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
+    }
 
 
 //		Intent intent = new Intent();
@@ -77,13 +144,6 @@ public class LoginActivity extends Activity {
 //        intent.setData(content_url);
 //        startActivity(intent);
 
-    }
-    @Override
-    public void finish() {
-        super.finish();
-        if(slowlyProgressBar!=null){
-            slowlyProgressBar.destroy();
-            slowlyProgressBar = null;
-        }
-    }
+
+
 }
