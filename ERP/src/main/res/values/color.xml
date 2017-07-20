@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="yellow">#FF9912</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808A87</color>
+    <color name="dark_blue">#017ab4</color>
+    <color name="shallow_black">#c0c5c7</color>
+    <color name="shallow_blue">#a7cdd0</color>
+    <color name="dark_red">#fc0505</color>
+    <color name="text_gray">#888888</color>
+    <color name="text_green">#058b05</color>
+    <color name="leftfg_splitline_gray">#88888888</color>
+    <color name="notblue">#00fff0</color>
+    <color name="blackss">#ababab</color>
+    <color name="text_gray_light">#aaaaaa</color>
+    <color name="province_line_border">#D0D0D0</color>
+    <color name="blue1">#2b8fe0</color>
+    <color name="dialog_back_color">#fc0505</color>
+    <color name="yuanhebutou">#FF9912</color>
+    <color name="bluetitle">#6f91b4</color>
+    <color name="_red">#ED1C24</color>
+    <color name="_green">#0d9443</color>
+    <color name="text_red">#f0534d</color>
+    <color name="text_grays">#9a9a9a</color>
+    <color name="text_graya">#5E5E5E</color><!-- 深灰色 -->
+    <color name="viewcolor">#a6a5a5</color>
+    <color name="text_gray1">#e1e1e1</color><!-- 浅灰色 -->
+    <color name="text_gray2">#E1DFE0</color> <!-- 分割线 -->
+    
+
+</resources>

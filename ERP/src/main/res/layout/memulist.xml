@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+	android:background="@color/white">
+    
+     <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+             <Spinner
+        android:id="@+id/memu_spn1"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+		android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:background="@null" />
+<com.meiyin.erp.ui.XListView
+    android:id="@+id/memu_listview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    ></com.meiyin.erp.ui.XListView>
+</LinearLayout>

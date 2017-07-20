@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/goout_brush_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/text_graya"
+        android:textSize="@dimen/dimen14s" />
+
+    <TextView
+        android:id="@+id/goout_brush_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/text_graya"
+        android:textSize="@dimen/dimen14s" />
+
+    <TextView
+        android:id="@+id/goout_brush_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/text_graya"
+        android:textSize="@dimen/dimen14s" />
+
+</LinearLayout>

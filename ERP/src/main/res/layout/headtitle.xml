@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<RelativeLayout
+	    android:id="@+id/my_head_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/memulist_heading"
+        android:background="@color/_red"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/headtitleimageView"
+            android:layout_width="@dimen/memulist_pic_size"
+            android:layout_height="@dimen/memulist_pic_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/goback" />
+
+        <TextView
+            android:id="@+id/headtitletext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textIsSelectable="true"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/head_right_text"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+        <Button
+            android:id="@+id/head_btn"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            />
+        <ImageView
+            android:id="@+id/com_img"
+            android:visibility="gone"
+            android:layout_width="@dimen/memulist_pic_size"
+            android:layout_height="@dimen/memulist_pic_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/com" />
+  		 <ImageView
+            android:id="@+id/add_newtask_img"
+            android:visibility="gone"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/newaddtask" />
+         <ImageView
+            android:id="@+id/map_img"
+            android:visibility="gone"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/map" />
+    </RelativeLayout>
+</RelativeLayout>

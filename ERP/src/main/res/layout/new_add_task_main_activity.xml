@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="任务类型："
+                    android:textSize="@dimen/dimen14s" />
+
+                <Spinner
+                    android:id="@+id/newadd_task_spn"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="任务名称："
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/new_add_task_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请输任务名称"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/overtimetask_time1"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:id="@+id/new_add_task_start_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/overtimetask_timeh1"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/overtimetask_time2"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:id="@+id/new_add_task_end_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/overtimetask_timeh2"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="任务目标："
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/new_add_task_target"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请输入任务目标"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="所需资源："
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/new_add_task_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请输入所需资源"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/new_add_task_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/new_add_task_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="执行人员："
+                    android:textSize="@dimen/dimen14s" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/new_add_task_execute"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:focusable="true"
+                        android:hint="请选择执行人员"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen14s" />
+
+                    <ImageView
+                        android:id="@+id/new_add_task_execute_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="2dp"
+                        android:background="@mipmap/icon_delete" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="知晓人员："
+                    android:textSize="@dimen/dimen14s" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+ 						android:id="@+id/new_add_task_know"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:focusable="true"
+                        android:hint="请选择知晓人员"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen14s" />
+
+                    <ImageView
+                        android:id="@+id/new_add_task_know_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="2dp"
+                        android:background="@mipmap/icon_delete" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="10dp"
+                    android:text="任务描述："
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/new_add_task_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请输入任务描述"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/out_memu_padding" >
+
+                <Button
+                    android:id="@+id/new_add_submit_task"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_login_red"
+                    android:text="保存任务"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

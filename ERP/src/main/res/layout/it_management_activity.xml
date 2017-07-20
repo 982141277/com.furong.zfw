@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+        <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+
+    <ListView 
+        android:id="@+id/it_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+    </ListView>
+    
+<!--     <LinearLayout
+        android:id="@+id/it_text_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="巡检表"
+            />
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="20dp"
+            android:background="@drawable/jiankuohao"
+            android:gravity="right" />
+    </LinearLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/views"
+        android:background="@color/shallow_black" /> 
+         -->
+</LinearLayout>

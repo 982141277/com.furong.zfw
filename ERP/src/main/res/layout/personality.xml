@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+    
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/white" >
+
+	    <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:padding="10dp"
+	        android:text="热门推荐"
+	        android:textSize="20dp" />
+
+	    <GridView
+	        android:id="@+id/gridview"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textView2"
+	        android:horizontalSpacing="3dp"
+	        android:verticalSpacing="3dp"
+	        android:numColumns="3" >
+	    </GridView>
+
+	    <Button
+	        android:id="@+id/shiyong"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="20dp"
+	        android:layout_alignParentBottom="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginBottom="20dp"
+	        android:background="@drawable/button_login_red"
+	        android:text="确认装扮"
+	        android:textColor="@color/white"
+	        android:textSize="16sp" />
+
+	</RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/circular_bead"
+    android:orientation="vertical"
+    android:padding="10dp"
+
+     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/dark_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:text="实报交通费:"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/heshi_app_view"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_in_white"
+                android:padding="5dp"
+                android:textColor="@color/text_gray"
+                android:maxLength="5"
+                android:textSize="@dimen/text_large_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+       <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/out_memu_padding"
+                android:text="说明:"
+                android:textSize="18sp"
+                android:layout_gravity="top"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/shuoming"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/circle_in_white"
+                android:maxLines="10"
+                android:padding="5dp"
+                android:gravity="top"
+                android:textColor="@color/text_gray"
+                android:text=""
+                android:textSize="@dimen/text_large_size" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/heshifeiyong_true"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_login_blue"
+            android:text="确定"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

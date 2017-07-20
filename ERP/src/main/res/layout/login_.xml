@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#faf8f9" >
+
+    
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="209dp"
+            android:layout_height="83dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/heardlogo" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/donghua1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/m20dip"
+        android:paddingRight="@dimen/m20dip"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_in_white"
+            android:padding="5dp" >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/username"
+                android:textSize="@dimen/login_name_size"
+                android:layout_margin="10dp"
+                android:textColor="@color/dark_blue" />
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="@string/user_names"
+                android:maxLength="30"
+                android:paddingLeft="@dimen/login_lefts"
+                android:singleLine="true"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_in_white"
+            android:padding="5dp" >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@mipmap/password"
+                android:textColor="@color/dark_blue"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="@dimen/login_name_size" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="@string/pass_word"
+                android:maxLength="30"
+                android:paddingLeft="@dimen/login_lefts"
+                android:password="true"
+                android:singleLine="true"
+                android:text="" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/donghua2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/m20dip"
+        android:paddingRight="@dimen/m20dip" >
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_login_red"
+            android:text="@string/login"
+            android:layout_marginTop="20dp"
+            android:textSize="24sp"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

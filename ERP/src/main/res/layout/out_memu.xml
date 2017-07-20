@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="外出类型："
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/dimen14s" />
+
+                <Spinner
+                    android:id="@+id/spn1"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+              
+                    android:background="@null" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/suoqukehu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/m10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="所去客户："
+                        android:textSize="@dimen/dimen14s" />
+
+                    <TextView
+                        android:id="@+id/out_client_name"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:focusable="true"
+                        android:hint="请填写客户名称！"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen14s" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu1"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/mainContent_outmemu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写外出事由！"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu2"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:id="@+id/start_time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/go_out_memu2_h"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu3"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:id="@+id/end_time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/go_out_memu2_h"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu4"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/startLocation_outmemu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:text="@string/go_out_memu4_1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu5"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/toLocation_outmemu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写外出地点"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="@string/go_out_memu6"
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:hint="随行人员"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/out_memu_size_1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu7"
+                    android:textSize="@dimen/dimen14s" />
+
+                <RadioGroup
+                    android:id="@+id/rgs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <RadioButton
+                        android:id="@+id/rgs_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go_out_memu7_1"
+                        android:textSize="@dimen/dimen14s" />
+
+                    <RadioButton
+                        android:id="@+id/rgs_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go_out_memu7_2"
+                        android:textSize="@dimen/dimen14s" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:id="@+id/linerlayout_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu8"
+                    android:textSize="@dimen/dimen14s" />
+
+                <Spinner
+                    android:id="@+id/spn_type"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+              
+                    android:background="@null" />
+
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:id="@+id/linerlayout_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu9"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/predictFare_outmemu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/go_out_memu9_1"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:phoneNumber="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_9"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:id="@+id/linerlayout_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <TextView
+                    android:id="@+id/textss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/go_out_memu0"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/edittextss"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/go_out_memu0_1"
+                    android:maxLines="3"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_10"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_login_red"
+                    android:text="@string/submit"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

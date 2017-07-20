@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+
+ 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginBottom="5dp" >
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+			android:layout_marginTop="10dp"
+            android:src="@mipmap/logos" />
+
+        <TextView
+            android:id="@+id/meiyincode_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="15sp"
+            android:textColor="@color/text_red" />
+    </RelativeLayout>
+
+    
+
+    <LinearLayout
+        android:id="@+id/lls"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp" >
+
+        <TextView
+            android:id="@+id/text_ones"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="公司简介"
+            android:textColor="@color/_red"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="@color/_red" />
+
+        <TextView
+            android:id="@+id/text_twos"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="公司文化"
+            android:textSize="17sp"
+            android:textColor="@color/text_gray" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="@color/_red" />
+
+        <TextView
+            android:id="@+id/text_threes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="机构组织"
+            android:textSize="17sp"
+            android:textColor="@color/text_gray" />
+        
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:background="@color/_red" />
+
+        <TextView
+            android:id="@+id/text_fours"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="开票信息"
+            android:textSize="17sp"
+            android:textColor="@color/text_gray" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+		>
+    
+   <View
+       android:id="@+id/view_one"
+       android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/_red" />
+   <View
+       android:id="@+id/view_two"
+       android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+   <View
+       android:id="@+id/view_three"
+       android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+      <View
+       android:id="@+id/view_four"
+       android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/white" />
+  </LinearLayout>
+  
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpagers"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+/>
+
+    <!--
+         <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/one_words" />
+    </ScrollView>-->
+
+</LinearLayout>

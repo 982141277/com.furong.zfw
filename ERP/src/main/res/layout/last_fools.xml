@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/my_fool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/my_webus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/my_approve_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@mipmap/shenpi" />
+
+                <TextView
+                    android:id="@+id/my_approve_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="@string/sh"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+			<View
+                android:layout_width="@dimen/views"
+                android:layout_height="match_parent"
+                android:background="@color/shallow_black" />
+
+            <LinearLayout
+                android:id="@+id/my_approve_report_bt"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:padding="8dp" >
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/huibao"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="汇报情况"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+            <View
+                android:layout_width="@dimen/views"
+                android:layout_height="match_parent"
+                android:background="@color/shallow_black" />
+
+            <LinearLayout
+                android:id="@+id/my_approve_history_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@mipmap/shenpilishi"
+                    android:gravity="right" />
+
+                <TextView
+                    android:id="@+id/my_appprove_history_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="@string/sp_history"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/views"
+            android:layout_alignTop="@+id/my_webus"
+            android:background="@color/shallow_black" />
+    </RelativeLayout>
+
+</RelativeLayout>

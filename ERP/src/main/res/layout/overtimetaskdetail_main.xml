@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/overtaskdetail_headtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/overtask_detail_foot"
+        android:layout_below="@+id/overtaskdetail_headtitle" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="填表人："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/overtask_detail_applicant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="填表时间："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/overtask_detail_newtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="开始时间："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/overtask_detail_starttime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="结束时间："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/overtask_detail_endtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="加班人员："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/overtask_detail_peoples"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="加班事由："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/overtask_detail_cause"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textIsSelectable="true"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/linear_overtimetaskdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xx"
+                        android:textColor="@color/dark_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="加班详细情况："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <EditText
+                        android:id="@+id/overtimetask_details_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_in_white"
+                        android:focusable="true"
+                        android:hint="请填写加班详细情况"
+                        android:padding="5dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dimen16s" />
+                </LinearLayout>
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/image_overtime_taskdetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/overtime_typeimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+          <include
+            android:id="@+id/overtask_detail_foot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            layout="@layout/last_fools" />
+</RelativeLayout>

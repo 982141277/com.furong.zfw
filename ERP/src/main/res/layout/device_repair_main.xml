@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+  <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="设备名称:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <EditText
+                    android:id="@+id/device_repair_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:maxLines="3"
+                    android:hint="请填写设备名称"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="品牌型号:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <EditText
+                    android:id="@+id/repair_brand_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:hint="请填写品牌型号"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" 
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="序列号:"
+                    android:textSize="@dimen/dimen17s" />
+				<EditText
+				    android:id="@+id/device_serial_numbers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:hint="请填写序列号"
+                    android:maxLines="12"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="预计费用:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <EditText
+                    android:id="@+id/device_repair_cost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:hint="请填写预计费用"
+                    android:maxLines="12"
+                    android:inputType="number"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+          <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="@string/device_repair_details1"
+                    android:textSize="@dimen/dimen17s" />
+
+                <EditText
+                    android:id="@+id/device_repair_describe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:maxLines="12"
+                    android:padding="5dp"
+                    android:hint="请填写故障原因"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+          <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="@string/device_repair_details2"
+                    android:textSize="@dimen/dimen17s" />
+
+                <EditText
+                    android:id="@+id/repair_replace_device"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:hint="请填写需要维修或更换的部件"
+                    android:maxLines="12"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+                <Button
+                    android:id="@+id/device_repair_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/out_memu_padding"
+                    android:background="@drawable/button_login_blue"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen17s" />
+
+        </LinearLayout>
+    </ScrollView>
+    
+    
+</LinearLayout>

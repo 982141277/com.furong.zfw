@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+       <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="申请人:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <TextView
+                    android:id="@+id/dimission_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:maxLines="3"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="希望离职日期:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <TextView
+                    android:id="@+id/dimission_out_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:padding="@dimen/dimen5d" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/xx"
+                        android:textColor="@color/dark_red" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:text="离职报告:"
+                        android:textSize="@dimen/dimen17s" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/dimission_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:gravity="top"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <Button
+                android:id="@+id/dimission_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/out_memu_padding"
+                android:background="@drawable/button_login_blue"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dimen17s" />
+        </LinearLayout> 
+
+</LinearLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/xjb_detail_include_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ExpandableListView
+        android:id="@+id/xjb_list_detail"
+        android:layout_below="@+id/xjb_detail_include_head"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
+    </ExpandableListView>
+
+                <Button
+                    android:id="@+id/xbjdetailstextview"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/out_memu_padding"
+                    android:background="@drawable/button_login_red"
+                    android:text="提交巡检结果"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen17s" />
+
+</RelativeLayout>

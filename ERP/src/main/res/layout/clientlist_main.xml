@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+	<LinearLayout
+        android:id="@+id/linear_twos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/circle_in_white"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp" >
+
+            <EditText
+                android:id="@+id/client_edit_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:completionThreshold="1"
+                android:dropDownSelector="@color/blackss"
+                android:hint="请输入客户名称"
+                android:imeOptions="actionSearch"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/deletes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/icon_delete"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/search_ing"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/searchs" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/clientlistview" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@mipmap/divider_list"
+        ></ListView>
+</LinearLayout>

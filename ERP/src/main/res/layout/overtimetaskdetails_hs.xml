@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/circular_bead"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/out_memu_padding"
+                android:text="加班人"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/overtimes_accompanyId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/out_memu_padding"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加班时间"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/overtimetask_dialog_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/out_memu_padding" >
+
+                <RadioButton
+                    android:id="@+id/overtimetask_rgs_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:textColor="@color/black"
+                    android:text="按考勤" />
+
+                <RadioButton
+                    android:id="@+id/overtimetask_rgs_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   	android:textColor="@color/black"
+                    android:text="无考勤" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_startovertimes"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/dark_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/out_memu_padding"
+                android:text="开始时间"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_in_white"
+                android:maxLines="4"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/MYbz" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/linear_endovertimes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/dark_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/out_memu_padding"
+                android:text="结束时间"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_in_white"
+                android:maxLines="4"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/MYbz" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/dark_red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/out_memu_padding"
+                android:text="情况说明"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_in_white"
+                android:hint="请输入情况说明！"
+                android:maxLines="4"
+                android:padding="5dp"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/MYbz" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/dialog_approval"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_login_blue"
+            android:text="@string/shenpia"
+            android:textColor="@color/white"
+            android:textSize="@dimen/MYbz" />
+    </LinearLayout>
+
+</LinearLayout>

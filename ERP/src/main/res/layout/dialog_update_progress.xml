@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout  
+  xmlns:android="http://schemas.android.com/apk/res/android"  
+  android:layout_width="fill_parent"  
+  android:layout_height="wrap_content">  
+  <ProgressBar  
+    android:id="@+id/update_progress"    
+    android:layout_marginTop="10dp"
+     style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@drawable/rectangel_gray"
+            android:progressDrawable="@drawable/progress_list"
+            android:progress="100" 
+  />  
+
+  
+</LinearLayout>  

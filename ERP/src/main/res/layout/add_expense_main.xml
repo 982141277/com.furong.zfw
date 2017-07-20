@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+     <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="费用类型："
+                    android:textSize="@dimen/dimen14s" />
+
+                <Spinner
+                    android:id="@+id/expense_spn"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/expense_imgs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:id="@+id/expense_number_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+
+                <TextView
+                    android:id="@+id/expense_number_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="电话号码："
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/expense_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:maxLines="3"
+                    android:hint="请填写号码！"
+                    android:inputType="text"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="申请金额："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/expense_mount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写申请金额！"
+                    android:maxLines="3"
+                    android:inputType="number"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="申请原因："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/expense_new_cause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写申请费用原因！"
+                    android:maxLines="6"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="详细描述："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/expense_new_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写详细描述"
+                    android:maxLines="12"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+                <Button
+                    android:id="@+id/expense_submit"
+                    android:layout_width="180dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/out_memu_padding"
+                    android:background="@drawable/button_login_red"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen17s" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

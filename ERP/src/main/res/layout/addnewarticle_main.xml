@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="物品名称："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <Spinner
+                    android:id="@+id/article_spn1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="物品类别："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <Spinner
+                    android:id="@+id/article_spn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:background="@null"  />
+
+                <Spinner
+                    android:id="@+id/article_spn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="物品品牌："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <Spinner
+                    android:id="@+id/article_spn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="物品型号："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <Spinner
+                    android:id="@+id/article_spn5"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"  />
+                <EditText
+                    android:id="@+id/article_model"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="填写其他型号"
+                    android:padding="8dp"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_size_1" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="物品数量："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+
+                    android:id="@+id/article_need_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null" 
+                    android:focusable="true"
+                    android:hint="请填写物品数量"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_size_1" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="物品单位："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+                    android:id="@+id/article_prod_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null" 
+                    android:focusable="true"
+                    android:hint="请填写物品单位"
+                    android:inputType="text"
+                    android:maxLength="6"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_size_1" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="参考单价："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+                    android:id="@+id/article_unit_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null" 
+                    android:focusable="true"
+                    android:hint="请填写物品单价"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_size_1" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="网店参考链接："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+                    android:id="@+id/article_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null" 
+                    android:focusable="true"
+                    android:hint="参考网址填写"
+                    android:inputType="textUri"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_size_1" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="备注："
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+                    android:id="@+id/article_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null" 
+                    android:focusable="true"
+                    android:hint="备注填写"
+                    android:padding="8dp"
+                    android:maxLines="3"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_size_1" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

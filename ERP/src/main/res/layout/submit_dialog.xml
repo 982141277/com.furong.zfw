@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/submit_title_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:text="提示信息"
+            android:textColor="@color/_red"
+            android:textSize="21sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view"
+            android:background="@color/_red" />
+
+        <TextView
+            android:id="@+id/heads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:text="您确定要提交此申请单？"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/views"
+            android:background="@color/shallow_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/button_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_dialog_red"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="确定"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="@dimen/views"
+                android:layout_height="match_parent"
+                android:background="@color/shallow_black" />
+
+            <Button
+                android:id="@+id/button_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_dialog_red"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="取消"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

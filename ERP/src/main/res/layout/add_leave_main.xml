@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:paddingRight="38dp"
+                    android:text="类型："
+                    android:textSize="@dimen/dimen14s" />
+
+                <Spinner
+                    android:id="@+id/leave_spn1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null" />
+
+                <ImageView
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="24dp"
+                    android:text="代班人："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/leave_peoples"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写请假期间代班人！"
+                    android:maxLines="3"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="开始时间："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:id="@+id/leave_start_time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请假开始时间"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="结束时间："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:id="@+id/leave_end_time"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请假结束时间"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+                 <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="请假原因："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/new_leave_cause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="请填写请假原因"
+                    android:maxLines="12"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/m10dip" >
+
+                
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="修正时长："
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/dimen14s" />
+
+                <EditText
+                    android:id="@+id/new_leave_hours"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:maxLength="4"
+                    android:padding="5dp"
+                    android:phoneNumber="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="小时"
+                    android:textSize="@dimen/out_memu_big_size" />
+
+                <EditText
+                    android:id="@+id/new_leave_min"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:maxLength="3"
+                    android:padding="5dp"
+                    android:phoneNumber="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen14s" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="分钟"
+                    android:textSize="@dimen/out_memu_big_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view"
+                android:layout_gravity="bottom"
+                android:background="@color/text_gray2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+                <Button
+                    android:id="@+id/leave_submit"
+                    android:layout_width="180dp"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_login_red"
+                    android:text="@string/submit"
+                    android:textSize="@dimen/dimen17s"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

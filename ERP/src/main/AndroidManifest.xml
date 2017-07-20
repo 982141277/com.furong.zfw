@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.meiyin.erp"
+    android:versionCode="25"
+    android:versionName="v5.2.8">
+
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 开机启动-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <application
+        android:name=".application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logoss"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:theme="@style/notitle">
+
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--  外勤系统 -->
+        <activity android:name=".activity.OutWorkActivity"
+            />
+
+        <activity android:name=".activity.GoOutBrushActivity"
+            />
+        <activity android:name=".activity.OutWorkDetailsActivity"
+        />
+        <activity android:name=".activity.Map_Activity"
+        />
+        <activity android:name=".activity.GuideActivity" />
+        <activity android:name=".activity.Login" />
+        <activity android:name=".activity.Main_Home"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.CommunicationActivity" />
+        <!--  办公管理系统 -->
+        <activity android:name=".activity.RequisitionTypeActivity" /><!--新增申请单 -->
+        <activity android:name=".activity.Home"/>
+        <activity android:name=".activity.Memulist"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.TopicActivity"/>
+        <activity android:name=".activity.TopicDetailsActivity"/>
+        <activity android:name=".activity.Out_Memu"/>
+        <activity android:name=".activity.Out_Memu_Sq"/>
+        <!--  请假申请单 -->
+        <activity android:name=".activity.LeaveActivity" />
+        <activity android:name=".activity.LeaveDetailsActivity"/>
+        <!--  费用申请单 -->
+        <activity android:name=".activity.ExpenseActivity"/>
+        <activity android:name=".activity.ExpenseDetailsActivity"/>
+        <!--  转正申请单 -->
+        <activity android:name=".activity.TrainingActivity"/>
+        <activity android:name=".activity.TrainingDetailsActivity"/>
+        <!--  离职申请单 -->
+        <activity android:name=".activity.DimissionActivity"/>
+        <activity android:name=".activity.DimissionDetailsActivity"/>
+        <!--  公司公章(证照)申请单 -->
+        <activity android:name=".activity.CompanyChopActivity"/>
+        <activity android:name=".activity.CompanyChopDetailsActivity"/>
+        <!--  设备报修申请单 -->
+        <activity android:name=".activity.DeviceRepairActivity"/>
+        <activity android:name=".activity.DeviceRepairDetailsActivity"/>
+        <!--  请购申请单 -->
+        <activity android:name=".activity.AddNewArticleActivity"/>
+        <activity android:name=".activity.RequisitionActivity"/>
+        <activity android:name=".activity.RequisitionDetailActivity"/>
+        <!--  加班任务单-->
+        <activity android:name=".activity.OverTimeTaskActivity"/>
+        <activity android:name=".activity.OverTimeTaskDetailsActivity"/>
+        <activity android:name=".activity.ClientListActivity" />
+        <!--  出差申请单 -->
+        <activity android:name=".activity.GoOutActivity" />
+        <activity android:name=".activity.GoOutDetailsActivity" />
+
+        <!--  IT运维管理系统 -->
+        <activity android:name=".activity.IT_Management_Activity"/>
+        <activity android:name=".activity.IT_Management_Event_List"/>
+        <activity android:name=".activity.IT_Management_Sq"/>
+        <activity android:name=".activity.IT_Management_Update"/>
+        <activity android:name=".activity.IT_Management_News"/>
+        <activity android:name=".activity.XjbActivity" />
+        <activity android:name=".activity.XjbDetailsActivity" />
+        <activity android:name=".activity.Xxls" />
+        <activity android:name=".activity.About_Activity" />
+        <!-- 日志系统 -->
+        <activity android:name=".activity.MyTaskActivity"/>
+        <activity android:name=".activity.TaskManagement" />
+        <activity android:name=".activity.MyTaskListDetailsActivity"/>
+        <activity android:name=".activity.TaskWriteActivity"/>
+        <activity android:name=".activity.MyTaskReportDetailsActivity"/>
+        <activity android:name=".activity.NewAddTaskActivity"/>
+
+        <!-- 系统设置 -->
+        <activity android:name=".activity.MyAndroidActivity" />
+        <activity android:name=".fragment.Personality" />
+        <activity android:name=".activity.AddShortCutActivity" />
+        <activity android:name=".fragment.FunctionActivity"/>
+        <receiver android:name=".receiver.NetReceiver" />
+
+        <!--<receiver android:name=".activity.Home$ServiceReceivers" />-->
+        <!--  、消息服务 -->
+        <service android:name=".service.Meiyinservice" android:exported="false">
+            <!--<intent-filter android:priority="1000" >-->
+                <!--<action android:name=".service.Meiyinservice"/>-->
+            <!--</intent-filter>-->
+        </service>
+        <service
+            android:name=".service.Watchservice"
+            android:exported="false">
+            <!--<intent-filter android:priority="1000" />-->
+        </service>
+
+    </application>
+
+</manifest>

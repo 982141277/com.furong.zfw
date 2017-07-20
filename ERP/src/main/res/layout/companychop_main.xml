@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="姓名:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <TextView
+                    android:id="@+id/companychop_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:maxLines="3"
+                    android:padding="@dimen/dimen5d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="填表时间:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <TextView
+                    android:id="@+id/new_companychop_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" 
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="印章类型:"
+                    android:textSize="@dimen/dimen17s" />
+
+              <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioGroup
+                        android:id="@+id/RadioGroup_companychop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/RadioGroup_companychop1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/companychop_1"
+                            android:textSize="@dimen/dimen16s" />
+
+                        <RadioButton
+                            android:id="@+id/RadioGroup_companychop2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/companychop_2"
+                            android:textSize="@dimen/dimen16s" />
+
+                        <RadioButton
+                            android:id="@+id/RadioGroup_companychop3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/companychop_3"
+                            android:textSize="@dimen/dimen16s" />
+
+                        <RadioButton
+                            android:id="@+id/RadioGroup_companychop4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/companychop_4"
+                            android:textSize="@dimen/dimen16s" />
+
+                    </RadioGroup>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen5d" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/xx"
+                    android:textColor="@color/dark_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="盖章事由:"
+                    android:textSize="@dimen/dimen17s" />
+
+                <EditText
+                    android:id="@+id/new_companychop_cause"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/circle_in_white"
+                    android:focusable="true"
+                    android:hint="请填写盖章事由"
+                    android:maxLines="12"
+                    android:padding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/dimen16s" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/divider_list" />
+
+                <Button
+                    android:id="@+id/companychop_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/out_memu_padding"
+                    android:background="@drawable/button_login_blue"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen17s" />
+
+        </LinearLayout>
+    </ScrollView>
+    
+
+</LinearLayout>

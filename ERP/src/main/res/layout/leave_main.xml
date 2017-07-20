@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/inheadtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/leave_detail_foot"
+        android:layout_below="@+id/inheadtitle" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="申请人："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/leave_applicant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:layout_gravity="bottom"
+                    android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="代班人："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/leave_names"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:layout_gravity="bottom"
+                    android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="请假类型："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/leave_types"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:layout_gravity="bottom"
+                    android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="请假时间："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/leave_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:layout_gravity="bottom"
+                    android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="请假时长："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/leave_need_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:layout_gravity="bottom"
+                    android:background="@color/text_gray2" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="请假原因："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/leave_cause"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view"
+                    android:layout_gravity="bottom"
+                    android:background="@color/text_gray2" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/leave_typeimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+          <include
+            android:id="@+id/leave_detail_foot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            layout="@layout/last_fools" />
+
+</RelativeLayout>

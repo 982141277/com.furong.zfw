@@ -1,0 +1,54 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="name">16dp</dimen>
+    <dimen name="login">50dp</dimen>
+    <dimen name="m30dip">30dp</dimen>
+    <dimen name="m20dip">20dp</dimen>
+    <dimen name="m10dip">10dp</dimen>
+    <dimen name="m15dip">15dp</dimen>
+    <dimen name="view">0.5dp</dimen>
+    <dimen name="views">0.5dp</dimen>
+    <dimen name="home_page_pading">10dp</dimen>
+    <dimen name="home_head_with">75dp</dimen>
+    
+    <dimen name="login_pading">20dp</dimen>
+    <dimen name="login_lefts">5dp</dimen>
+    <dimen name="login_padings">10dp</dimen>
+    <dimen name="login_name_size">18sp</dimen>        
+    
+    <dimen name="memulist_text_size">20sp</dimen>
+    <dimen name="memulist_heading">55dp</dimen>
+    <dimen name="memulist_pic_heading">45dp</dimen>
+    <dimen name="memulist_pic_size">40dp</dimen>
+    
+    <dimen name="out_memu_size">12sp</dimen>
+    <dimen name="MYbz">16sp</dimen>
+    <dimen name="out_memu_big_size">15sp</dimen>
+    <dimen name="out_memu_padding">10dp</dimen>
+    <dimen name="out_memu_size_1">14sp</dimen> 
+    <dimen name="out_memu_paddings">12dp</dimen> 
+    
+    <dimen name="login_name_with">150dp</dimen> 
+    <dimen name="login_name_height">130dp</dimen>                            
+
+    <dimen name="memulist_model">10dp</dimen>  
+    <dimen name="memulist_big_model">20dp</dimen>
+    
+    <dimen name="dialog_with">130dp</dimen>
+    <dimen name="dimen5d">5dp</dimen>
+    <dimen name="dimen7d">7dp</dimen>
+    <dimen name="dimen12s">12sp</dimen>
+    <dimen name="dimen13s">13sp</dimen>
+    <dimen name="dimen14s">14sp</dimen>
+    <dimen name="dimen15s">15sp</dimen>
+    <dimen name="dimen16s">16sp</dimen>
+    <dimen name="dimen17s">17sp</dimen>
+    
+     <dimen name="text_large_size">15sp</dimen>
+     
+                 <dimen name="shadow_width">15dp</dimen>
+    <dimen name="slidingmenu_offset">80dp</dimen>
+</resources>

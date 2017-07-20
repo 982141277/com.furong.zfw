@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">湖南美音</string>
+    <string name="action_settings">Settings</string>
+    <string name="heading">美音综合管理平台</string>
+    <string name="user_name">用户名</string>
+    <string name="user_names">登录用户名</string>
+    <string name="pass_word">密码</string>
+    <string name="pass_words">请输入密码</string>
+    <string name="login">登   录</string>
+    <string name="memu1">申请表单项</string>
+    <string name="memu2">待审批事项</string>
+    <string name="memu3">已审批事项</string>
+    <string name="memu4">新增申请单</string>
+    <string name="memu5">申请表单</string>
+    <string name="sh">审核</string>
+    <string name="sp_history">审批历史</string>
+    <string name="go_out_memu">外出申请单</string>
+    <string name="go_out_memu1">外出事由：</string>
+    <string name="go_out_memu2">外出时间：</string>
+    <string name="go_out_memu2_h">请填写一个工作日之内!</string>
+    <string name="go_out_memu3">归来时间：</string>
+    <string name="go_out_memu4">起始地点：</string>
+    <string name="go_out_memu4_1">公司本部</string>
+    <string name="go_out_memu5">到达地点：</string>
+    <string name="go_out_memu6">随行人员</string>
+    <string name="go_out_memu7">交通费用：</string>
+    <string name="go_out_memu7_1">有</string>
+    <string name="go_out_memu7_2">无</string>
+    <string name="go_out_memu8">交通工具：</string>
+    <string name="go_out_memu8_1">公交</string>
+    <string name="go_out_memu8_2">地铁</string>
+    <string name="go_out_memu8_3">的士</string>
+    <string name="go_out_memu8_4">公车</string>
+    <string name="go_out_memu8_5">其他</string>
+    <string name="go_out_memu9">交通费用：</string>
+    <string name="go_out_memu9_1">如非工作地点出发或未回工作地点,则只报单向交通费!</string>
+    <string name="go_out_memu0">乘车路线：</string>
+    <string name="go_out_memu0_1">请填写具体的乘坐的车次与路线!</string>
+    <string name="remarks">备注:\"分管副总\"审批后2个工作日内提交\"外出详情\",否则不报销交通费.</string>
+    <string name="overtimetask_remarks">备注:加班任务单\"分管副总\"审批通过后一个工作日内加班人员必须填写\"加班详细情况\",超时未填写则加班作废处理.加班时间由行政人员核实.</string>    
+    <string name="leaveremarks">备注：请假申请单需提前一个工作日提交，除事假、调休以外的假需要提供证明材料。</string>
+
+    <string name="submit">提 交 申 请</string>
+    <string name="confirm">确认</string>
+    <string name="queding">确定</string>
+    <string name="applicant">申请人：</string>
+    <string name="go_out_time_s">时间地点：</string>
+    <string name="car_fare">预计交通费：</string>
+    <string name="car_fares">实际交通费：</string>
+    <string name="car_faress">实报交通费：</string>
+    <string name="go_out_detail">外出详情：</string>
+    <string name="memuxx1">出差申请单</string>
+    <string name="memuxx2">招待费申请单</string>
+    <string name="memuxx3">加班申请单</string>
+    <string name="memuxx4">请假申请单</string>
+    <string name="memuxx5">员工离职申请单</string>
+    <string name="memuxx6">考勤调整申请单</string>
+    <string name="shenpia">审批</string>
+    <string name="shenpiyijian">审批意见：</string>
+    <string name="shenpizhuangtai">审批状态：</string>
+    <string name="shenpi">批准</string>
+    <string name="shenpis">否决</string>
+	<string name="xx">*</string>
+    <string name="yuan">元</string>
+	<string name="overtimetask_time1">开始时间：</string>
+	<string name="overtimetask_time2">结束时间：</string>
+	<string name="overtimetask_time3">加班人员：</string>
+	<string name="overtimetask_time4">加班事由：</string>
+	<string name="overtimetask_time5">加班审批人：</string>
+	<string name="overtimetask_timeh1">请选择开始时间!</string>
+	<string name="overtimetask_timeh2">请选择结束时间!</string>
+	<string name="overtimetask_timeh3">请填写加班事由!</string>
+	<string name="overtimetask_timeh4">请选择加班人员!</string>
+	
+	<string name="companychop_1">公章</string>
+    <string name="companychop_2">执照</string>
+    <string name="companychop_3">合同公章</string>
+    <string name="companychop_4">其他</string>
+	
+	<string name="device_repair_details1">故障现象描述\n及故障原因分析:</string>
+	<string name="device_repair_details2">需维修\n或更换的部件:</string>
+    <!-- 自定义组件 -->
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">松开可以刷新</string>
+    <string name="lastUpdateTime">最近更新：%s</string>
+    <string name="load_full">已加载全部</string>
+    <string name="no_data">暂无数据</string>
+    <string name="more">加载中</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <!-- 消除警告，可忽略 -->
+    <string name="d">图片描述</string>
+
+    <string-array name="spinner_sjly">
+        <item>--请选择事件来源--</item>
+        <item>服务请求</item>
+        <item>巡检事件</item>
+        <item>报警事件</item>
+        <item>计划事件</item>
+    </string-array>
+    <string-array name="spinner_yxj">
+        <item>--请选择优先级--</item>
+        <item>紧急</item>
+        <item>高</item>
+        <item>中</item>
+        <item>低</item>
+    </string-array>
+    <string-array name="spinners_">
+        <item>否</item>
+        <item>是</item>
+    </string-array>
+    <string-array name="spinnersb_renwu">
+        <item>执行任务</item>
+        <item>挂起任务</item>
+    </string-array>
+        <string-array name="spinnersb_renwus">
+        <item>现场服务</item>
+        <item>远程解决</item>
+    </string-array>
+    <string name="one_words">
+\t\t湖南美音网络技术有限公司，成立于2008年，注册资金1001万元人民币，核心业务包括IT运维管理服务外包、计算机网络规划与建设、新一代数据中心规划与建设、网络机房规划与建设、互联网舆情监测预警系统开发以及网络设备供应等。几年来，湖南美音凭借自己的企业信誉、专业精神和服务品质，赢得了越来越多的客户的认可，建立起自身独特的核心价值体系，企业规模处于快速、稳健地不断发展之中。\n
+ \n
+\t\t湖南美音的发展目标是：做一个有核心价值的企业，做一个有专业精神的企业，做一个有创新能力的企业，做一个有服务理念的企业，做一个有社会价值的企业。基于以上目标，湖南美音以“家文化”为核心，从企业道德、企业制度、员工行为准则等方面入手，全面进行湖南美音的企业文化建设。\n
+ \n
+\t\t 湖南美音本着“管理制度化、工作流程化、作业规范化、考核指标化”原则，，不断完善自身的管理，努力建立一个具有现代企业制度的可持续发展的现代化高科技企业。\n
+ \n
+\t\t 湖南美音注重自身专业化建设，每个团队和每一位员工均有自己的专业化发展目标，不断追踪行业前沿技术，将创新、研发作为企业的原始驱动力，力争为用户提供最专业的服务。\n
+ \n
+\t\t湖南美音具备完整的现代服务体系，从服务意识培养、组织机构设置、制度规范保障，到服务管理系统的支撑，构成了湖南美音完善的服务体系。并采取“在线服务与现场服务相补充，过程管理和结果考核相结合”的原则，确保为用户提供的服务是规范化的、稳定的、高质量的。\n
+ \n
+\t\t湖南美音将始终秉承“创新、专业、服务”之企业文化理念，始终以“技术创新、管理创新和服务创新”为原动力，努力追踪行业最前沿，矗立在行业制高点，怀着满腔的热忱服务于用户、服务于社会、服务于国家。\n
+    </string>
+    
+    <string name="two_words">
+    
+1、湖南美音的企业目标\n
+ \n
+          做一个有核心价值的企业；\n
+          做一个有专业精神的企业；\n
+          做一个有创新能力的企业；\n
+          做一个有服务理念的企业；\n
+          做一个有社会责任的企业。\n
+ \n
+2、湖南美音的企业精神\n
+ \n
+积极正面的企业形象\n
+湖南美音每位员工的言行举止都代表着企业的形象，要始终给客户、给同事、给他人一个热情、阳光、积极的正面形象，要有锲而不舍的高度责任感，要有严谨自律的良好的行为习惯。\n
+ \n
+精益求精的专业精神\n
+湖南美音要做一个高度专业化的IT企业，每一个团队、每一位员工都要具备精益求精的专业精神，通过提升自身的专业水准来增强我们的核心竞争力。\n
+ \n
+团结互助的集体主义精神\n
+我们要把湖南美音打造成为一个“家族企业”，这个家族企业不是靠家族成员之间的血缘关系来维系的，而是一种“家文化”来维系，这种文化的基本特征体现在：\n
+\n
+          真诚相待，相互信任。\n
+          任劳任怨，无私奉献。\n
+          关心体贴，互敬互助。\n
+          胸怀坦荡，重情重义。\n
+ \n
+不断向上的进取精神\n
+进取精神是一个人、一个组织、一个社会，乃至整个人类全面发展和不断进步的必要条件。湖南美音要有一种向上的、有所作为的精神状态，不能得过且过、唯利是图，要做一个有追求的企业。要营造一种学习求知的良好氛围，要建立一种利于创新的良性机制，要制造一种催人奋进的组织源动力。\n
+ \n
+3、湖南美音的道德文化\n
+ \n
+树诚信\n
+讲信誉，重承诺。要真诚对待客户，真诚面对伙伴，真诚面向社会。\n
+ \n
+重情义\n
+做一个重情义的企业，把关怀员工、服务用户、帮助伙伴当做自己应尽的责任。\n
+ \n
+负责任\n
+湖南美音要做一个负责任的企业，对用户负责，对员工负责，对投资者负责，对合作者负责，对社会负责。\n
+ \n
+讲和谐\n
+对内，凝聚所有员工，共建团结友爱的内部关系；对外，携手用户与合作伙伴，同创和谐共赢的外部关系。\n
+ \n
+4、湖南美音的制度文化\n
+ \n
+科学的企业治理结构\n
+湖南美音不断完善企业治理结构，健全科学决策程序，建立稳定的企业治理环境。\n
+ \n
+完备的企业制度体系\n
+湖南美音致力于建立一整套适合自身情况，融合自身文化，包括行政、人事、财务、营销、销售、研发、实施、服务在内的一系列可继承、可复制的管理制度体系。\n
+ \n
+强有力的专业执行团队\n
+湖南美音不断完善人才培养机制和团队培养体系，建立高度专业的执行团队，企业的发展主要依靠专业团队的力量，使企业能稳定而持续地发展。\n
+ \n
+全面的组织知识体系\n
+湖南美音着力打造自己的组织知识管理体系，要将个人和各团队的技术、技能、经验进行文档化、系统化、体系化，最终达到组织化的目的，并让这些知识能被整个组织所传承。\n
+    “四化四可”管理目标：\n
+          管理制度化、工作流程化、作业规范化、考核指标化；\n
+          过程可监管、结果可考核、知识可继承、模式可复制。\n
+ \n
+5、湖南美音的员工素质要求\n
+ \n
+忠诚诚信的人格品行\n
+对客户、对同事、对组织要讲诚信，对工作、对事业要忠诚，营造一种相互信任、团结协作的氛围。\n
+ \n
+积极进取的心理状态\n
+每位员工都要有工作热情、事业冲动、进取心态，造就一个积极向上的文化氛围。\n
+\n
+勤奋好学的良好习惯\n
+每一位员工都应以谦虚的态度不断学习新的知识，不断提高自己的创新能力，不断提升自己的专业水准，充分体现自身的专业价值。 \n
+勇于担当的工作责任感  \n
+湖南美音的每一位员工，都应有高度的历史责任感和工作责任心，遇事积极主动，勇于担当。这种责任感应该是出于自身的品格，而不是只图人前的表现，也不只是一时的表现。\n
+精益求精的敬业精神\n
+做事要追求完美，注重细节，不能马马虎虎，敷衍了事。要把工作岗位当做自己的事业平台，要充满热情、不折不扣地履行自己的工作职责。湖南美音的每一位员工都应该做到： \n 
+    做一个有品位的人；\n
+    做一个有追求的人；\n
+    做一个有知识的人；\n
+    做一个有担当的人；\n
+    做一个被需要的人。\n
+        </string>
+        
+    
+    
+    
+    <string name="function_string">
+
+
+1、登录功能\n
+\t\t在安卓系统手机上打开网评员网评APP、在登陆界面输入在电脑端使用网评系统的用户名和密码。验证成功后即可进入网评系统首页。第一次登录成功之后每次打开此APP不需要在输入用户名和密码即可直接进入系统首页。除密码验证失败。\n\n
+2、办公管理系统\n
+\t\tERP首页可看到办公管理系统、点击后进入办公工作信息内容页面、此页可以使用新增申请单、审批申请单、填写工作日志、汇报工作任务、外勤可刷卡定位等功能。\n\n
+3、IT运维管理系统\n
+\t\tERP首页有IT运维管理权限的人员可点击IT运维管理系统进入事件处理页面、该页面可使用事件主动获取、受理、执行任务等功能。\n\n
+4、消息通知\n
+\t\t安卓手机ERP系统登陆后、如有最新审批、运维事件处理、公告、等最新信息将会第一时间推送到你的手机上、首页可查看最新ERP信息、点击信息点击可进行相应的事件处理。\n\n
+5、公司通讯录\n
+\t\tERP首页可点击右上角看到菜单栏上的设置。点击后出现下拉列表、点击公司通讯录可进入公司通讯录页面、点击公司人员可经行拨打电话功能。\n\n
+5、退出ERP登录\n
+\t\t首页点击右上角菜单栏将看到菜单栏上的设置。点击设置进入下拉菜单、点击此菜单的退出当前帐号即可退出ERP登录、退出ERP登录后需要在登录首页进行输入用户名和密码进行重新登录。\n\n
+
+</string>
+</resources>

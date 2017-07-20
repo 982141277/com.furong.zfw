@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/circle_in_white"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="处理类型："
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinner_sbrenwu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/_red" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/views"
+            android:background="@color/shallow_black" />
+
+        <LinearLayout
+            android:id="@+id/IT_Event_linerlayout_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="gone" >
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="服务方式："
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/fuwu_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/dark_red" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/views1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/views"
+            android:background="@color/shallow_black"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/IT_Eventtype_linerlayout_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="gone">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="事件类型："
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/autocompletetextview"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:dropDownSelector="@color/blackss"
+                android:hint="请选择事件类型！"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_large_size" />
+            <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/views2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/views"
+            android:background="@color/shallow_black"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/Linearlaout_type_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="gone" >
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="故障现象："
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/guzhangleixin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="请输入故障现象！"
+                android:maxLines="4"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_large_size" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/views3"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/views"
+            android:background="@color/shallow_black"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/super_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="处理信息："
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/chulixinxi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="请输入处理信息！"
+                
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_large_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/views"
+                android:background="@color/shallow_black" />
+
+            <Button
+                android:id="@+id/button_queding_chuli"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:text="确定处理"
+               	android:background="@drawable/button_login_red"
+                android:textColor="@color/white"
+					/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

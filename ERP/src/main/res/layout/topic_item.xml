@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     android:paddingRight="@dimen/memulist_model"
+    android:paddingLeft="@dimen/memulist_model"
+    android:paddingTop="@dimen/memulist_model" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/memulist_model" >
+
+        <TextView
+            android:id="@+id/topic_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_graya"
+             />
+
+    	<ImageView
+		    android:id="@+id/topic_imgs"
+		    android:layout_width="15dp"
+		    android:layout_height="15dp"
+			android:layout_marginLeft="5dp"
+		    android:background="@mipmap/xiaoxi"
+		    android:layout_marginRight="5dp" />
+        <TextView
+            android:id="@+id/topic_unreadcount"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/memulist_big_model"
+            android:textColor="@color/black"
+            android:gravity="right"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/memulist_model" >
+
+        <TextView
+            android:id="@+id/topic_clickcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+             />
+        <TextView
+            android:id="@+id/topic_readcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:visibility="gone"
+             />
+        <TextView
+            android:id="@+id/topic_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:textColor="@color/text_grays"
+             />
+    </LinearLayout>
+
+
+</LinearLayout>

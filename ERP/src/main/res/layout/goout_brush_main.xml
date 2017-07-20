@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/goout_brush_heads"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+       <Spinner
+        android:id="@+id/people_list_sp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+		android:padding="5dp"
+		android:layout_below="@+id/goout_brush_heads"
+        android:layout_height="wrap_content"
+        android:background="@null" />
+    <com.meiyin.erp.ui.XListView
+        android:id="@+id/gout_brush_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/people_list_sp" >
+    </com.meiyin.erp.ui.XListView>
+
+    <Button
+        android:id="@+id/goout_brush_button"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/out_memu_padding"
+        android:background="@drawable/button_login_red"
+        android:text="刷卡"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen17s" />
+
+</RelativeLayout>

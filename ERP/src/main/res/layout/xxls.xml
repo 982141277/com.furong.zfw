@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+   <RelativeLayout
+       	android:id="@+id/xxls_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/memulist_heading"
+        android:background="@color/dark_blue"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="@dimen/memulist_pic_size"
+            android:layout_height="@dimen/memulist_pic_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/goback"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="通知消息"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <TextView 
+        android:id="@+id/tixing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="17sp"
+        android:text="暂无消息"/>
+    <ListView
+        android:id="@+id/listviewlishi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/xxls_relative" >
+    </ListView>
+</RelativeLayout>

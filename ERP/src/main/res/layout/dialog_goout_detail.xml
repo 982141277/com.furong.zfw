@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/dialog_type_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="10dp"
+        android:textColor="@color/_red"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/complete_goout_app_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/circle_in_white"
+        android:gravity="top"
+        android:padding="5dp"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/MYbz" />
+
+    <Button
+        android:id="@+id/dialog_goout_complete_button"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ridiobutton_red"
+        android:textColor="@color/white"
+        android:textSize="@dimen/MYbz" />
+
+</LinearLayout>

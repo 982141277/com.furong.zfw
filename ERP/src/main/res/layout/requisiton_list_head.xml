@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+       		android:padding="@dimen/m10dip" >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="14dp"
+                android:text="请购人："
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+
+            <TextView
+                android:id="@+id/requisition_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view"
+            android:layout_gravity="bottom"
+            android:background="@color/text_gray2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+        	android:padding="@dimen/m10dip"  >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="项目名称："
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+
+            <EditText
+                android:id="@+id/requisitions_project_names"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="填写项目名称"
+                android:maxLines="3"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view"
+            android:layout_gravity="bottom"
+            android:background="@color/text_gray2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/m10dip" >
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需用时间："
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+
+            <TextView
+                android:id="@+id/need_time_text"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="请选择需用时间"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+                <ImageView 
+                    android:layout_width="7dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:background="@mipmap/goright"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view"
+            android:layout_gravity="bottom"
+            android:background="@color/text_gray2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/m10dip" >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请购物品："
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+
+            <EditText
+                android:id="@+id/article_resume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="请填写物品简述"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view"
+            android:layout_gravity="bottom"
+            android:background="@color/text_gray2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/m10dip" >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请购原因："
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+
+            <EditText
+                android:id="@+id/reason_requisition_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:focusable="true"
+                android:hint="请填写请购原因和物品用途"
+                android:maxLines="6"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen14s" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

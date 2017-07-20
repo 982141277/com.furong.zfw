@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/device_repair_detail_headtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/headtitle" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/device_repair_detail_foot"
+        android:layout_below="@+id/device_repair_detail_headtitle" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="报修部门 ："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/repair_details_section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="报修时间："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/repair_details_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="设备名称："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/device_details_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="预计费用："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/repair_details_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="品牌型号："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/repair_details_brand_model"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="序列号："
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/repair_details_serial_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="@string/device_repair_details1"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                        android:id="@+id/repair_details_describe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/out_memu_padding" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/out_memu_padding"
+                        android:text="@string/device_repair_details2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+
+                    <TextView
+                      	android:id="@+id/repair_details_replace_device"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/out_memu_big_size" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@mipmap/divider_list" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/device_repair_typeimg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/device_repair_detail_foot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <LinearLayout
+            android:id="@+id/device_repair_webs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f1f2f3"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/device_repair_approval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@mipmap/shenpi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="@string/shenpia"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/out_memu_big_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/views"
+                android:layout_height="match_parent"
+                android:background="@color/shallow_black" />
+
+            <LinearLayout
+                android:id="@+id/device_repair_history_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="horizontal"
+                android:padding="@dimen/out_memu_padding" >
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@mipmap/shenpilishi"
+                    android:gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingLeft="10dp"
+                    android:text="@string/sp_history"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/views"
+            android:layout_alignTop="@+id/device_repair_webs"
+            android:background="@color/shallow_black" />
+    </RelativeLayout>
+
+</RelativeLayout>

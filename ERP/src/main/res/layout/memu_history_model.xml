@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/memulist_model"
+    android:paddingLeft="@dimen/memulist_model"
+    android:paddingTop="@dimen/memulist_model" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/memulist_model" >
+
+        <TextView
+            android:id="@+id/shenqingren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/zhuangtai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:textColor="@color/black"
+             />
+        <TextView
+            android:id="@+id/shijian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/memulist_big_model"
+            android:textColor="@color/black"
+            android:gravity="right"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/memulist_model" >
+
+        <TextView
+            android:id="@+id/suoshubumen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            
+             />
+
+        <TextView
+            android:id="@+id/shenpiren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:textColor="@color/black"
+             />
+    </LinearLayout>
+	<ImageView 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="bottom"
+	    android:background="@mipmap/divider_list"/>
+
+</LinearLayout>

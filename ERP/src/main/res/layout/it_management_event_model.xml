@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/memulist_model" >
+
+    <!--
+     String sj_bianhao, String sj_biaoti,
+			String sj_laiyuan, String sj_type, String youxianji, Boolean boss,
+			String bg_address, String lx_phone, String chuliren, long xj_time,
+			String sj_zhuangtai, String chulishichang
+    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/memulist_model">
+
+        <TextView
+            android:id="@+id/sj_biaoti_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_graya"
+            android:textSize="@dimen/dimen14s"
+            android:text="事件标题" />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         >
+
+        <TextView
+            android:id="@+id/sj_bianhao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_graya"
+            android:textSize="@dimen/dimen14s"
+            android:text="2561215" />
+
+<!--         <TextView
+            android:id="@+id/sj_laiyuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:textColor="@color/text_graya"
+            android:textSize="@dimen/dimen14s"
+            android:layout_centerHorizontal="true"
+            android:text="事件来源" /> -->
+                <TextView
+            android:id="@+id/sj_zhuangtai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/sj_bianhao"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:textColor="@color/text_graya"
+            android:textSize="@dimen/dimen14s"
+            android:text="正在处理"/>
+              <TextView
+            android:id="@+id/youxianji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_graya"
+            android:textSize="@dimen/dimen14s"
+            android:layout_toRightOf="@+id/sj_zhuangtai"
+            android:layout_marginLeft="20dp"
+			android:layout_gravity="center_horizontal"
+            android:text="紧急" />
+        <TextView
+            android:id="@+id/xj_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/text_grays"
+            android:textSize="@dimen/dimen13s"
+            android:text="2015-12-30" />
+        <!--
+               <TextView
+            android:id="@+id/sj_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+             android:paddingLeft="@dimen/memulist_big_model"
+             android:text="事件类型"
+             />
+        -->
+
+    </RelativeLayout>
+
+
+
+  <!--  <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/memulist_model" >
+
+     
+        <TextView
+            android:id="@+id/bg_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="办公地址"
+             />
+      
+
+        
+             <TextView
+            android:id="@+id/chulishichang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:text="处理时长"
+            android:textColor="@color/black" />
+      
+        
+    </LinearLayout> 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/chuliren"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="某某某" /> 
+
+
+            <TextView
+            android:id="@+id/lx_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/memulist_big_model"
+            android:textColor="@color/black"
+            android:text="联系电话"
+             />
+
+
+
+    </LinearLayout> -->
+
+</LinearLayout>
