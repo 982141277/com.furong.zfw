@@ -93,8 +93,8 @@ public class Out_Memu_Sq extends Activity implements OnCheckedChangeListener {
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		memu = new ArrayList<Memu_History>();
-		builder = new AlertDialog.Builder(Out_Memu_Sq.this);
-		adb = new AlertDialog.Builder(Out_Memu_Sq.this).create();
+		builder = new Builder(Out_Memu_Sq.this);
+		adb = new Builder(Out_Memu_Sq.this).create();
 		initHeader();
 		initFools();
 		view();

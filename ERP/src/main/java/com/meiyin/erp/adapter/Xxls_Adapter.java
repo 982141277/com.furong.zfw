@@ -92,7 +92,7 @@ public class Xxls_Adapter extends Adapter<Meiyinnews> {
 		return convertView;
 
 	}
-	ImageGetter imgGetter = new Html.ImageGetter() {
+	ImageGetter imgGetter = new ImageGetter() {
 		@Override
 		public Drawable getDrawable(String source) {
 			Drawable drawable = null;

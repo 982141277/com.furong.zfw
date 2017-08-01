@@ -91,7 +91,7 @@ public class Requisition_Swipe_Adapter extends Adapter<Requisition_Swipe_Entity>
 				}
 			}
 		});
-		LinearLayout.LayoutParams lp2 = new LayoutParams(mRightWidth,
+		LayoutParams lp2 = new LayoutParams(mRightWidth,
 				LayoutParams.MATCH_PARENT);
 		holder.item_right.setLayoutParams(lp2);
 		Requisition_Swipe_Entity list = mList.get(position);

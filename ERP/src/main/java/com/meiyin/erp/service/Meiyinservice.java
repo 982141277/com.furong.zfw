@@ -1,6 +1,9 @@
 package com.meiyin.erp.service;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,10 +21,15 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.text.Html;
 import android.text.Html.ImageGetter;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.meiyin.erp.GreenDao.MeiyinnewsDao;
 import com.meiyin.erp.R;
+import com.meiyin.erp.activity.IT_Management_Sq;
+import com.meiyin.erp.activity.Main_Home;
+import com.meiyin.erp.activity.Memulist;
+import com.meiyin.erp.activity.TopicDetailsActivity;
 import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.MyApplication;
 import com.meiyin.erp.application.SPConstant;
@@ -69,9 +77,12 @@ public class Meiyinservice extends Service {
 	private String name;
 	private String token;
 	SharedPreferences sp ;
+	private String Tag;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
+		Tag=this.getClass().getSimpleName();
+		Log.v(Tag,"onCreate");
 		super.onCreate();
 	}
 
@@ -79,6 +90,7 @@ public class Meiyinservice extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
+		Log.v(Tag,"onStartCommand");
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_MULTI_PROCESS);
 		mHandler = new SocketHandler();
 		meiyin = MyApplication.getInstance().getDaoSession().getMeiyinnewsDao();
@@ -92,24 +104,25 @@ public class Meiyinservice extends Service {
 		}
 		mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(mReceiver, mFilter);
-		LogUtil.e("lyt", "服务开启。。。。。");
 
 		// 开启新的线程从服务器获取数据
 		getArticlesThread = new Thread(null, mTask, "getNewArticles");
 		if (!token.equals("")) {
 			getArticlesThread.start();
+			Log.v(Tag,"getArticlesThread-start");
 			// 开启定时器，每隔10秒刷新一次
 			timer = new Timer();
 			mTimerTask = new TimerTask() {
 
 				@Override
 				public void run() {
+					Log.v(Tag,"mTimerTask-run");
 					// TODO Auto-generated method stub
 					boolean isalive = getArticlesThread.isAlive();
 					if (isalive) {
-						LogUtil.e("out", "线程正常运行！");
+						Log.i(Tag,"getArticlesThread-run");
 					} else {
-						LogUtil.e("out", "线程挂了");
+						Log.i(Tag,"getArticlesThread-death");
 //
 //						mTimerTask.cancel();
 //						mTimerTask=null;
@@ -237,7 +250,7 @@ public class Meiyinservice extends Service {
 			json.put("key", token);
 			mWriter.write(json.toString() + "\n");
 			mWriter.flush();
-			LogUtil.e("wuyu", json.toString());
+			Log.e(Tag,"message:"+json.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -250,89 +263,83 @@ public class Meiyinservice extends Service {
 		String type = "";
 //		/check/topic!showTopic.ac?topic_code=319&type=1&menuid=01090801&menu_value=FBGG&user_id=5f0a1cc1c5e84cee923b3394e77cc3f5
 //		/itsm_new/incedent!getIncedentProcessInfo.it?menu_id=01020405&menu_value=SJCL&event_no=20160811005&user_id=91b03b27f6154081b61fb2a74d843cd6
-//		if (url.contains("itsm_new")) {
-//			Notification mN = new Notification();
-//			// img
-//			mN.icon = R.mipmap.logoss;
-//			// text
-//			mN.tickerText = "湖南美音--IT运维管理系统";
-//			// audio
-//			mN.defaults = Notification.DEFAULT_SOUND;
-//			// click and auto_cancel
-//			mN.flags = Notification.FLAG_AUTO_CANCEL;
-//			mN.tickerText =Html.fromHtml(contentText,imgGetter, null);
-//			NotificationManager notificationManager = (NotificationManager) this
-//					.getSystemService(NOTIFICATION_SERVICE);
-//			int start = url.indexOf("_no=");
-//			int end = url.indexOf("&user");
-//			String event_no = url.substring(start + 4, end);
-//
-//			LogUtil.e("lyt", "1:"+event_no);
-//			Intent mI = new Intent(this, IT_Management_Sq.class);
-//			mI.putExtra("event_no", event_no);
-//			PendingIntent mP = PendingIntent.getActivity(this, MOOD_NOTIFICATIONS, mI,PendingIntent.FLAG_CANCEL_CURRENT);//更新flag
-//			type = "IT运维管理";
-//			mN.setLatestEventInfo(Meiyinservice.this, contentTitle,
-//					Html.fromHtml(contentText,imgGetter, null), mP);
-//			notificationManager.notify(MOOD_NOTIFICATIONS, mN);
-//		} else if (url.contains("check")) {
-//			Notification mN = new Notification();
-//			// img
-//			mN.icon = R.mipmap.logoss;
-//			// text
-//			mN.tickerText = "湖南美音--办公管理系统";
-//			// audio
-//			mN.defaults = Notification.DEFAULT_SOUND;
-//			// click and auto_cancel
-//			mN.flags = Notification.FLAG_AUTO_CANCEL;
-//			NotificationManager notificationManager = (NotificationManager) this
-//					.getSystemService(NOTIFICATION_SERVICE);
-//			mN.tickerText = Html.fromHtml(contentText,imgGetter, null);;
-//			// 点击顶部状态栏的消息后，MainActivity为需要跳转的页面
-//			Intent mI=new Intent();
-//			if(url.contains("topic")){
-//				String[] urls = url.split("&");
-//				String idString = "";
-//				for (int i = 0; i < urls.length; i++) {
-//					if(urls[i].contains("topic_code")){
-//						idString=urls[i].substring(11);
-//					}
-//				}
-//			type = "公告";
-//			mI.setClass(this, TopicDetailsActivity.class);
-//			mI.putExtra("topic_code", idString);
-//			}else{
-//			type = "办公管理系统";
-//			mI.setClass(this, Memulist.class);
-//			mI.putExtra("name", "待审批事项");
-//			}
-//			PendingIntent mP = PendingIntent.getActivity(this, MOOD_NOTIFICATIONS, mI,PendingIntent.FLAG_UPDATE_CURRENT);
-//			mN.setLatestEventInfo(Meiyinservice.this, contentTitle,
-//					Html.fromHtml(contentText,imgGetter, null), mP);
-//			notificationManager.notify(MOOD_NOTIFICATIONS, mN);
-//		} else {
-//			Notification mN = new Notification();
-//			// img
-//			mN.icon = R.mipmap.logoss;
-//			// text
-//			mN.tickerText = "湖南美音";
-//			// audio
-//			mN.defaults = Notification.DEFAULT_SOUND;
-//			// click and auto_cancel
-//			mN.flags = Notification.FLAG_AUTO_CANCEL;
-//			NotificationManager notificationManager = (NotificationManager) this
-//					.getSystemService(NOTIFICATION_SERVICE);
-//			mN.tickerText = Html.fromHtml(contentText,imgGetter, null);
-//			// Intent mI = new Intent(this, Memulist.class);
-//			// mI.putExtra("name", "待审批事项");
-//			// PendingIntent mP = PendingIntent.getActivity(this, 0, mI, 1);
-//			Toast.makeText(this, "消息异常,请通知软件研发部", Toast.LENGTH_LONG).show();
-//			type = "其他系统";
-//			mN.setLatestEventInfo(Meiyinservice.this, contentTitle,
-//					Html.fromHtml(contentText,imgGetter, null), null);
-//			notificationManager.notify(MOOD_NOTIFICATIONS, mN);
-//		}
+		if (url.contains("itsm_new")) {
+			NotificationManager notificationManager = (NotificationManager) this
+					.getSystemService(NOTIFICATION_SERVICE);
+			// 点击顶部状态栏的消息后，MainActivity为需要跳转的页面
+			Intent mI=new Intent();
+			int start = url.indexOf("_no=");
+			int end = url.indexOf("&user");
+			String event_no = url.substring(start + 4, end);
+			Log.e(Tag,"itsm_new:"+event_no);
+			mI.setClass(Meiyinservice.this, IT_Management_Sq.class);
+			mI.putExtra("event_no", event_no);
+			PendingIntent mP = PendingIntent.getActivity (Meiyinservice.this, MOOD_NOTIFICATIONS, mI,PendingIntent.FLAG_UPDATE_CURRENT);
+			Notification.Builder builder = new Notification.Builder(this);
+			builder.setContentTitle("湖南美音--IT运维管理系统");
+			builder.setContentText(Html.fromHtml(contentText,imgGetter, null));
+			builder.setSmallIcon(R.mipmap.logoss);
+			builder.setDefaults(Notification.DEFAULT_SOUND);
+			builder.setContentIntent(mP);
+			Notification mN=builder.getNotification();
+			mN.flags|= Notification.FLAG_AUTO_CANCEL;
+			builder.build();
+			notificationManager.notify(MOOD_NOTIFICATIONS, mN);
+			type = "IT运维管理";
+		} else if (url.contains("check")) {
+			NotificationManager notificationManager = (NotificationManager) this
+					.getSystemService(NOTIFICATION_SERVICE);
+			// 点击顶部状态栏的消息后，MainActivity为需要跳转的页面
+			Intent mI=new Intent();
+			if(url.contains("topic")){
+				String[] urls = url.split("&");
+				String idString = "";
+				for (int i = 0; i < urls.length; i++) {
+					if(urls[i].contains("topic_code")){
+						idString=urls[i].substring(11);
+					}
+				}
+				type = "公告";
+				mI.setClass(this, TopicDetailsActivity.class);
+				mI.putExtra("topic_code", idString);
+			}else{
+				type = "办公管理系统";
+				mI.setClass(this, Memulist.class);
+				mI.putExtra("name", "待审批事项");
+			}
 
+			PendingIntent mP = PendingIntent.getActivity (Meiyinservice.this, MOOD_NOTIFICATIONS, mI,PendingIntent.FLAG_UPDATE_CURRENT);
+			Notification.Builder builder = new Notification.Builder(this);
+			builder.setContentTitle("湖南美音--办公管理系统");
+			builder.setContentText(Html.fromHtml(contentText,imgGetter, null));
+			builder.setSmallIcon(R.mipmap.logoss);
+			builder.setDefaults(Notification.DEFAULT_SOUND);
+			builder.setContentIntent(mP);
+			Notification mN=builder.getNotification();
+			mN.flags|= Notification.FLAG_AUTO_CANCEL;
+			builder.build();
+			notificationManager.notify(MOOD_NOTIFICATIONS, mN);
+
+		} else {
+			NotificationManager notificationManager = (NotificationManager) this
+					.getSystemService(NOTIFICATION_SERVICE);
+			// 点击顶部状态栏的消息后，MainActivity为需要跳转的页面
+			Intent mI=new Intent();
+			mI.setClass(Meiyinservice.this, Main_Home.class);
+			PendingIntent mP = PendingIntent.getActivity (Meiyinservice.this, MOOD_NOTIFICATIONS, mI,PendingIntent.FLAG_UPDATE_CURRENT);
+			Notification.Builder builder = new Notification.Builder(this);
+			builder.setContentTitle("湖南美音");
+			builder.setContentText(Html.fromHtml(contentText,imgGetter, null));
+			builder.setSmallIcon(R.mipmap.logoss);
+			builder.setDefaults(Notification.DEFAULT_SOUND);
+			builder.setContentIntent(mP);
+			Notification mN=builder.getNotification();
+			mN.flags|= Notification.FLAG_AUTO_CANCEL;
+			builder.build();
+			notificationManager.notify(MOOD_NOTIFICATIONS, mN);
+			type = "其他系统";
+
+		}
 		return type;
 	}
 
@@ -345,9 +352,10 @@ public class Meiyinservice extends Service {
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
-		LogUtil.e("service", "*****meiyinservice服务关闭了*****");
+		LogUtil.e(Tag, "*****meiyinservice服务关闭了*****");
 		// notificationManager.cancel(MOOD_NOTIFICATIONS);
 		isStartRecieveMsg=false;
+		timer.cancel();
 		unregisterReceiver(mReceiver);
 		super.onDestroy();
 	}
@@ -389,7 +397,7 @@ public class Meiyinservice extends Service {
 					}
 					Meiyinnews list = new Meiyinnews(null, times,
 							json.getString("id"), content, "0", type,sp.getString(SPConstant.USERNAME, ""),idString);
-//					meiyin.insert(list);
+					meiyin.insert(list);
 					Intent intent = new Intent();
 					intent.setAction("meiyin");
 					intent.putExtra("sys", true);

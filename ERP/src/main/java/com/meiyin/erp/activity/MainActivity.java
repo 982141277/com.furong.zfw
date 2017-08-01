@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 import android.view.WindowManager;
 
 import com.loopj.android.http.RequestParams;
@@ -15,8 +14,8 @@ import com.meiyin.erp.R;
 import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.MyApplication;
 import com.meiyin.erp.application.SPConstant;
-
 import com.meiyin.erp.json.JsonHttpHandles;
+import com.meiyin.erp.service.Meiyinservice;
 import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.AsyncHttpclient_Util;
 import com.meiyin.erp.util.ToastUtil;
@@ -40,14 +39,15 @@ public class MainActivity extends Activity {
 	private String name;
 	private boolean USERINFO;
 	private String gooutbrush;
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		activity=this;
 		context = getApplicationContext();
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
 					sp.edit().putString(SPConstant.MY_TOKEN,"").commit();
 					
 					MyApplication.getInstance().getDaoSession().getMeiyinnewsDao().deleteAll();
-					stopService(new Intent().setAction("com.meiyin.services.Meiyinservice"));
+					stopService(new Intent(activity, Meiyinservice.class));
 					Timer time = new Timer();
 					TimerTask timertask = new TimerTask() {
 

@@ -9,14 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,8 +26,8 @@ import android.widget.TextView;
 import com.loopj.android.http.RequestParams;
 import com.meiyin.erp.R;
 import com.meiyin.erp.application.APIURL;
-import com.meiyin.erp.application.BaseApplication;
 import com.meiyin.erp.application.SPConstant;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
@@ -41,6 +40,9 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * 任务详情
@@ -59,13 +61,15 @@ public class MyTaskListDetailsActivity extends Activity {
 	private LinearLayout mytask_details_summ_linear;
 	private View mytask_details_summ_view;
 	private String report_id;
+	private Activity activity;
+	TextView mytask_details_describe;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.mytasklist_details_activity_main);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -116,7 +120,7 @@ public class MyTaskListDetailsActivity extends Activity {
 		TextView mytask_details_execute = (TextView) findViewById(R.id.mytask_details_execute);// 任务执行人
 		TextView mytask_details_know = (TextView) findViewById(R.id.mytask_details_know);// 任务知晓人
 		TextView mytask_details_source = (TextView) findViewById(R.id.mytask_details_source);// 任务资源
-		TextView mytask_details_describe = (TextView) findViewById(R.id.mytask_details_describe);// 任务描述
+		mytask_details_describe = (TextView) findViewById(R.id.mytask_details_describe);// 任务描述
 		TextView mytask_details_state = (TextView) findViewById(R.id.mytask_details_state);// 任务状态
 		mytask_details_summ = (TextView) findViewById(R.id.mytask_details_summ);// 任务总结
 		 mytask_details_summ_linear = (LinearLayout) findViewById(R.id.mytask_details_summ_linear);// 任务总结
@@ -153,7 +157,24 @@ public class MyTaskListDetailsActivity extends Activity {
 			task_source_view3.setVisibility(ViewGroup.GONE);
 		}
 		mytask_details_source.setText(Source);
-		mytask_details_describe.setText(Html.fromHtml(Task_notes));
+
+		Observable<Spanned> sender=AndroidUtil.async(getIntent().getStringExtra("Task_notes"));
+		sender.subscribe(new Subscriber<Spanned>() {
+			@Override
+			public void onCompleted() {
+				//数据接收完成时调用
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				//发生错误调用
+			}
+
+			@Override
+			public void onNext(Spanned s) {
+				mytask_details_describe.setText(s);
+			}
+		});
 		if(Task_status.equals("0")){
 			mytask_details_state.setText("未完成");
 			mytask_details_state.setTextColor(getResources().getColor(R.color._red));
@@ -205,7 +226,7 @@ public class MyTaskListDetailsActivity extends Activity {
 			}
 		});
 		//完成情况
-		final Builder builder = new AlertDialog.Builder(this);// 初始化审批dialog
+		final Builder builder = new Builder(this);// 初始化审批dialog
 		my_approve_bt = (LinearLayout) findViewById(R.id.my_approve_bt);
 		if(Task_status.equals("1")){
 			my_approve_bt.setVisibility(ViewGroup.GONE);
@@ -349,25 +370,14 @@ public class MyTaskListDetailsActivity extends Activity {
 			String ss = response.toString();
 			LogUtil.e("lyt", ss);
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					Intent intent = new Intent();
-					MyTaskListDetailsActivity.this.setResult(1, intent);
-					MyTaskListDetailsActivity.this.finish();
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					Intent intent = new Intent();
+					activity.setResult(1, intent);
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				if (response.getString("message").equals("success")) {
 					ToastUtil.showToast(context, "汇报成功！");
 					http();
@@ -397,22 +407,12 @@ public class MyTaskListDetailsActivity extends Activity {
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String edittask=response.getString("edittask");
 				String operator=response.getString("operator");
 				if(operator.equals("1")&&Task_status.equals("0")){
@@ -469,22 +469,12 @@ public class MyTaskListDetailsActivity extends Activity {
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if (message.equals("success")) {
 					ToastManager.getInstance(context)

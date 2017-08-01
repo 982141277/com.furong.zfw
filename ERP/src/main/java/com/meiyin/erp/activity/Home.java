@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
@@ -34,6 +33,7 @@ import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.MyApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.AddMenuEntity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
 import com.my.android.library.AsyncHttpClientUtil;
@@ -67,14 +67,14 @@ public class Home extends Activity implements OnClickListener {
 	private AddMenu_Adapter adapter;
 	private String code;
 	private MeiyinnewsDao meiyin;
-
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.home_page);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -196,29 +196,29 @@ public class Home extends Activity implements OnClickListener {
 	class l implements OnClickListener {
 		@Override
 		public void onClick(View arg0) {
-			switch (arg0.getId()) {
-			case R.id.memulist:
-				intent.putExtra("name", "申请表单");
-				intent.setClass(context, Memulist.class);
-				startActivity(intent);
-				break;
-			case R.id.daishenpishixiang:
-				intent.putExtra("name", "待审批事项");
-				intent.setClass(context, Memulist.class);
-				startActivity(intent);
-
-				break;
-			case R.id.yishenpishixiang:
-				intent.putExtra("name", "已审批事项");
-				intent.setClass(context, Memulist.class);
-				startActivity(intent);
-				break;
-			case R.id.out_memu:
-				dialogcd();
-				break;
-			default:
-				break;
-			}
+//			switch (arg0.getId()) {
+//			case R.id.memulist:
+//				intent.putExtra("name", "申请表单");
+//				intent.setClass(context, Memulist.class);
+//				startActivity(intent);
+//				break;
+//			case R.id.daishenpishixiang:
+//				intent.putExtra("name", "待审批事项");
+//				intent.setClass(context, Memulist.class);
+//				startActivity(intent);
+//
+//				break;
+//			case R.id.yishenpishixiang:
+//				intent.putExtra("name", "已审批事项");
+//				intent.setClass(context, Memulist.class);
+//				startActivity(intent);
+//				break;
+//			case R.id.out_memu:
+//				dialogcd();
+//				break;
+//			default:
+//				break;
+//			}
 		}
 
 	}
@@ -257,17 +257,17 @@ public class Home extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		switch (arg0.getId()) {
-		case R.id.imageView3:
-			intent.setClass(context, TaskManagement.class);
-			startActivity(intent);
-			break;
-		case R.id.waiqin_img:
-			startActivity(new Intent().setClass(context, OutWorkActivity.class));
-			break;
-		default:
-			break;
-		}
+//		switch (arg0.getId()) {
+//		case R.id.imageView3:
+//			intent.setClass(context, TaskManagement.class);
+//			startActivity(intent);
+//			break;
+//		case R.id.waiqin_img:
+//			startActivity(new Intent().setClass(context, OutWorkActivity.class));
+//			break;
+//		default:
+//			break;
+//		}
 	}
 
 	// 新增申请单列表详情回调类
@@ -285,22 +285,12 @@ public class Home extends Activity implements OnClickListener {
 		public void onSuccess(int statusCode, Header[] headers,
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				if (response.getString("message").equals("success")) {
 					JSONArray array = response.getJSONArray("result");
 					for (int i = 0; i < array.length(); i++) {
@@ -351,105 +341,98 @@ public class Home extends Activity implements OnClickListener {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
-				String stateMent = response.getString("stateMent");
-				if (code.equals("2")) {// 外出申请单
-					Boolean sell = response.getBoolean("sell");
-					Intent intent = new Intent();
-					intent.setClass(context, Out_Memu.class);
-					intent.putExtra("stateMent", stateMent);
-					intent.putExtra("sell", sell);
-					startActivity(intent);
-				} else if (code.equals("5")) {// 请购申请单
-					Intent intent = new Intent();
-					intent.setClass(context, RequisitionActivity.class);
-					intent.putExtra("stateMent", stateMent);
-					startActivity(intent);
-				} else if(code.equals("6")){//员工转正申请单
-					ToastManager.getInstance(context).showToast("正在研发");
-//					String enter_date = response.getString("enter_date");
-//					String role_code = response.getString("role_code");
-//					Intent intent = new Intent();
-//					intent.setClass(context, TrainingActivity.class);
-//					intent.putExtra("stateMent", stateMent);
-//					intent.putExtra("enter_date", enter_date);
-//					intent.putExtra("role_code", role_code);
-//					startActivity(intent);
-				}else if(code.equals("7")){	//公章证明申请单
-					ToastManager.getInstance(context).showToast("正在研发");
-//					Intent intent = new Intent();
-//					intent.setClass(context, CompanyChopActivity.class);
-//					intent.putExtra("stateMent", stateMent);
-//					startActivity(intent);
-				}else if(code.equals("8")){//设备报修申请单
-					ToastManager.getInstance(context).showToast("正在研发");
-//					String defaultDept = response.getString("defaultDept");
-//					Intent intent = new Intent();
-//					intent.setClass(context, DeviceRepairActivity.class);
-//					intent.putExtra("stateMent", stateMent);
-//					intent.putExtra("defaultDept", defaultDept);
-//					startActivity(intent);
-				} else if (code.equals("9")) {// 加班任务单
-					String fenList = "";
-					if (response.isNull("fenList")) {
-						fenList = "";
-					} else {
-						fenList = response.getJSONArray("fenList").toString();
-					}
-					Intent intent = new Intent();
-					intent.setClass(context, OverTimeTaskActivity.class);
-					intent.putExtra("stateMent", stateMent);
-					intent.putExtra("fenlist", fenList);
-					startActivity(intent);
-				} else if (code.equals("10")) {// 请假申请单
-					String codeList = response.getJSONArray("codeList")
-							.toString();
-					Intent intent = new Intent();
-					intent.setClass(context, LeaveActivity.class);
-					intent.putExtra("stateMent", stateMent);
-					intent.putExtra("codeList", codeList.toString());
-					startActivity(intent);
-				} else if(code.equals("11")){	//离职申请单
-					ToastManager.getInstance(context).showToast("正在研发");
-//					String dept = response.getString("dept");
-//					String enter_date = response.getString("enter_date");
-//					String role_code = response.getString("role_code");
-//					Intent intent = new Intent();
-//					intent.setClass(context, DimissionActivity.class);
-//					intent.putExtra("stateMent", stateMent);
-//					intent.putExtra("enter_date", enter_date);
-//					intent.putExtra("role_code", role_code);
-//					intent.putExtra("dept", dept);
-//					startActivity(intent);
-				} else if (code.equals("13")) {// 费用申请单
-					String expenseTypeList = response.getJSONArray(
-							"expenseTypeList").toString();
-					Intent intent = new Intent();
-					intent.setClass(context, ExpenseActivity.class);
-					intent.putExtra("stateMent", stateMent);
-					intent.putExtra("expenseTypeList", expenseTypeList.toString());
-					startActivity(intent);
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
 				}
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}catch (JSONException E){
+					E.printStackTrace();
 			}
+//				String stateMent = response.getString("stateMent");
+//				if (code.equals("2")) {// 外出申请单
+//					Boolean sell = response.getBoolean("sell");
+//					Intent intent = new Intent();
+//					intent.setClass(context, Out_Memu.class);
+//					intent.putExtra("stateMent", stateMent);
+//					intent.putExtra("sell", sell);
+//					startActivity(intent);
+//				} else if (code.equals("5")) {// 请购申请单
+//					Intent intent = new Intent();
+//					intent.setClass(context, RequisitionActivity.class);
+//					intent.putExtra("stateMent", stateMent);
+//					startActivity(intent);
+//				} else if(code.equals("6")){//员工转正申请单
+//					ToastManager.getInstance(context).showToast("正在研发");
+////					String enter_date = response.getString("enter_date");
+////					String role_code = response.getString("role_code");
+////					Intent intent = new Intent();
+////					intent.setClass(context, TrainingActivity.class);
+////					intent.putExtra("stateMent", stateMent);
+////					intent.putExtra("enter_date", enter_date);
+////					intent.putExtra("role_code", role_code);
+////					startActivity(intent);
+//				}else if(code.equals("7")){	//公章证明申请单
+//					ToastManager.getInstance(context).showToast("正在研发");
+////					Intent intent = new Intent();
+////					intent.setClass(context, CompanyChopActivity.class);
+////					intent.putExtra("stateMent", stateMent);
+////					startActivity(intent);
+//				}else if(code.equals("8")){//设备报修申请单
+//					ToastManager.getInstance(context).showToast("正在研发");
+////					String defaultDept = response.getString("defaultDept");
+////					Intent intent = new Intent();
+////					intent.setClass(context, DeviceRepairActivity.class);
+////					intent.putExtra("stateMent", stateMent);
+////					intent.putExtra("defaultDept", defaultDept);
+////					startActivity(intent);
+//				} else if (code.equals("9")) {// 加班任务单
+//					String fenList = "";
+//					if (response.isNull("fenList")) {
+//						fenList = "";
+//					} else {
+//						fenList = response.getJSONArray("fenList").toString();
+//					}
+//					Intent intent = new Intent();
+//					intent.setClass(context, OverTimeTaskActivity.class);
+//					intent.putExtra("stateMent", stateMent);
+//					intent.putExtra("fenlist", fenList);
+//					startActivity(intent);
+//				} else if (code.equals("10")) {// 请假申请单
+//					String codeList = response.getJSONArray("codeList")
+//							.toString();
+//					Intent intent = new Intent();
+//					intent.setClass(context, LeaveActivity.class);
+//					intent.putExtra("stateMent", stateMent);
+//					intent.putExtra("codeList", codeList.toString());
+//					startActivity(intent);
+//				} else if(code.equals("11")){	//离职申请单
+//					ToastManager.getInstance(context).showToast("正在研发");
+////					String dept = response.getString("dept");
+////					String enter_date = response.getString("enter_date");
+////					String role_code = response.getString("role_code");
+////					Intent intent = new Intent();
+////					intent.setClass(context, DimissionActivity.class);
+////					intent.putExtra("stateMent", stateMent);
+////					intent.putExtra("enter_date", enter_date);
+////					intent.putExtra("role_code", role_code);
+////					intent.putExtra("dept", dept);
+////					startActivity(intent);
+//				} else if (code.equals("13")) {// 费用申请单
+//					String expenseTypeList = response.getJSONArray(
+//							"expenseTypeList").toString();
+//					Intent intent = new Intent();
+//					intent.setClass(context, ExpenseActivity.class);
+//					intent.putExtra("stateMent", stateMent);
+//					intent.putExtra("expenseTypeList", expenseTypeList.toString());
+//					startActivity(intent);
+//				}
+//
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 
 		}
 

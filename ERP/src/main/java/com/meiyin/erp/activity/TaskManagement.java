@@ -1,6 +1,7 @@
 package com.meiyin.erp.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -41,7 +41,6 @@ import com.meiyin.erp.adapter.SimpleTreeAdapter;
 import com.meiyin.erp.adapter.Spinner_Adapter;
 import com.meiyin.erp.app.FileBean;
 import com.meiyin.erp.application.APIURL;
-import com.meiyin.erp.application.BaseApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.bean.Node;
 import com.meiyin.erp.bean.TreeListViewAdapter;
@@ -50,10 +49,10 @@ import com.meiyin.erp.entity.MyTaskListEntity;
 import com.meiyin.erp.entity.OverTimeTask_Entity;
 import com.meiyin.erp.entity.Spinner_Entity;
 import com.meiyin.erp.ui.XListView;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.my.android.library.AsyncHttpClientUtil;
 import com.my.android.library.MJsonHttpHandler;
-import com.my.android.library.ToastManager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -100,15 +99,16 @@ public class TaskManagement extends FragmentActivity implements
 	private TextView headtitletext;
 	private int isboss;
 	private JSONArray mlist = null;;
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.taskmanagement);
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
+		activity=this;
 		mContext = getApplicationContext();
 		dhu = new Dialog_Http_Util();
 		initHeader();
@@ -610,23 +610,12 @@ public class TaskManagement extends FragmentActivity implements
 				JSONObject response) {
 			// task_listview2.stopRefresh();
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(mContext).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(mContext, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
-
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				mlist = response.getJSONArray("mlist");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -696,23 +685,14 @@ public class TaskManagement extends FragmentActivity implements
 			progressDialog.dismiss();
 			task_listview3.stopRefresh();
 			task_listview3.stopLoadMore();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(mContext).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(mContext, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
+
 			JSONArray resultList = null;
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				resultList = response.getJSONArray("resultList");
 				isboss = response.getInt("isboss");
 			} catch (JSONException e) {
@@ -931,24 +911,15 @@ public class TaskManagement extends FragmentActivity implements
 			Log.e("lyt", response.toString());
 			task_listview2.stopRefresh();
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(mContext).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(mContext, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
+
 			JSONArray reportlist = null;// 日志
 			String dayt = "";
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				reportlist = response.getJSONArray("reportlist");
 				yearse = response.getString("yearse");
 				month = response.getString("month");

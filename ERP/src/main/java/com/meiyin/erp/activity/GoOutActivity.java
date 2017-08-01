@@ -33,6 +33,7 @@ import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.datepicker.DatePick;
 import com.meiyin.erp.entity.SellClientInfoEntity;
 import com.meiyin.erp.entity.Spinner_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
@@ -62,6 +63,7 @@ public class GoOutActivity extends Activity {
 	protected String FID;
 	protected String name;
 	AsyncHttpClientUtil async;
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -69,6 +71,7 @@ public class GoOutActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.goout_main);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -158,7 +161,7 @@ public class GoOutActivity extends Activity {
 		final TextView goout_toTime = (TextView) findViewById(R.id.goout_toTime);// 出发时间
 		final TextView goout_backTime = (TextView) findViewById(R.id.goout_backTime);// 返回时间
 		final TextView goout_days = (TextView) findViewById(R.id.goout_days);// 出差天数
-		goout_toTime.setOnClickListener(new View.OnClickListener() {
+		goout_toTime.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -207,7 +210,7 @@ public class GoOutActivity extends Activity {
 				});
 			}
 		});
-		goout_backTime.setOnClickListener(new View.OnClickListener() {
+		goout_backTime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -411,22 +414,12 @@ public class GoOutActivity extends Activity {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if (message.equals("success")) {
 					ToastManager.getInstance(context)

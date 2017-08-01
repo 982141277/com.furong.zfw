@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
       <include
           	android:id="@+id/rela_header"
@@ -35,12 +36,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/applicant"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:id="@+id/memusq_shenqingren"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -60,12 +63,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/go_out_memu1"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:id="@+id/memusq_waichushiyou"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -88,12 +93,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="预计拜访："
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:id="@+id/textyujikehu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
                                   <View
@@ -116,12 +123,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="实际拜访："
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="未处理"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
                 <View
@@ -142,12 +151,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/go_out_time_s"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:id="@+id/memusq_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -167,12 +178,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/car_fare"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:id="@+id/memusq_yujijiaotongfei"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -195,12 +208,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/car_fares"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                         android:id="@+id/shijijiaotongfei_s"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -224,12 +239,14 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/car_faress"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
                        	android:id="@+id/shibaojiaotongfei_s"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -253,6 +270,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="@string/go_out_detail"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <TextView
@@ -260,6 +278,7 @@
                         android:id="@+id/waichuxiangqing_s"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_graya"
                         android:text="详细情况已经填写 "
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
@@ -290,6 +309,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
                         android:text="实际交通费用 ："
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
 
                     <EditText
@@ -311,6 +331,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/out_memu_padding"
                         android:text="@string/yuan"
+                        android:textColor="@color/text_graya"
                         android:textSize="@dimen/out_memu_big_size" />
                 </LinearLayout>
 
@@ -339,6 +360,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
+                        android:textColor="@color/text_graya"
                         android:text="实际乘车路线 ："
                         android:textSize="@dimen/out_memu_big_size" />
 
@@ -380,6 +402,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="@dimen/out_memu_padding"
+                        android:textColor="@color/text_graya"
                         android:text="@string/go_out_detail"
                         android:textSize="@dimen/out_memu_big_size" />
 

@@ -83,7 +83,7 @@ public class UpdateManager {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers,
 					String responseString) {
-				Log.e("lyt", responseString);
+				Log.v(TAG, responseString);
 				Document doc = null;
 				try {
 					PackageInfo pi = mContext.getPackageManager()

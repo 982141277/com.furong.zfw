@@ -29,13 +29,11 @@ import com.meiyin.erp.R;
 import com.meiyin.erp.activity.ExpenseActivity;
 import com.meiyin.erp.activity.GoOutActivity;
 import com.meiyin.erp.activity.LeaveActivity;
-import com.meiyin.erp.activity.Login;
 import com.meiyin.erp.activity.Out_Memu;
 import com.meiyin.erp.activity.OverTimeTaskActivity;
 import com.meiyin.erp.activity.RequisitionActivity;
 import com.meiyin.erp.adapter.AddMenu_Adapter;
 import com.meiyin.erp.application.APIURL;
-import com.meiyin.erp.application.BaseApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.AddMenuEntity;
 import com.my.android.library.AsyncHttpClientUtil;
@@ -54,7 +52,7 @@ import java.util.List;
  * @version 2015年9月15日 上午09:34:52
  */
 public class Dialog_Http_Util {
-	
+
 	Dialog progressDialog;
 	public Dialog showWaitingDialog(Context context, String msg, boolean canCancel) {
 		dismissWaitingDialog();
@@ -71,7 +69,7 @@ public class Dialog_Http_Util {
 			tipTextView.setText(msg);// 设置加载信息
 
 			progressDialog = new Dialog(context, R.style.dialog_progress);// 创建自定义样式dialog
-			
+
 
 			progressDialog.setCancelable(false);// 不可以用"返回键"取消
 			if (canCancel) {
@@ -112,9 +110,9 @@ public class Dialog_Http_Util {
 			progressDialog = null;
 		}
 	}
-	
-	
-	
+
+
+
 	ArrayList<AddMenuEntity> mlist;
 	LinearLayout new_dialog ;
 	AddMenu_Adapter adapter ;
@@ -184,22 +182,12 @@ public class Dialog_Http_Util {
 		public void onSuccess(int statusCode, Header[] headers,
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(mcontext).showToast(
-							response.getString("errorMsg"));
-					mactivity.stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					mactivity.startActivity(new Intent().setClass(mcontext, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(mactivity,errorMsg);
+					return;
+				}
 				if (response.getString("message").equals("success")) {
 					JSONArray array = response.getJSONArray("result");
 					for (int i = 0; i < array.length(); i++) {
@@ -211,7 +199,7 @@ public class Dialog_Http_Util {
 						for (AddMenuEntity addMenuEntity : list) {
 							if(null!=addMenuEntity.getCode()){
 							if(addMenuEntity.getCode().equals("2")||addMenuEntity.getCode().equals("3")||addMenuEntity.getCode().equals("5")||addMenuEntity.getCode().equals("9")||addMenuEntity.getCode().equals("10")||addMenuEntity.getCode().equals("13")){
-								mlist.add(addMenuEntity);								
+								mlist.add(addMenuEntity);
 							}}
 
 						}
@@ -250,22 +238,12 @@ public class Dialog_Http_Util {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(mcontext).showToast(
-							response.getString("errorMsg"));
-					mactivity.stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					mactivity.startActivity(new Intent().setClass(mcontext, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(mactivity,errorMsg);
+					return;
+				}
 				String stateMent = response.getString("stateMent");
 				if (code.equals("2")) {// 外出申请单
 					Boolean sell = response.getBoolean("sell");
@@ -363,5 +341,5 @@ public class Dialog_Http_Util {
 		}
 
 	}
-	
+
 }

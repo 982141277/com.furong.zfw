@@ -5,9 +5,9 @@ public class APIURL {
 	 * 亮哥电脑接口
 	 */
 	
-	public static final String API ="13.25.6.201";
+//	public static final String API ="13.25.6.201";
 //	public static final String API ="192.168.1.15";
-	public static final String MY_CENTER ="my_center/";
+//	public static final String MY_CENTER ="my_center/";
 //	public static final String API ="192.168.1.109";
 //	public static final String APIS ="192.168.1.117";
 	/**
@@ -18,8 +18,8 @@ public class APIURL {
 	/**
 	 * 外网接口
 	 */
-//	public static final String API ="192.168.3.80";
-//	public static final String MY_CENTER ="";
+	public static final String API ="192.168.3.80";
+	public static final String MY_CENTER ="";
 	/**
 	 * 外网接口
 	 */

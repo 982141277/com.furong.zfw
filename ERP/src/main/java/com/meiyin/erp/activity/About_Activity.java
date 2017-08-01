@@ -1,22 +1,22 @@
 package com.meiyin.erp.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
@@ -33,8 +33,8 @@ import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.MyApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Topic_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
-import com.meiyin.erp.util.ToastManager;
 import com.my.android.library.AsyncHttpClientUtil;
 import com.my.android.library.MJsonHttpHandler;
 
@@ -61,6 +61,7 @@ public class About_Activity extends FragmentActivity implements
 	private int text[] = { R.string.one_words, R.string.two_words,R.mipmap.zzjg};
 
 	private Topic_Entity xTopic;
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class About_Activity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.about_main);
+		activity=this;
 		mContext = getApplicationContext();
 		SharedPreferences sp = getSharedPreferences(
 				SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -207,6 +209,7 @@ public class About_Activity extends FragmentActivity implements
 			} else {
 				TextView texs = new TextView(this);
 				texs.setPadding(30, 10, 30, 0);
+				texs.setTextColor(ContextCompat.getColor(mContext,R.color.text_graya));
 				texs.setText(text[i]);
 				texs.setTextSize(15);
 				ScrollView SCROLL = new ScrollView(this);
@@ -371,25 +374,15 @@ public class About_Activity extends FragmentActivity implements
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(mContext).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(mContext, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
-
 			JSONObject data = null;
 			String content="";
+
 			try {
+					if (!response.isNull("errorMsg")) {
+						String errorMsg=response.getString("errorMsg");
+						AndroidUtil.LoginOut(activity,errorMsg);
+						return;
+					}
 				data = response.getJSONObject("dto2");
 				content = data.getString("content");
 			} catch (JSONException e) {

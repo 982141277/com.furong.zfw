@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -26,10 +25,10 @@ import com.meiyin.erp.adapter.TopicList_Adapter;
 import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Topic_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.my.android.library.AsyncHttpClientUtil;
 import com.my.android.library.MJsonHttpHandler;
-import com.my.android.library.ToastManager;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -48,13 +47,13 @@ public class TopicActivity extends Activity{
 	private AlertDialog dialog;
 	private TopicList_Adapter adapter;
 	private ArrayList<Topic_Entity> memu;
-
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.topic_main);
+		activity=this;
 		context = getApplicationContext();
 		SharedPreferences sp = getSharedPreferences(
 				SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
@@ -130,23 +129,14 @@ public class TopicActivity extends Activity{
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
+
 			JSONArray data = null;
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				data = response.getJSONArray("data");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

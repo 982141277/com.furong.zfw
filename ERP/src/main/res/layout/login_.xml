@@ -57,8 +57,9 @@
                 android:focusable="true"
                 android:hint="@string/user_names"
                 android:maxLength="30"
+                android:textColor="@color/text_graya"
                 android:paddingLeft="@dimen/login_lefts"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:text="" />
         </LinearLayout>
 
@@ -85,9 +86,10 @@
                 android:focusable="true"
                 android:hint="@string/pass_word"
                 android:maxLength="30"
+                android:textColor="@color/text_graya"
                 android:paddingLeft="@dimen/login_lefts"
-                android:password="true"
-                android:singleLine="true"
+                android:inputType="textPassword"
+                android:maxLines="1"
                 android:text="" />
         </LinearLayout>
 

@@ -7,14 +7,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,6 +35,7 @@ import com.meiyin.erp.bean.TreeListViewAdapter;
 import com.meiyin.erp.datepicker.DatePick;
 import com.meiyin.erp.entity.OverTimeTask_Entity;
 import com.meiyin.erp.entity.Spinner_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
@@ -71,14 +70,15 @@ public class OverTimeTaskActivity extends Activity {
 	private ArrayList<OverTimeTask_Entity> mlist, overlist;
 	private ArrayList<Spinner_Entity> spn;
 	private String type="";
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.overtimetask_main);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -140,7 +140,7 @@ public class OverTimeTaskActivity extends Activity {
 		overlist = new ArrayList<OverTimeTask_Entity>();
 		overtimetask_start_time = (TextView) findViewById(R.id.overtimetask_start_time);
 		overtimetask_end_time = (TextView) findViewById(R.id.overtimetask_end_time);
-		overtimetask_start_time.setOnClickListener(new View.OnClickListener() {
+		overtimetask_start_time.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -166,7 +166,7 @@ public class OverTimeTaskActivity extends Activity {
 
 			}
 		});
-		overtimetask_end_time.setOnClickListener(new View.OnClickListener() {
+		overtimetask_end_time.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -428,22 +428,12 @@ public class OverTimeTaskActivity extends Activity {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if (message.equals("success")) {
 					ToastManager.getInstance(context)
@@ -478,22 +468,12 @@ public class OverTimeTaskActivity extends Activity {
 		public void onSuccess(int statusCode, Header[] headers,
 				JSONObject response) {
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				JSONArray mli = response.getJSONArray("mlist");
 				mlist = new Gson().fromJson(mli.toString(),
 						new TypeToken<List<OverTimeTask_Entity>>() {

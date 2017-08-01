@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -25,7 +24,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
@@ -37,6 +49,7 @@ import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Gooutbrush_Entity;
 import com.meiyin.erp.entity.Spinner_Entity;
 import com.meiyin.erp.ui.XListView;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
@@ -61,21 +74,21 @@ public class GoOutBrushActivity extends Activity {
 	protected Context content;
 	protected ArrayList<Gooutbrush_Entity> listbrush;
 	protected GooutBrush_Adapter adapter;
-//	private GeoCoder mSearch;
+	private GeoCoder mSearch;
 	private String Address;
 	private String longitude;
 	private String latitude;
 	private String addr="";
 	private String type_id="";
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		SDKInitializer.initialize(getApplicationContext());
+		SDKInitializer.initialize(getApplicationContext());
 		LocationManager im = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
 		setContentView(R.layout.goout_brush_main);
+		activity=this;
 		content = getApplicationContext();
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
@@ -88,65 +101,70 @@ public class GoOutBrushActivity extends Activity {
 					android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 			startActivityForResult(intent, 0);
 		}
-//		getLocation();
+		getLocation();
 //		// 初始化搜索模块，注册事件监听
-//		mSearch = GeoCoder.newInstance();
-//		mSearch.setOnGetGeoCodeResultListener(new Getcode());
+		mSearch = GeoCoder.newInstance();
+		mSearch.setOnGetGeoCodeResultListener(new Getcode());
 	}
-//	private void getLocation() {
-//		// 定位初始化
-//		LocationClient mLocClient = new LocationClient(this);
-//		mLocClient.registerLocationListener(new BDLocationListener() {
-//
-//			@Override
-//			public void onReceiveLocation(BDLocation location) {
-//				// TODO Auto-generated method stub
-//				if (location == null) {
-//					ToastManager.getInstance(content).showToast("定位失败！！！");
-//					return;
-//				}
-//				double dlongitude = location.getLongitude();
-//				double dlatitude = location.getLatitude();
-//
-//				longitude = String.valueOf(dlongitude);
-//				latitude = String.valueOf(dlatitude);
-//				addr = location.getAddrStr();
-//				LatLng ptCenter = new LatLng(dlatitude, dlongitude);
-//					// 反Geo搜索
-//					mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-//							.location(ptCenter));
-//
-//			}
-//		} );
-//
-//		LocationClientOption option = new LocationClientOption();
-//		option.setIsNeedAddress(true);
-//		option.setOpenGps(true);// 打开gps
-//		option.setCoorType("bd09ll"); // 设置坐标类型
-//		option.setScanSpan(10000); // 定位时间间隔
-//		mLocClient.setLocOption(option);
-//		mLocClient.start();
-//	}
-//	public class Getcode implements OnGetGeoCoderResultListener {
-//
-//		@Override
-//		public void onGetGeoCodeResult(GeoCodeResult arg0) {
-//			// TODO Auto-generated method stub
-//
-//		}
-//		@Override
-//		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-//			// TODO Auto-generated method stub
-//			if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-//				Toast.makeText(GoOutBrushActivity.this, "抱歉，未能找到结果！",
-//						Toast.LENGTH_LONG).show();
-//				return;
-//			}
-//			Address = result.getAddress();
-//			Toast.makeText(GoOutBrushActivity.this, result.getAddress(),
-//					Toast.LENGTH_LONG).show();
-//		}
-//	}
+	private void getLocation() {
+		// 定位初始化
+		LocationClient mLocClient = new LocationClient(this);
+		mLocClient.registerLocationListener(new BDLocationListener() {
+
+			@Override
+			public void onReceiveLocation(BDLocation location) {
+				// TODO Auto-generated method stub
+				if (location == null) {
+					ToastManager.getInstance(content).showToast("定位失败！！！");
+					return;
+				}
+				double dlongitude = location.getLongitude();
+				double dlatitude = location.getLatitude();
+
+				longitude = String.valueOf(dlongitude);
+				latitude = String.valueOf(dlatitude);
+				addr = location.getAddrStr();
+				LatLng ptCenter = new LatLng(dlatitude, dlongitude);
+					// 反Geo搜索
+					mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+							.location(ptCenter));
+
+			}
+
+			@Override
+			public void onConnectHotSpotMessage(String s, int i) {
+
+			}
+		} );
+
+		LocationClientOption option = new LocationClientOption();
+		option.setIsNeedAddress(true);
+		option.setOpenGps(true);// 打开gps
+		option.setCoorType("bd09ll"); // 设置坐标类型
+		option.setScanSpan(10000); // 定位时间间隔
+		mLocClient.setLocOption(option);
+		mLocClient.start();
+	}
+	public class Getcode implements OnGetGeoCoderResultListener {
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult arg0) {
+			// TODO Auto-generated method stub
+
+		}
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+			// TODO Auto-generated method stub
+			if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+				Toast.makeText(GoOutBrushActivity.this, "抱歉，未能找到结果！",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			Address = result.getAddress();
+			Toast.makeText(GoOutBrushActivity.this, result.getAddress(),
+					Toast.LENGTH_LONG).show();
+		}
+	}
 	/*
 	 * 初始化标题UI
 	 */
@@ -212,7 +230,7 @@ public class GoOutBrushActivity extends Activity {
 		});
 		}
 		final Handler mHandler = new Handler();
-		final Builder builder = new AlertDialog.Builder(this);// 初始化审批dialog
+		final Builder builder = new Builder(this);// 初始化审批dialog
 		listbrush = new ArrayList<Gooutbrush_Entity>();
 		gout_brush_listview = (XListView) findViewById(R.id.gout_brush_listview);
 		gout_brush_listview.setPullLoadEnable(true);
@@ -362,22 +380,12 @@ public class GoOutBrushActivity extends Activity {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				if (pager ==0) {
 					listbrush.clear();
 				}
@@ -437,22 +445,12 @@ public class GoOutBrushActivity extends Activity {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if (message.equals("success")) {
 					ToastManager.getInstance(context)

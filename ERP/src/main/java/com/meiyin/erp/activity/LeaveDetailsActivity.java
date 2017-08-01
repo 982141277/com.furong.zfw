@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +34,7 @@ import com.meiyin.erp.adapter.Memu_History_Adapter;
 import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Memu_History;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.FileUtil;
 import com.meiyin.erp.util.LogUtil;
@@ -71,14 +71,15 @@ public class LeaveDetailsActivity extends Activity {
 	private String leave_times = "";// 系统时间
 	private ImageView material_leave_image;
 	private String uristring;
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.leave_main);
 		context = getApplicationContext();
+		activity=this;
 		SharedPreferences sp = getSharedPreferences(
 				SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
 
@@ -99,8 +100,8 @@ public class LeaveDetailsActivity extends Activity {
 		AsyncHttpClientUtil async = new AsyncHttpClientUtil();
 		Dialog_Http_Util dialog_util = new Dialog_Http_Util();
 		memu = new ArrayList<Memu_History>();// 审批历史数据
-		dialog = new AlertDialog.Builder(this).create();// 审批历史dialog
-		Builder builder = new AlertDialog.Builder(this);// 初始化审批dialog
+		dialog = new Builder(this).create();// 审批历史dialog
+		Builder builder = new Builder(this);// 初始化审批dialog
 
 		String key = sp.getString(SPConstant.MY_TOKEN, "");
 		leave_typeimg = (ImageView) findViewById(R.id.leave_typeimg);
@@ -641,22 +642,12 @@ public class LeaveDetailsActivity extends Activity {
 			String ss = response.toString();
 			LogUtil.e("lyt", ss);
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				if (response.getString("message").equals("success")) {
 					ToastUtil.showToast(context, "审批成功！");
 					Intent intent = new Intent();

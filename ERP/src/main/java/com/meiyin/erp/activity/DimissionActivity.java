@@ -5,13 +5,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,9 +20,9 @@ import android.widget.TextView;
 import com.loopj.android.http.RequestParams;
 import com.meiyin.erp.R;
 import com.meiyin.erp.application.APIURL;
-import com.meiyin.erp.application.BaseApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.datepicker.DatePick;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
@@ -47,14 +45,16 @@ public class DimissionActivity extends Activity {
 	private SharedPreferences sp;
 	private EditText dimission_report;
 	private TextView dimission_name, dimission_out_time;
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.dimission_main);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -94,7 +94,7 @@ public class DimissionActivity extends Activity {
 		dimission_name.setText(sp.getString(SPConstant.MY_NAME, "") + "("
 				+ getIntent().getStringExtra("dept") + ")");
 		dimission_out_time = (TextView) findViewById(R.id.dimission_out_time);// 希望离职日期
-		dimission_out_time.setOnClickListener(new View.OnClickListener() {
+		dimission_out_time.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -188,22 +188,12 @@ public class DimissionActivity extends Activity {
 				JSONObject response) {
 			LogUtil.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if (message.equals("success")) {
 					ToastManager.getInstance(context)

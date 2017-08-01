@@ -174,18 +174,20 @@ public class Memulist_Adapter extends Adapter<Memulist_Entity> {
 		String dates = DateUtil.getHourTimeStr(CreateTime).substring(0, 5);
 		String S = DateUtil.convertLong00(System.currentTimeMillis());
 		Long h = DateUtil.getLongFromStr(S);
-		long time = h - CreateTime;
-		long times = time / 1000 / 3600;
-		if (times > 24 && times < 48) {
-			holder.CreateTime.setText("前日 " + dates);
-		} else if (times < 24 && times > 0) {
-			holder.CreateTime.setText("昨日 " + dates);
-		} else if (times < 0) {
-			holder.CreateTime.setText("今日 " + dates);
-		} else if (times > 48) {
-			holder.CreateTime.setText(dsString + " " + dates);
-		}
-
+		String name=DateUtil.gettimes(h,CreateTime);
+		holder.CreateTime.setText(name);
+//		long time = h - CreateTime;
+//		long times = time / 1000 / 3600;
+//
+//		if (times > 24 && times < 48) {
+//			holder.CreateTime.setText("前日 " + dates);
+//		} else if (times < 24 && times > 0) {
+//			holder.CreateTime.setText("昨日 " + dates);
+//		} else if (times < 0) {
+//			holder.CreateTime.setText("今日 " + dates);
+//		} else if (times > 48) {
+//			holder.CreateTime.setText(dsString + " " + dates);
+//		}
 		// if (null != Flowstate) {
 		// if (Flowstate.equals("结束")) {
 		// holder.Flowstate.setTextColor(mContext.getResources().getColor(

@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
+        android:textColor="@color/text_graya"
         android:layout_toRightOf="@id/id_treeheard"
         android:text="@string/app_name"
         android:textSize="14dip" />

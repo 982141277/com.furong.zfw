@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +33,7 @@ import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.bean.Node;
 import com.meiyin.erp.bean.TreeListViewAdapter.OnTreeNodeClickListener;
 import com.meiyin.erp.entity.OverTimeTask_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.my.android.library.AsyncHttpClientUtil;
 import com.my.android.library.MJsonHttpHandler;
@@ -61,14 +61,15 @@ public class CommunicationActivity extends Activity {
 	private SimpleTreeAdapter<FileBean> mAdapter;;
 	private ListView comlist;
 	private Builder builder;
+	private Activity activity;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.communication_main);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -111,7 +112,7 @@ public class CommunicationActivity extends Activity {
 	private void initView() {
 		// TODO Auto-generated method stub
 		comlist = (ListView) findViewById(R.id.communication_list);
-		builder = new AlertDialog.Builder(this);// 初始化审批dialog
+		builder = new Builder(this);// 初始化审批dialog
 		String communication = sp.getString(SPConstant.COMMUNICATION, "");
 		if (communication.equals("")) {
 			dialog_util = new Dialog_Http_Util();
@@ -149,22 +150,12 @@ public class CommunicationActivity extends Activity {
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				JSONArray mli = response.getJSONArray("mlist");
 				sp.edit().putString(SPConstant.COMMUNICATION, mli.toString())
 						.commit();

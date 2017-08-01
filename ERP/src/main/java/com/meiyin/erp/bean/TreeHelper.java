@@ -11,7 +11,7 @@ public class TreeHelper
 	/**
 	 * 过滤出所有可见的Node
 	 * 
-	 * @param nodes
+	 * @paramnodes
 	 * @return
 	 */
 	public static List<Node> filterVisibleNode(List<Node> nodes)

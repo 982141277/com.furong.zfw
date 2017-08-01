@@ -22,7 +22,7 @@ public class ToastManager {
 
 	public static ToastManager getInstance(Context context) {
 		if (INSTANCE == null) {
-			INSTANCE = new ToastManager(context);
+			INSTANCE = new ToastManager(context.getApplicationContext());
 		}
 		return INSTANCE;
 	}

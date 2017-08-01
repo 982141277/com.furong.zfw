@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingLeft="5dp"
+            android:textColor="@color/text_graya"
             />
     </LinearLayout>
  </LinearLayout>

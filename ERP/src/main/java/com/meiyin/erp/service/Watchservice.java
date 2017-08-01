@@ -1,7 +1,5 @@
 package com.meiyin.erp.service;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,18 +12,18 @@ import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Watchservice extends Service{
 	private Intent intents;
-	
+	private String Tag;
+	private Timer timer;
 	@Override
 	public void onCreate() {
+		Tag=this.getClass().getSimpleName();
 		// TODO Auto-generated method stub
-		Log.e("wuyu", "Watch服务创建");
-		Timer timer = new Timer();
+		timer = new Timer();
 		TimerTask mTimerTask = new TimerTask() {
 			@Override
 			public void run() {
@@ -34,15 +32,13 @@ public class Watchservice extends Service{
 //				if(mAudioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION)<mAudioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION)/3){
 //					Log.e("lyt", "音量"+mAudioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
 //					mAudioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION)/2, 1);
-//					
+
 //				}
-				boolean isRun = AndroidUtil.isServiceRunning(Watchservice.this, "com.meiyin.services.Meiyinservice");
+				boolean isRun = AndroidUtil.isServiceRunning(Watchservice.this, "com.meiyin.erp.service.Meiyinservice");
 				if(isRun){
-					Log.e("wuyu","---service运行正常---"+ DateUtil.getCurrentTimeStr());
+					Log.e(Tag,"---MeiyinServiceRun---"+ DateUtil.getCurrentTimeStr());
 				}else{
-					Log.e("wuyu","---service挂了---"+DateUtil.getCurrentTimeStr());
-					stopService(new Intent()
-					.setAction("com.meiyin.services.Watchservice"));
+					Log.e(Tag,"---MeiyinServiceStop---"+DateUtil.getCurrentTimeStr());
 				}
 			}
 		}; 
@@ -52,26 +48,26 @@ public class Watchservice extends Service{
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
-		Log.e("wuyu", "闹钟响了");
-		
-		Calendar calendar=Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		calendar.add(Calendar.SECOND, 10);
-//		Intent intent1 = new Intent(Watchservice.this, Meiyinservice.class);
-		AlarmManager am=(AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-		PendingIntent pen = PendingIntent.getService(this, 0, intent,0);
-		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 10000, pen);
+//		Calendar calendar=Calendar.getInstance();
+//		calendar.setTimeInMillis(System.currentTimeMillis());
+//		calendar.add(Calendar.SECOND, 10);
+////		Intent intent1 = new Intent(Watchservice.this, Meiyinservice.class);
+//		AlarmManager am=(AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+//		PendingIntent pen = PendingIntent.getService(this, 0, intent,0);
+//		am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 10000, pen);
 		return START_REDELIVER_INTENT;
 	}
 	@Override
 	public IBinder onBind(Intent arg0) {
+		Log.v(Tag,"onBind");
 		// TODO Auto-generated method stub
 		return null;
 	}
     @Override
     public void onDestroy() {
+		Log.v(Tag,"onDestroy");
+		timer.cancel();
     	// TODO Auto-generated method stub
-    	Log.e("service","---守护服务挂了---");
     	super.onDestroy();
     }
     
@@ -83,7 +79,7 @@ public class Watchservice extends Service{
 			String action = intent.getAction();
 			if (action_boot.equals(action)) {
 				SharedPreferences sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_MULTI_PROCESS);
-				boolean isRun = AndroidUtil.isServiceRunning(Watchservice.this, "com.meiyin.services.Meiyinservice");
+				boolean isRun = AndroidUtil.isServiceRunning(Watchservice.this, "com.meiyin.erp.service.Meiyinservice");
 				if(!isRun){
 					startService(new Intent(Watchservice.this, Meiyinservice.class)
 					.putExtra("name", sp.getString(SPConstant.MY_NAME, ""))

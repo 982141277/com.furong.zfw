@@ -2,23 +2,37 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.neenbedankt.android-apt'
 android {
+    signingConfigs {
+        config {
+            keyAlias '湖南美音'
+            keyPassword 'meiyin'
+            storeFile file('C:/Users/Administrator/Desktop/meiyinkey')
+            storePassword 'meiyin'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
-
     defaultConfig {
         applicationId "com.meiyin.erp"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 25
         versionName "v5.2.8"
-
+        ndk { //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -46,5 +60,6 @@ dependencies {
     compile project(':myandroidlibrary')
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-
+    compile project(':slidingmenu_library')
+    compile files('libs/BaiduLBS_Android.jar')
 }

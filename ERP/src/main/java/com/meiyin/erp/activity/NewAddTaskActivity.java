@@ -37,13 +37,13 @@ import com.meiyin.erp.adapter.SimpleTreeAdapter;
 import com.meiyin.erp.adapter.Spinner_Adapter;
 import com.meiyin.erp.app.FileBean;
 import com.meiyin.erp.application.APIURL;
-import com.meiyin.erp.application.BaseApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.bean.Node;
 import com.meiyin.erp.bean.TreeListViewAdapter;
 import com.meiyin.erp.datepicker.DatePick;
 import com.meiyin.erp.entity.OverTimeTask_Entity;
 import com.meiyin.erp.entity.Spinner_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.my.android.library.AsyncHttpClientUtil;
@@ -69,6 +69,7 @@ public class NewAddTaskActivity extends Activity{
 	private List<FileBean> mDatas = new ArrayList<FileBean>();;
 	private ArrayList<OverTimeTask_Entity> lists;
 	private ArrayList<OverTimeTask_Entity> overlist,overlist1;
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -76,6 +77,7 @@ public class NewAddTaskActivity extends Activity{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.new_add_task_main_activity);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -157,7 +159,7 @@ public class NewAddTaskActivity extends Activity{
 		final TextView new_add_task_end_time = (TextView)findViewById(R.id.new_add_task_end_time);
 		final AlertDialog dialog = new AlertDialog.Builder(this).create();
 		final AlertDialog dialog1 = new AlertDialog.Builder(this).create();
-		new_add_task_start_time.setOnClickListener(new View.OnClickListener() {
+		new_add_task_start_time.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -183,7 +185,7 @@ public class NewAddTaskActivity extends Activity{
 
 			}
 		});
-		new_add_task_end_time.setOnClickListener(new View.OnClickListener() {
+		new_add_task_end_time.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -477,22 +479,12 @@ public class NewAddTaskActivity extends Activity{
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if (message.equals("success")) {
 					ToastManager.getInstance(context)

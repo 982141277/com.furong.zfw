@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.meiyin.erp"
-    android:versionCode="25"
-    android:versionName="v5.2.8">
+    package="com.meiyin.erp">
+    <!--android:versionCode="25"android studio已淘汰-->
+    <!--android:versionName="v5.2.8"-->
 
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -122,17 +122,28 @@
         <receiver android:name=".receiver.NetReceiver" />
 
         <!--<receiver android:name=".activity.Home$ServiceReceivers" />-->
-        <!--  、消息服务 -->
+
+        <!--<receiver android:name=".service.Watchservice$BootReceiver">-->
+        <!--<intent-filter >-->
+        <!--<action android:name="android.intent.action.BOOT_COMPLETED"></action>-->
+        <!--<category android:name="android.intent.category.HOME"></category>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<receiver android:name=".activity.Main_Home$ServiceReceiver" />-->
+          <!--、消息服务 -->
         <service android:name=".service.Meiyinservice" android:exported="false">
-            <!--<intent-filter android:priority="1000" >-->
-                <!--<action android:name=".service.Meiyinservice"/>-->
-            <!--</intent-filter>-->
         </service>
         <service
             android:name=".service.Watchservice"
             android:exported="false">
-            <!--<intent-filter android:priority="1000" />-->
         </service>
+
+            <!--  百度定位服务-->
+            <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+            </service>
+            <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="itl1KT5PLLA1MkMNcBYNjgskEGWHotQx" />
 
     </application>
 

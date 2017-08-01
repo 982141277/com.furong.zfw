@@ -2,7 +2,6 @@ package com.meiyin.erp.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,7 +131,7 @@ public class IT_StayEvent_Adapter  extends Adapter<IT_StayEvent>{
 	public interface onRightItemClickListener {
 		void onRightItemClick(View v, int position);
 	}
-	ImageGetter imgGetter = new Html.ImageGetter() {
+	ImageGetter imgGetter = new ImageGetter() {
 		@Override
 		public Drawable getDrawable(String source) {
 			Drawable drawable = null;

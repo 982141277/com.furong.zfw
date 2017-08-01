@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -35,6 +34,7 @@ import com.meiyin.erp.entity.Memulist_Entity;
 import com.meiyin.erp.entity.Spinner_Entity;
 import com.meiyin.erp.json.JsonHttpHandles;
 import com.meiyin.erp.ui.XListView;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.AsyncHttpclient_Util;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
@@ -73,13 +73,14 @@ public class Memulist extends Activity implements XListView.IXListViewListener, 
 	ArrayList<Spinner_Entity> spn;
 	private int applyName=0;
 	private String names ;
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.memulist);
 		content = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		names = sp.getString(SPConstant.USERNAME, "");
@@ -258,23 +259,13 @@ public class Memulist extends Activity implements XListView.IXListViewListener, 
 				JSONObject response) {
 			 LogUtil.e("lyt", response.toString());
 			dhu.dismissWaitingDialog();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(content).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(content, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
-			String msg = null;
+			String msg=null;
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				msg = response.getString("message");
 				
 				if (msg.equals("success")) {

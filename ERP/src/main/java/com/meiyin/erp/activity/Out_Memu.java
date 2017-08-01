@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
@@ -36,6 +35,7 @@ import com.meiyin.erp.datepicker.OnWheelScrollListener;
 import com.meiyin.erp.datepicker.WheelView;
 import com.meiyin.erp.entity.SellClientInfoEntity;
 import com.meiyin.erp.entity.Spinner_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.my.android.library.AsyncHttpClientUtil;
@@ -78,6 +78,7 @@ public class Out_Memu extends Activity implements OnClickListener,
 	private int isCar=1;;
 
 	private TextView out_client_name;
+	private Activity activity;
 	/*
 	 * 时间日期选择
 	 */
@@ -99,11 +100,11 @@ public class Out_Memu extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.out_memu);
 		inflater = (LayoutInflater) this
 				.getSystemService(LAYOUT_INFLATER_SERVICE);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(
 				SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
 		/*
@@ -126,7 +127,7 @@ public class Out_Memu extends Activity implements OnClickListener,
 		dialog = new AlertDialog.Builder(this).create();
 		start_time = (TextView) findViewById(R.id.start_time);
 		end_time = (TextView) findViewById(R.id.end_time);
-		start_time.setOnClickListener(new View.OnClickListener() {
+		start_time.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -140,7 +141,7 @@ public class Out_Memu extends Activity implements OnClickListener,
 				start_time.setText(DateUtil.getCurrentTimeStr());
 			}
 		});
-		end_time.setOnClickListener(new View.OnClickListener() {
+		end_time.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -404,22 +405,12 @@ public class Out_Memu extends Activity implements OnClickListener,
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				String message = response.getString("message");
 				if(message.equals("success")){
 					ToastManager.getInstance(context).showToastcenter("提交成功！");

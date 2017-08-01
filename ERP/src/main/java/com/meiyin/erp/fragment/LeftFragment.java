@@ -24,6 +24,7 @@ import com.meiyin.erp.GreenDao.MeiyinnewsDao;
 import com.meiyin.erp.R;
 import com.meiyin.erp.activity.Home;
 import com.meiyin.erp.activity.IT_Management_Activity;
+import com.meiyin.erp.activity.Main_Home;
 import com.meiyin.erp.activity.Xxls;
 import com.meiyin.erp.adapter.Main_Home_Adapter;
 import com.meiyin.erp.application.MyApplication;
@@ -31,6 +32,7 @@ import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Get_Logins;
 import com.meiyin.erp.ui.CircleImageView;
 import com.meiyin.erp.ui.Image;
+import com.meiyin.erp.util.LogUtil;
 import com.meiyin.erp.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ import java.util.List;
  * @description 侧边栏菜单
  */
 public class LeftFragment extends Fragment implements OnClickListener {
-	public static BroadcastReceiver ServiceReceiver = null;
+//	public static BroadcastReceiver ServiceReceiver = null;
 	private View function_textview;
 	private View discussView;
 	private View favoritesView;
@@ -61,10 +63,12 @@ public class LeftFragment extends Fragment implements OnClickListener {
 	private Main_Home_Adapter adapter;
 	private ListView listview;
 	private ServiceReceiver Receiver;
+	private String Tag;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Tag=getClass().getSimpleName();
 		context = getActivity();
 		sp = context.getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
@@ -90,7 +94,7 @@ public class LeftFragment extends Fragment implements OnClickListener {
 
 	private void initData() {
 		list = new ArrayList<Get_Logins>();
-		meiyin = new MyApplication().getDaoSession().getMeiyinnewsDao();
+		meiyin = new MyApplication().getInstance().getDaoSession().getMeiyinnewsDao();
 		adapter = new Main_Home_Adapter(context);
 		tojson(((Activity) context).getIntent().getStringExtra("login"));
 		// Long in = meiyin.querysize(sp.getString(SPConstant.USERNAME, ""));
@@ -189,13 +193,14 @@ public class LeftFragment extends Fragment implements OnClickListener {
 
 	@Override
 	public void onDestroyView() {
-
+		LogUtil.e(Tag,"LeftFragment-onDestroyView");
 		super.onDestroyView();
 	}
 
 	@Override
 	public void onDestroy() {
-
+		LogUtil.e(Tag,"LeftFragment-onDestroy");
+		context.unregisterReceiver(Receiver);
 		super.onDestroy();
 	}
 
@@ -255,7 +260,7 @@ public class LeftFragment extends Fragment implements OnClickListener {
 		Filters.addAction(SPConstant.XXACTION);
 		Filters.addAction(SPConstant.MYBACKGOUNDACTION);
 		context.registerReceiver(Receiver, Filters);
-		ServiceReceiver = Receiver;
+//		ServiceReceiver = Receiver;
 
 	}
 
@@ -308,17 +313,17 @@ public class LeftFragment extends Fragment implements OnClickListener {
 
 	/**
 	 * 切换fragment
-	 * 
+	 *
 	 * @paramfragment
 	 */
 	private void switchFragment(String title) {
 		if (getActivity() == null) {
 			return;
 		}
-//		if (getActivity() instanceof Main_Home) {
-//			Main_Home fca = (Main_Home) getActivity();
-//			fca.switchConent(title);
-//		}
+		if (getActivity() instanceof Main_Home) {
+			Main_Home fca = (Main_Home) getActivity();
+			fca.switchConent(title);
+		}
 	}
 
 }

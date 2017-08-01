@@ -10,28 +10,28 @@
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
-        <com.meiyin.datepicker.WheelView
+        <com.meiyin.erp.datepicker.WheelView
             android:id="@+id/year"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1" />
 
-        <com.meiyin.datepicker.WheelView
+        <com.meiyin.erp.datepicker.WheelView
             android:id="@+id/month"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1" />
 
-        <com.meiyin.datepicker.WheelView
+        <com.meiyin.erp.datepicker.WheelView
             android:id="@+id/day"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1" />
 
-        <com.meiyin.datepicker.WheelView
+        <com.meiyin.erp.datepicker.WheelView
             android:id="@+id/time"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -39,14 +39,14 @@
             android:visibility="gone"
             android:layout_weight="1" />
         
-        <com.meiyin.datepicker.WheelView
-            android:id="@+id/ min"
+        <com.meiyin.erp.datepicker.WheelView
+            android:id="@+id/min"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1" />        
             
-        <com.meiyin.datepicker.WheelView
+        <com.meiyin.erp.datepicker.WheelView
             android:id="@+id/sec"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

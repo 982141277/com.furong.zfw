@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +27,9 @@ import com.loopj.android.http.RequestParams;
 import com.meiyin.erp.R;
 import com.meiyin.erp.adapter.MymTaskAdapter;
 import com.meiyin.erp.application.APIURL;
-import com.meiyin.erp.application.BaseApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.MymTaskEntity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
 import com.meiyin.erp.util.ToastUtil;
@@ -58,14 +57,14 @@ public class MyTaskActivity extends Activity {
 	private ArrayList<MymTaskEntity> list;
 	private AsyncHttpClientUtil async;
 	private Dialog_Http_Util dialog_util;
-
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.mytask_activity_main);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		/*
@@ -99,7 +98,7 @@ public class MyTaskActivity extends Activity {
 		// TODO Auto-generated method stub
 		async = new AsyncHttpClientUtil();
 		dialog_util = new Dialog_Http_Util();
-		builder = new AlertDialog.Builder(this);// 初始化审批dialog
+		builder = new Builder(this);// 初始化审批dialog
 		ListView mytasks_list = (ListView) findViewById(R.id.mytasks_list);
 		MymTaskAdapter adapter = new MymTaskAdapter(this, getIntent()
 				.getStringExtra("Stafforg"));
@@ -207,25 +206,14 @@ public class MyTaskActivity extends Activity {
 			String ss = response.toString();
 			LogUtil.e("lyt", ss);
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					Intent intent = new Intent();
-					MyTaskActivity.this.setResult(1, intent);
-					MyTaskActivity.this.finish();
-					BaseApplication.getInstance().AppExit();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					Intent intent = new Intent();
+					activity.setResult(1, intent);
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				if (response.getString("message").equals("success")) {
 					ToastUtil.showToast(context, "汇报成功！");
 					Intent intent = new Intent();

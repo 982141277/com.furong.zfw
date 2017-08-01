@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -31,11 +29,11 @@ import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.MyApplication;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Topic_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.Function;
 import com.my.android.library.AsyncHttpClientUtil;
 import com.my.android.library.MJsonHttpHandler;
-import com.my.android.library.ToastManager;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -56,13 +54,14 @@ public class TopicDetailsActivity extends Activity{
 	private Topic_Entity xTopic ;
 	private String topic_code;
 	private Topic_EntityDao topicDao;
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.topic_details_mian);
 		context = getApplicationContext();
+		activity=this;
 		sp = getSharedPreferences(
 				SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
 		topicDao= MyApplication.getInstance().getDaoSession().getTopic_EntityDao();
@@ -129,25 +128,15 @@ public class TopicDetailsActivity extends Activity{
 				JSONObject response) {
 			Log.e("lyt", response.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 
 			JSONObject data = null;
 			String content="";
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				data = response.getJSONObject("dto2");
 				content = data.getString("content");
 			} catch (JSONException e) {

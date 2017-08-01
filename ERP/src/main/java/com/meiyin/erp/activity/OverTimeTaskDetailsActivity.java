@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +33,7 @@ import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Memu_History;
 import com.meiyin.erp.entity.OverTimeTaskPeople_Entity;
+import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.DateUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
 import com.meiyin.erp.util.LogUtil;
@@ -69,13 +69,14 @@ public class OverTimeTaskDetailsActivity extends Activity {
 	private ArrayList<OverTimeTaskPeople_Entity>mlist;
 	private int appstate = 3;// 审批(批准、否决)选项;
 	private int mstate;
+	private Activity activity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.overtimetaskdetail_main);
 		context = getApplicationContext();
+		activity=this;
 		SharedPreferences sp = getSharedPreferences(
 				SPConstant.SHAREDPREFERENCES_NAME, Context.MODE_PRIVATE);
 
@@ -96,9 +97,9 @@ public class OverTimeTaskDetailsActivity extends Activity {
 		AsyncHttpClientUtil async = new AsyncHttpClientUtil();
 		Dialog_Http_Util dialog_util = new Dialog_Http_Util();
 		memu = new ArrayList<Memu_History>();// 审批历史数据
-		dialog = new AlertDialog.Builder(this).create();// 审批历史dialog
+		dialog = new Builder(this).create();// 审批历史dialog
 		String key = sp.getString(SPConstant.MY_TOKEN, "");
-		Builder builder = new AlertDialog.Builder(this);// 初始化审批dialog
+		Builder builder = new Builder(this);// 初始化审批dialog
 		overtime_typeimg = (ImageView) findViewById(R.id.overtime_typeimg);
 		/*
 		 * 查询详情所需要参数
@@ -812,22 +813,12 @@ public class OverTimeTaskDetailsActivity extends Activity {
 			String ss = response.toString();
 			LogUtil.e("lyt", ss);
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				if (response.getString("message").equals("success")) {
 					ToastUtil.showToast(context, "审批成功！");
 					Intent intent = new Intent();
@@ -864,24 +855,13 @@ public class OverTimeTaskDetailsActivity extends Activity {
 			String ss = response.toString();
 			Log.e("lyt",ss.toString());
 			progressDialog.dismiss();
-			if (!response.isNull("errorMsg")) {
-				try {
-					ToastManager.getInstance(context).showToast(
-							response.getString("errorMsg"));
-					stopService(new Intent()
-							.setAction("com.meiyin.services.Meiyinservice"));
-					startActivity(new Intent().setClass(context, Login.class)
-							.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-					System.exit(0);
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return;
-			}
 			JSONArray otDetailList = null;//
-
 			try {
+				if (!response.isNull("errorMsg")) {
+					String errorMsg=response.getString("errorMsg");
+					AndroidUtil.LoginOut(activity,errorMsg);
+					return;
+				}
 				otDetailList = response.getJSONArray("otDetailList");
 
 			} catch (JSONException e) {

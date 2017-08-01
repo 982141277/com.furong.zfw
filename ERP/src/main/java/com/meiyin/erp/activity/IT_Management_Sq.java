@@ -116,7 +116,7 @@ public class IT_Management_Sq extends Activity implements OnClickListener {
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
 		dic=new Dialog_Http_Util();
-		builder = new AlertDialog.Builder(IT_Management_Sq.this);
+		builder = new Builder(IT_Management_Sq.this);
 		lists = new ArrayList<IT_Event_SQ_Entity>();
 
 		String event_no = getIntent().getStringExtra("event_no");
@@ -560,8 +560,8 @@ public class IT_Management_Sq extends Activity implements OnClickListener {
 		final AlertDialog dialog;
 		final AlertDialog dialog_leixin;
 		// TODO Auto-generated method stub
-		dialog_leixin = new AlertDialog.Builder(this).create();
-		dialog = new AlertDialog.Builder(this).create();
+		dialog_leixin = new Builder(this).create();
+		dialog = new Builder(this).create();
 		LinearLayout submit_dialog = (LinearLayout) LayoutInflater
 				.from(context).inflate(R.layout.submit_dialog, null);
 		TextView heads = (TextView) submit_dialog.findViewById(R.id.heads);

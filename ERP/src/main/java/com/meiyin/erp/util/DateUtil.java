@@ -88,4 +88,39 @@ public class DateUtil {
 		return currentTime;
 	}
 
+	public static String gettimes(Long t,Long t1) {
+		long time = t - t1;
+		long times = time /1000/60;
+		if (times < 1) {
+			return "刚刚";
+		} else if (times > 1 && times < 60) {
+			return (int) times + "分钟前";
+		} else if (times > 60) {
+			times = times / 60;
+			if (times > 24) {
+				times = times / 24;
+				if (times < 60) {
+					if (times > 1 && times < 2) {
+						return "昨天";
+					} else if (times > 2 && times < 7) {
+						return (int) times + "天前";
+					} else if (times > 7 && times < 28) {
+						return (int) times / 7 + "周前";
+					} else if (times > 28 && times < 60) {
+						return "1个月前";
+					}
+				} else if (times > 60 && times < 365) {
+					times = times / 30;
+					return (int) times + "个月前";
+				} else if (times > 365) {
+					times = times / 365;
+					return (int) times + "年前";
+				}
+			} else {
+				return (int) times + "小时前";
+			}
+		}
+		return "";
+	}
+
 }
