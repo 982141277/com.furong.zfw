@@ -13,7 +13,7 @@
         android:id="@+id/map_relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/memulist_heading"
-        android:background="@color/dark_blue"
+        android:background="@color/dark_red"
         android:orientation="horizontal" >
 
         <ImageView

@@ -2,12 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.neenbedankt.android-apt'
 android {
+    signingConfigs {
+        config {
+            keyAlias '湖南美音'
+            keyPassword 'meiyin'
+            storeFile file('C:/Users/Administrator/Desktop/meiyinkey')
+            storePassword 'meiyin'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "25.0.0"
-
     defaultConfig {
         applicationId "com.jcd.psms"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -16,11 +23,14 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
@@ -45,10 +55,9 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:24.2.1'
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
-
     testCompile 'junit:junit:4.12'
     compile project(':myandroidlibrary')
+    compile files('libs/AssistConnection.jar')
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
-
 }

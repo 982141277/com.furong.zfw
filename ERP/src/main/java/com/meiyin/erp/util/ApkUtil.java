@@ -5,6 +5,8 @@ import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -243,12 +245,21 @@ public class ApkUtil {
 		if (apkUrl == null || apkUrl.trim().equals("")) {
 			return false;
 		}
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		File file = new File(apkUrl);
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		if(file.exists()){
-			i.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-			context.startActivity(i);
+			//判读版本是否在7.0以上
+			if (Build.VERSION.SDK_INT >= 24) {
+				//provider authorities
+				Uri apkUri = FileProvider.getUriForFile(context, "com.meiyin.erp.fileprovider", file);
+				//Granting Temporary Permissions to a URI
+				intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+			} else {
+				intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+			}
+			context.startActivity(intent);
 			return true;
 		}else{
 			return false;

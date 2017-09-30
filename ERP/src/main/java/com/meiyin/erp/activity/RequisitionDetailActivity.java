@@ -31,10 +31,14 @@ import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import com.meiyin.erp.R;
 import com.meiyin.erp.adapter.Memu_History_Adapter;
+import com.meiyin.erp.adapter.Purchase_List_Adapter;
+import com.meiyin.erp.adapter.Purchase_mList_Adapter;
 import com.meiyin.erp.adapter.RequisitionAdapter;
 import com.meiyin.erp.application.APIURL;
 import com.meiyin.erp.application.SPConstant;
 import com.meiyin.erp.entity.Memu_History;
+import com.meiyin.erp.entity.Purchase_List_Entity;
+import com.meiyin.erp.entity.Purchase_mList_Entity;
 import com.meiyin.erp.entity.Requisition_Entity;
 import com.meiyin.erp.util.AndroidUtil;
 import com.meiyin.erp.util.Dialog_Http_Util;
@@ -60,7 +64,7 @@ public class RequisitionDetailActivity extends Activity {
 	private Context context;
 	private ArrayList<Memu_History> memu;
 	private AlertDialog dialog;
-	private ViewHolder holder;
+
 	private RequisitionAdapter adapter;
 	private int app_atate = 3;// 审批(批准、否决)选项
 	private String userid, state;// 审批所需参数
@@ -88,13 +92,30 @@ public class RequisitionDetailActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		if(null!=activity){activity=null;}
+
+		if (memu != null){
+			memu.clear();
+			memu = null;
+		}
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onStop() {
+
+		super.onStop();
+	}
+
 	private void initData(SharedPreferences sp) {
 		// TODO Auto-generated method stub
 		Dialog_Http_Util dialog_util = new Dialog_Http_Util();
 		AsyncHttpClientUtil async = new AsyncHttpClientUtil();
 		memu = new ArrayList<Memu_History>();// 审批历史数据
-		dialog = new Builder(this).create();// 初始化审批历史dialog
-		Builder builder = new Builder(this);// 初始化审批dialog
+		dialog = new Builder(activity).create();// 初始化审批历史dialog
+		Builder builder = new Builder(activity);// 初始化审批dialog
 		String key = sp.getString(SPConstant.MY_TOKEN, "");
 		requisition_typeimg = (ImageView) findViewById(R.id.requisition_typeimg);
 		/*
@@ -127,7 +148,7 @@ public class RequisitionDetailActivity extends Activity {
 			my_approve_bt.setVisibility(ViewGroup.VISIBLE);
 			// 待审批审批接口
 			approval(builder, async, TaskId, key, applyNameState, applyId,
-					procInstId, dialog_util);
+					procInstId, dialog_util,descId);
 		} else if (name.equals("已审批事项")) {
 			param.put("key", key);
 			param.put("applyNameState", applyNameState);
@@ -137,10 +158,11 @@ public class RequisitionDetailActivity extends Activity {
 			param.put("isFresh", true);
 			my_approve_bt.setVisibility(ViewGroup.GONE);
 		}
-		Dialog progressDialog = dialog_util.showWaitingDialog(this, "正在刷新",
+
+		Dialog progressDialog = dialog_util.showWaitingDialog(activity, "正在刷新",
 				false);
 		async.post(APIURL.CHECK.MEMU_SQAPI, context, param, new JsonHandler(
-				this, progressDialog));
+				context, progressDialog));
 	}
 
 	/*
@@ -152,13 +174,47 @@ public class RequisitionDetailActivity extends Activity {
 			final AsyncHttpClientUtil async, final String TaskId,
 			final String key, final String applyNameState,
 			final String applyId, final String procInstId,
-			final Dialog_Http_Util dialog_util) {
+			final Dialog_Http_Util dialog_util,final String descId) {
 
 		my_approve_bt.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				//核价员checkMan、财务副总finaDeptGenManager、采购员buyer、
+				if(descId.equals("checkMan")||descId.equals("finaDeptGenManager")){
+					//获取采购单列表
+
+					//assessor
+					RequestParams param = new RequestParams();
+					param.put("purApplyId", applyId);
+					param.put("key", key);
+					param.put("applyNameState", applyNameState);
+					param.put("id", applyId);
+					param.put("taskId", TaskId);
+					param.put("descId", descId);
+					param.put("proc_inst_id", procInstId);
+
+					param.put("userid", userid);
+					param.put("state", state);
+					param.put("isFresh", true);
+					Log.e("lyt","key="+key+"&purApplyId=" + applyId + "&id="
+							+ applyId + "&applyNameState="
+							+ applyNameState + "&proc_inst_id="
+							+ procInstId + "&userid=" + userid
+							+ "&state=" + state + "&taskId="
+							+ TaskId + "&descId=" + descId+"&descId=" + descId+"&isFresh=" + true);
+					Dialog progressDialog = dialog_util
+							.showWaitingDialog(
+									activity,
+									"正在刷新", false);
+					async.post(APIURL.CHECK.PURCHASEORDERSLIST, context,
+							param, new JsonHandlerPurchase(descId,
+									context,
+									progressDialog));
+
+
+				}else{
 				// 审核dialog
 				LinearLayout dialog_approval = (LinearLayout) LayoutInflater
 						.from(context).inflate(R.layout.dialog_approval, null);
@@ -251,11 +307,11 @@ public class RequisitionDetailActivity extends Activity {
 										+ app_atate + ",app_view=" + appview);
 								Dialog progressDialog = dialog_util
 										.showWaitingDialog(
-												RequisitionDetailActivity.this,
+												activity,
 												"正在审批", false);
 								async.post(APIURL.CHECK.MEMU_SPAPI, context,
 										param, new JsonHandlerApproval(
-												RequisitionDetailActivity.this,
+												context,
 												progressDialog));
 								dialog_app.dismiss();
 							}
@@ -271,6 +327,7 @@ public class RequisitionDetailActivity extends Activity {
 						});
 					}
 				});
+			}
 			}
 		});
 	}
@@ -323,33 +380,40 @@ public class RequisitionDetailActivity extends Activity {
 	/*
 	 * 初始化VIEW
 	 */
+	private TextView requisition_applicant;// 申请人
+	private TextView requisition_project_name;// 项目名称
+	private TextView requisition_article_introduction;// 物品介绍
+	private TextView requisition_cause;// 物品用途
+	private TextView requisition_need_time;// 需用时间
+	private TextView requisition_total;// 总计
+	private LinearLayout linear_project;// 项目布局
+	private View img_project;// 项目布局线
 	private void initView() {
 		// TODO Auto-generated method stub
-		holder = new ViewHolder();
 		// 请购详情
 		ListView detail_listview = (ListView) findViewById(R.id.detail_listview);
 		View requisition_head = LayoutInflater.from(context).inflate(
 				R.layout.requisition_head, null);
-		holder.requisition_applicant = (TextView) requisition_head
+		requisition_applicant = (TextView) requisition_head
 				.findViewById(R.id.requisition_applicant);// 申请人
-		holder.requisition_project_name = (TextView) requisition_head
+		requisition_project_name = (TextView) requisition_head
 				.findViewById(R.id.requisition_project_name);// 项目名称
-		holder.requisition_article_introduction = (TextView) requisition_head
+		requisition_article_introduction = (TextView) requisition_head
 				.findViewById(R.id.requisition_article_introduction);// 物品介绍
-		holder.requisition_cause = (TextView) requisition_head
+		requisition_cause = (TextView) requisition_head
 				.findViewById(R.id.requisition_cause);// 物品用途
-		holder.requisition_need_time = (TextView) requisition_head
+		requisition_need_time = (TextView) requisition_head
 				.findViewById(R.id.requisition_need_time);// 需用时间
-		holder.requisition_total = (TextView) requisition_head
+		requisition_total = (TextView) requisition_head
 				.findViewById(R.id.requisition_total);// 总计
-		holder.linear_project = (LinearLayout) requisition_head
+		linear_project = (LinearLayout) requisition_head
 				.findViewById(R.id.linear_project);// 项目布局
-		holder.img_project = (View) requisition_head
+		img_project = (View) requisition_head
 				.findViewById(R.id.img_project);// 项目布局线
 
 		// 添加详情列表头部
 		detail_listview.addHeaderView(requisition_head);
-		adapter = new RequisitionAdapter(RequisitionDetailActivity.this);
+		adapter = new RequisitionAdapter(getApplicationContext());
 		detail_listview.setAdapter(adapter);
 		detail_listview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -373,8 +437,233 @@ public class RequisitionDetailActivity extends Activity {
 		});
 
 	}
+	//核价员，财务副总审批
+    private class JsonHandlerPurchase extends MJsonHttpHandler {
+        Dialog progressDialog;
+		String descId;
+        protected JsonHandlerPurchase(String descId,Context context, Dialog progressDialog) {
+            super(context, progressDialog);
+            this.progressDialog = progressDialog;
+			this.descId=descId;
+            // TODO Auto-generated constructor stub
+        }
 
-	// 请购单详情回调类
+        @SuppressLint("NewApi")
+        @Override
+        public void onSuccess(int statusCode, Header[] headers,
+                              JSONObject response) {
+            String ss = response.toString();
+			progressDialog.dismiss();
+			Log.e("lyt", ss);
+			if(descId.equals("checkMan")) {
+				try {
+					JSONObject taskdto = (JSONObject)response.get("TaskIdDto");
+					final String TaskId=taskdto.getString("taskId");
+					final String key=taskdto.getString("key");
+					final String applyNameState=taskdto.getString("applyNameState");
+					final String applyId=taskdto.getString("applyId");
+					final String proc_inst_id=taskdto.getString("proc_inst_id");
+					final String descId=taskdto.getString("descId");
+//                    final String prod_id=taskdto.getString("prod_id");
+					final String state=taskdto.getString("state");
+					final String userid=taskdto.getString("userid");
+					final String isFresh=taskdto.getString("isFresh");
+					final String id=taskdto.getString("id");
+					final String purApplyId=taskdto.getString("purApplyId");
+					final String procInstId=taskdto.getString("procInstId");
+					final String user_id=taskdto.getString("user_id");
+
+					JSONArray dto2 = (JSONArray) response.get("dto2");
+
+					final ArrayList<Purchase_List_Entity> memu1 = new Gson().fromJson(dto2.toString(),
+							new TypeToken<List<Purchase_List_Entity>>() {
+							}.getType());
+					LinearLayout layout_purchase_dialog = (LinearLayout) LayoutInflater
+							.from(context).inflate(R.layout.layout_purchase_dialog, null);
+					Button purchase_approval = (Button) layout_purchase_dialog
+							.findViewById(R.id.purchase_approval);
+					Builder builder = new Builder(activity);//
+					builder.setView(layout_purchase_dialog);
+					final AlertDialog dialog_app = builder.create();// 初始化审批dialog
+					dialog_app.show();
+					dialog_app.getWindow().clearFlags(
+							WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+					dialog_app.getWindow().setSoftInputMode(
+							WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+					ListView purchase_list = (ListView) layout_purchase_dialog
+							.findViewById(R.id.purchase_list);
+					Purchase_List_Adapter adapter = new Purchase_List_Adapter(context);
+					adapter.setList(memu1);
+					purchase_list.setAdapter(adapter);
+                /*
+				 * 审批事件
+				 */
+					purchase_approval.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View arg0) {
+							// 提交审批
+							RequestParams param = new RequestParams();
+							param.put("taskId",TaskId);
+							param.put("key", key);
+							param.put("applyNameState", applyNameState);
+							param.put("id", id);
+							param.put("proc_inst_id", proc_inst_id);
+							param.put("userid", userid);
+							param.put("state", state);
+							param.put("app_states", "0");
+							param.put("app_state", "3");
+							param.put("isFresh", isFresh);
+							param.put("NUM", "");
+							param.put("purApplyId", purApplyId);
+							param.put("descId", descId);
+
+							for(int i=0;i<memu1.size();i++){
+								String prod_id=memu1.get(i).getProd_id();
+								String radio=memu1.get(i).getRadios();
+
+								param.put("buy"+prod_id, radio);
+								param.put("radio"+prod_id, radio);
+								param.put("supplier"+prod_id+"1", memu1.get(i).getSupplier1());//供应商
+								param.put("supplier"+prod_id+"2", memu1.get(i).getSupplier2());//供应商
+								param.put("supplier"+prod_id+"3", memu1.get(i).getSupplier3());//供应商
+								param.put("s_bill"+prod_id+"1", memu1.get(i).getS_bill1());//发票
+								param.put("s_bill"+prod_id+"2", memu1.get(i).getS_bill2());//发票
+								param.put("s_bill"+prod_id+"3", memu1.get(i).getS_bill3());//发票
+								param.put("typeOfPayment"+prod_id+"1", memu1.get(i).getTypeOfPayment1());//支付方式
+								param.put("typeOfPayment"+prod_id+"2", memu1.get(i).getTypeOfPayment2());//支付方式
+								param.put("typeOfPayment"+prod_id+"3", memu1.get(i).getTypeOfPayment3());//支付方式
+								param.put("price"+prod_id+"1", memu1.get(i).getS_price1());//单价
+								param.put("price"+prod_id+"2", memu1.get(i).getS_price2());//单价
+								param.put("price"+prod_id+"3", memu1.get(i).getS_price3());//单价
+								param.put("effective"+prod_id+"1", memu1.get(i).getS_limitTime1());//保质期
+								param.put("effective"+prod_id+"2", memu1.get(i).getS_limitTime2());//保质期
+								param.put("effective"+prod_id+"3", memu1.get(i).getS_limitTime3());//保质期
+								param.put("remark"+prod_id+"1", memu1.get(i).getS_remark1());//备注
+								param.put("remark"+prod_id+"2", memu1.get(i).getS_remark2());//备注
+								param.put("remark"+prod_id+"3", memu1.get(i).getS_remark3());//备注
+								param.put("apply_estimate"+prod_id+"1", memu1.get(i).getS_arrivalTime1());//到货时间
+								param.put("apply_estimate"+prod_id+"2", memu1.get(i).getS_arrivalTime2());//到货时间
+								param.put("apply_estimate"+prod_id+"3", memu1.get(i).getS_arrivalTime3());//到货时间
+							}
+//							LogUtil.e("lyt",param.toString());
+							Dialog_Http_Util dialog_util = new Dialog_Http_Util();
+							AsyncHttpClientUtil async = new AsyncHttpClientUtil();
+							Dialog progressDialog = dialog_util
+									.showWaitingDialog(
+											activity,
+											"正在审批", false);
+							async.post(APIURL.CHECK.PURCHASEORDERSAPPROVALS, context,
+									param, new JsonHandlerApproval(
+											context,
+											progressDialog));
+
+						}
+					});
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+
+
+
+
+			}else if(descId.equals("finaDeptGenManager")){
+                try {
+                    JSONArray json2 = (JSONArray) response.get("json2");
+                    JSONObject taskdto = (JSONObject)response.get("TaskIdDto");
+                    final String TaskId=taskdto.getString("taskId");
+                    final String key=taskdto.getString("key");
+                    final String applyNameState=taskdto.getString("applyNameState");
+                    final String applyId=taskdto.getString("applyId");
+                    final String proc_inst_id=taskdto.getString("proc_inst_id");
+                    final String descId=taskdto.getString("descId");
+//                    final String prod_id=taskdto.getString("prod_id");
+                    final String state=taskdto.getString("state");
+                    final String userid=taskdto.getString("userid");
+                    final String isFresh=taskdto.getString("isFresh");
+                    final String id=taskdto.getString("id");
+                    final String purApplyId=taskdto.getString("purApplyId");
+                    final String procInstId=taskdto.getString("procInstId");
+                    final String user_id=taskdto.getString("user_id");
+                    final ArrayList<Purchase_mList_Entity> memus = new Gson().fromJson(json2.toString(),
+						new TypeToken<List<Purchase_mList_Entity>>() {
+						}.getType());
+				   if(memus.size()<1){
+						return;
+				   }
+				LinearLayout layout_purchase_dialog = (LinearLayout) LayoutInflater
+						.from(context).inflate(R.layout.layout_purchase_dialog, null);
+                Button purchase_approval = (Button) layout_purchase_dialog
+                        .findViewById(R.id.purchase_approval);
+				Builder builder = new Builder(activity);//
+				builder.setView(layout_purchase_dialog);
+				final AlertDialog dialog_app = builder.create();// 初始化审批dialog
+				dialog_app.show();
+				dialog_app.getWindow().clearFlags(
+						WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+				dialog_app.getWindow().setSoftInputMode(
+						WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+				ListView purchase_list = (ListView) layout_purchase_dialog
+						.findViewById(R.id.purchase_list);
+                Purchase_mList_Adapter adapter = new Purchase_mList_Adapter(context);
+				adapter.setList(memus);
+				purchase_list.setAdapter(adapter);
+                /*
+				 * 审批事件
+				 */
+                purchase_approval.setOnClickListener(new OnClickListener() {
+
+                            @Override
+                            public void onClick(View arg0) {
+                                // 提交审批
+                                RequestParams param = new RequestParams();
+                                param.put("taskId",TaskId);
+                                param.put("key", key);
+                                param.put("applyNameState", applyNameState);
+                                param.put("id", id);
+                                param.put("proc_inst_id", proc_inst_id);
+                                param.put("userid", userid);
+                                param.put("state", state);
+                                param.put("app_states", "0");
+								param.put("app_state", "3");
+                                param.put("isFresh", isFresh);
+                                param.put("NUM", "");
+                                param.put("purApplyId", purApplyId);
+								param.put("descId", descId);
+
+                                for(int i=0;i<memus.size();i++){
+									String prod_id=memus.get(i).getProd_id();
+									param.put("T50"+i, memus.get(i).getProd_Model());//型号
+                                    param.put("supplier"+prod_id, memus.get(i).getSupplier());//供应商
+                                    param.put("s_bill"+prod_id, memus.get(i).getBill_type());//发票
+                                    param.put("typeOfPayment"+prod_id, memus.get(i).getTypeOfPayment());//支付方式
+                                    param.put("price"+prod_id, memus.get(i).getProd_unit());//单价
+                                    param.put("effective"+prod_id, memus.get(i).getEffective());//保质期
+                                    param.put("remark"+prod_id, memus.get(i).getRemark());//备注
+                                    param.put("apply_estimate"+prod_id, memus.get(i).getApply_estimate());//到货时间
+                                }
+
+                                Dialog_Http_Util dialog_util = new Dialog_Http_Util();
+                                AsyncHttpClientUtil async = new AsyncHttpClientUtil();
+                                Dialog progressDialog = dialog_util
+                                        .showWaitingDialog(activity,
+                                                "正在审批", false);
+                                async.post(APIURL.CHECK.PURCHASEORDERSAPPROVAL, context,
+                                        param, new JsonHandlerApproval(context,
+                                                progressDialog));
+
+                            }
+                        });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+			}
+
+        }
+
+    }
+	// 请购单详情
 	private class JsonHandler extends MJsonHttpHandler {
 		private Dialog progressDialog;
 
@@ -430,17 +719,17 @@ public class RequisitionDetailActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			holder.requisition_applicant.setText(createUserName + "(" + dept
+			requisition_applicant.setText(createUserName + "(" + dept
 					+ ")");
 			if (projectName.equals("")) {// 项目为空 隐藏这一项
-				holder.linear_project.setVisibility(ViewGroup.GONE);
-				holder.img_project.setVisibility(ViewGroup.GONE);
+				linear_project.setVisibility(ViewGroup.GONE);
+				img_project.setVisibility(ViewGroup.GONE);
 			}
-			holder.requisition_project_name.setText(projectName);
-			holder.requisition_article_introduction.setText(compendium);
-			holder.requisition_cause.setText(reason);
-			holder.requisition_need_time.setText(needsDate);
-			holder.requisition_total.setText("￥" + zongjiaqian);
+			requisition_project_name.setText(projectName);
+			requisition_article_introduction.setText(compendium);
+			requisition_cause.setText(reason);
+			requisition_need_time.setText(needsDate);
+			requisition_total.setText("￥" + zongjiaqian);
 			memu = new Gson().fromJson(applyHistory.toString(),
 					new TypeToken<List<Memu_History>>() {
 					}.getType());// 审批历史
@@ -465,6 +754,7 @@ public class RequisitionDetailActivity extends Activity {
 			}
 			adapter.setList(list);
 			adapter.notifyDataSetChanged();
+//			checkMan、finaDeptGenManager、buyer、
 			if (descId.equals("buyer")) {
 				ToastManager.getInstance(context)
 						.showToastcenter("采购人员请到ERP签收此单！");
@@ -477,23 +767,17 @@ public class RequisitionDetailActivity extends Activity {
 
 	}
 
-	public static class ViewHolder {
-		private TextView requisition_applicant;// 申请人
-		private TextView requisition_project_name;// 项目名称
-		private TextView requisition_article_introduction;// 物品介绍
-		private TextView requisition_cause;// 物品用途
-		private TextView requisition_need_time;// 需用时间
-		private TextView requisition_total;// 总计
-		private LinearLayout linear_project;// 项目布局
-		private View img_project;// 项目布局线
+	public  class ViewHolder {
+
 	}
 
-	// 请购单审批回调类
+	// 请购单审批// 请购单财务副总审批//核价员审批
 	private class JsonHandlerApproval extends MJsonHttpHandler {
 		Dialog progressDialog;
 
 		protected JsonHandlerApproval(Context context, Dialog progressDialog) {
 			super(context, progressDialog);
+
 			this.progressDialog = progressDialog;
 			// TODO Auto-generated constructor stub
 		}
@@ -512,14 +796,14 @@ public class RequisitionDetailActivity extends Activity {
 					return;
 				}
 				if (response.getString("message").equals("success")) {
-					ToastUtil.showToast(context, "审批成功！");
+					ToastManager.getInstance(context).showToastcenter( "审批成功！");
 					Intent intent = new Intent();
 					intent.setAction(SPConstant.APPROVALACTION);
 					sendBroadcast(intent);
 					my_approve_bt.setVisibility(ViewGroup.GONE);
-					RequisitionDetailActivity.this.finish();
+					activity.finish();
 				} else {
-					ToastUtil.showToast(context, "审批失败！");
+					ToastManager.getInstance(context).showToastcenter( "审批失败！");
 
 				}
 			} catch (JSONException e) {
@@ -530,4 +814,8 @@ public class RequisitionDetailActivity extends Activity {
 		}
 
 	}
+
+
+
+
 }

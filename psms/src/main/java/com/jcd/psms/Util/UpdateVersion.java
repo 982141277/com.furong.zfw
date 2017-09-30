@@ -3,8 +3,6 @@ package com.jcd.psms.Util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -31,12 +29,12 @@ public class UpdateVersion {
 		// APK下载句柄
 		private RequestHandle downloadRequestHandle;;
 		private SharedPreferences sp;
-		ProgressBar ProgressBars;
+		private String Tag=this.getClass().getSimpleName();
+
 		// 构造方法
-		public UpdateVersion(Context context,ProgressBar ProgressBars) {
+		public UpdateVersion(Context context) {
 			this.mContext = context;
 			sp = mContext.getSharedPreferences("psmsversion", Context.MODE_PRIVATE);
-			this.ProgressBars=ProgressBars;
 		}
 
 		public void getVersion(TextHttpResponseHandler textHttpHandler) {
@@ -57,6 +55,7 @@ public class UpdateVersion {
 				public void onSuccess(int statusCode, Header[] headers,
 									  String responseString) {
 					Document doc = null;
+					LogUtil.e(Tag,responseString);
 					try {
 						PackageInfo pi = mContext.getPackageManager()
 								.getPackageInfo(mContext.getPackageName(), 0);
@@ -106,13 +105,13 @@ public class UpdateVersion {
 							downloadFile("/js.rar",Integer.parseInt(js),"js");
 						}
 						if(Integer.parseInt(fonts) >sp.getInt("fonts",0)) {
-							downloadFile("/fonts.rar",Integer.parseInt(js),"fonts");
+							downloadFile("/fonts.rar",Integer.parseInt(fonts),"fonts");
 						}
 						if(Integer.parseInt(img) >sp.getInt("img",0)) {
-							downloadFile("/img.rar",Integer.parseInt(js),"img");
+							downloadFile("/img.rar",Integer.parseInt(img),"img");
 						}else{
 							LogUtil.e("lyt","检查版本后!您当前已经是最新版本！");
-							ProgressBars.setVisibility(ViewGroup.GONE);
+
 						}
 //						// 最新版本高于当前版本则需要更新
 //						if (Integer.parseInt(strLastVersionCode) > pi.versionCode) {
@@ -299,10 +298,7 @@ public class UpdateVersion {
 			}
 			@Override
 			public void onFinish() {
-				if(spname.equals("img")){
-					ProgressBars.setVisibility(ViewGroup.GONE);
-				}
-				LogUtil.e("lyt","文件下载结束");
+				LogUtil.e("lyt",spname+"文件下载结束");
 				super.onFinish();
 			}
 			@Override

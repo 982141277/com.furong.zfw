@@ -27,6 +27,7 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".Activity.MainActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask" />
         <activity android:name=".Activity.WelcomeActivity">
             <intent-filter>
@@ -42,9 +43,13 @@
 
         <activity
             android:name=".Activity.SettingsActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light"
             android:label="@string/title_activity_settings" />
         <activity android:name=".Activity.AccountActivity" />
         <activity android:name=".Activity.AboutActivity" />
+        <activity android:name=".Activity.GuideActivity" />
+        <activity android:name=".Activity.MainDetailActivity" />
+        <activity android:name=".Activity.ScreenActivity" android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

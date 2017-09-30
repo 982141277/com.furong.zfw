@@ -128,11 +128,11 @@ public class Main_Home extends SlidingFragmentActivity implements View.OnClickLi
 	private boolean it=false;
 	private TextView mysection;
 	private Activity activity;
-
+	private String Tag;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Tag=getClass().getSimpleName();
 		homes = getLayoutInflater().inflate(R.layout.homes, null);
 		setContentView(homes);
 		// CoverManager.getInstance().init(this);
@@ -149,7 +149,6 @@ public class Main_Home extends SlidingFragmentActivity implements View.OnClickLi
 		initSlidingMenu(savedInstanceState);
 		// CoverManager.getInstance().setMaxDragDistance(150);
 		// CoverManager.getInstance().setExplosionTime(150);
-
 	}
 
 	/*

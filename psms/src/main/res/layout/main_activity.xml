@@ -7,17 +7,17 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/xiaoxibd"
+        android:background="@color/colorwhite"
         ></View>
-    <TextView
-        android:id="@+id/mprogress"
+    <ProgressBar
+        android:id="@+id/main_progress"
         android:background="@color/colorgreens"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="4dp" />
 
     <WebView
         android:id="@+id/webview"
-        android:layout_below="@+id/mprogress"
+        android:layout_below="@+id/main_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"

@@ -390,7 +390,7 @@ public class Map_Activity extends Activity{
 			LocationClientOption option = new LocationClientOption();
 			option.setOpenGps(true);//打开gps
 			option.setCoorType("bd09ll"); //设置坐标类型
-			option.setScanSpan(5000); //定位时间间隔
+			option.setScanSpan(10000); //定位时间间隔
 			mLocClient.setLocOption(option);
 
 			mLocClient.start();

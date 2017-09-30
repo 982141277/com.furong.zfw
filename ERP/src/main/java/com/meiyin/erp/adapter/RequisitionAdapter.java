@@ -1,19 +1,19 @@
 package com.meiyin.erp.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.meiyin.erp.R;
-import com.meiyin.erp.activity.RequisitionDetailActivity;
 import com.meiyin.erp.entity.Requisition_Entity;
 
 public class RequisitionAdapter extends Adapter<Requisition_Entity>{
-	private RequisitionDetailActivity mContext;
+	private Context mContext;
 	private LayoutInflater inflater;
 	
-	public RequisitionAdapter(RequisitionDetailActivity mContext) {
+	public RequisitionAdapter(Context mContext) {
 		super(mContext);
 		this.mContext=mContext;
 		this.inflater = LayoutInflater.from(mContext);

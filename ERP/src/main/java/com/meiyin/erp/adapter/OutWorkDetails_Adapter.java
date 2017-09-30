@@ -32,7 +32,7 @@ public class OutWorkDetails_Adapter extends Adapter<OutWorkDetails_Entity>{
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		ViewHolder holder = null;
-		if (convertView == null) {
+		if ( null==convertView) {
 			convertView = inflater.inflate(
 					R.layout.outworkdetails_item, null);
 			holder = new ViewHolder();
@@ -78,19 +78,19 @@ public class OutWorkDetails_Adapter extends Adapter<OutWorkDetails_Entity>{
 			holder.brush_text.setVisibility(ViewGroup.GONE);
 			holder.brushaddress_text.setVisibility(ViewGroup.VISIBLE);
 			holder.brushtime_text.setVisibility(ViewGroup.VISIBLE);
-			holder.isbrush_text.setText("已刷卡");
+			holder.isbrush_text.setText("已打卡");
 			holder.isbrush_text.setTextColor(mContext.getResources().getColor(R.color.text_green));
 		}else if(IsBrush.equals("0")){
 			holder.brush_text.setVisibility(ViewGroup.VISIBLE);
 			holder.brushaddress_text.setVisibility(ViewGroup.GONE);
 			holder.brushtime_text.setVisibility(ViewGroup.GONE);
-			holder.isbrush_text.setText("未刷卡");
+			holder.isbrush_text.setText("未打卡");
 			holder.isbrush_text.setTextColor(mContext.getResources().getColor(R.color.dark_red));
 		}else if(IsBrush.equals("2")){
 			holder.brush_text.setVisibility(ViewGroup.GONE);
 			holder.brushaddress_text.setVisibility(ViewGroup.VISIBLE);
 			holder.brushtime_text.setVisibility(ViewGroup.VISIBLE);
-			holder.isbrush_text.setText("刷卡异常");
+			holder.isbrush_text.setText("打卡异常");
 			holder.isbrush_text.setTextColor(mContext.getResources().getColor(R.color.dark_red));
 	}
 		holder.brush_text.setOnClickListener(new View.OnClickListener() {

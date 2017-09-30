@@ -21,6 +21,9 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.widget.Toast;
 
+import com.csmy.java_websocket.client.AssignConnectionRunner;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jcd.psms.Activity.WelcomeActivity;
 import com.jcd.psms.Application.PsmsApplication;
 import com.jcd.psms.Entity.User;
@@ -28,17 +31,22 @@ import com.jcd.psms.GreenDao.MessageDao;
 import com.jcd.psms.GreenDao.UserDao;
 import com.jcd.psms.R;
 import com.jcd.psms.Util.APIUtil;
-import com.jcd.psms.Util.AssignConnection;
 import com.jcd.psms.Util.LogUtil;
 import com.jcd.psms.Util.NetUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -51,13 +59,14 @@ public class PsmsService extends Service {
     IntentFilter mFilter = new IntentFilter();
     private static int MOOD_NOTIFICATIONS = 1;
     private SocketHandler mHandler;
-    public Timer timer;
-    private TimerTask mTimerTask;
-    private Thread getArticlesThread,mThread;
+//    public Timer timer;
+//    private TimerTask mTimerTask;
+//    private Thread mThread,getArticlesThread;
     private boolean connected = true;
     private UserDao mUserDao;
     public mBinder mBinder;
-
+    AssignConnectionRunner as;
+    String Tag=getClass().getSimpleName();
     @Override
     public void onCreate() {
         // TODO Auto-generated method stub
@@ -70,10 +79,46 @@ public class PsmsService extends Service {
         mFilter.addAction("PsmsService");
         registerReceiver(mReceiver, mFilter);
         // 开启新的线程从服务器获取数据
-        getArticlesThread = new Thread(null, mTask, "PsmsArticles");
-        mThread = new Thread(null,watchTask,"mPsmsArticles");
-        getArticlesThread.start();
-        mThread.start();
+//        getArticlesThread = new Thread(null, mTask, "PsmsArticles");
+//        mThread = new Thread(null,watchTask,"mPsmsArticles");
+//        getArticlesThread.start();
+//        mThread.start();
+        User mud=mUserDao.loadByRowId((long)1);
+        if(mud==null){
+            return;
+        }
+        Map map = new HashMap();
+        String getkeys=mud.getGetkey();
+        String URL_ASSIGN = APIUtil.PSMS_MESSAGE1;
+        map.put("c", "connection");
+        map.put("f", "getmessage");
+        map.put("key",getkeys);
+        as = new AssignConnectionRunner(URL_ASSIGN){
+            @Override
+            public void mage(String args) {
+                LogUtil.e(Tag,args);
+                try {
+                    JSONObject jsonobject = new JSONObject(args);
+                    if( !jsonobject.isNull("mess")){
+                        JSONArray mess = jsonobject.getJSONArray("mess");
+
+                        for (int i=0;i<mess.length();i++) {
+                            JSONObject jsonobj =mess.getJSONObject(i);
+                            mHandler.obtainMessage(0, jsonobj).sendToTarget();
+                        }
+
+                    }else{
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        as.setOtsize(8190);
+        as.setFrequency_connect(5);
+        as.setFrequency_getdata(5);
+        as.connect(map);
 
     }
     public void unregisterreceiver(){
@@ -85,71 +130,83 @@ public class PsmsService extends Service {
         LogUtil.e("out", "service启动！");
         return START_REDELIVER_INTENT;
     }
-    boolean isrun=true;
-    Runnable2 mTask = new Runnable2 ()  {
-
-        private AssignConnection con;
-
-
-        public void stoprunable(){
-            con.close();
-        }
-        @Override
-        public void run() {
-            try {
-                User mud=mUserDao.loadByRowId((long)1);
-                if(mud==null){
-                    return;
-                }
-                while(isrun){
-                    String Username=mud.getUsername();
-                    String getkeys=mud.getGetkey();
-                    String URL_ASSIGN = APIUtil.PSMS_MESSAGE+"&Username="+Username;
-                     con = new AssignConnection(URL_ASSIGN,"jfjk") {
-                        @Override
-                        public void mage(String str) throws IOException{
-                            LogUtil.e("lyt",str);
-                            mHandler.obtainMessage(0, str).sendToTarget();
-
-                        }
-                    };
-                    Map map = new HashMap();
-                    map.put("key",getkeys);
-                    con.connect(map);
-                    if(!connected){
-                        //网络故障处理！！！
-                        getArticlesThread.sleep(10000);
-                    }
-                }
-
-                LogUtil.e("lyt","通讯关闭");
-            }catch (Exception e){
-
-            }
-        }
-    };
-    Runnable  watchTask = new Runnable() {
-        @Override
-        public void run() {
-
-            // 开启定时器，每隔10秒刷新一次
-            timer = new Timer();
-            mTimerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    boolean isalive = getArticlesThread.isAlive();
-                    if (isalive) {
-                        LogUtil.e("out", "线程正常运行！");
-                    } else {
-                        LogUtil.e("out", "线程挂了");
-
-                    }
-                }
-            };
-            timer.scheduleAtFixedRate(mTimerTask, 0, 5000);
-        }
-    };
+//    boolean isrun=true;
+//    Runnable2 mTask = new Runnable2 ()  {
+//
+//        private AssignConnection con;
+//
+//
+//        public void stoprunable(){
+//            con.close();
+//        }
+//        @Override
+//        public void run() {
+//            try {
+//                User mud=mUserDao.loadByRowId((long)1);
+//                if(mud==null){
+//                    return;
+//                }
+//                while(isrun){
+//                    String Username=mud.getUsername();
+//                    String getkeys=mud.getGetkey();
+//                    String URL_ASSIGN = APIUtil.PSMS_MESSAGE;
+////                            +"&Username="+Username;
+//
+//                    LogUtil.e("lyt","URL_ASSIGN:"+URL_ASSIGN+"getkeys:"+getkeys);
+//                     con = new AssignConnection(URL_ASSIGN,"jfjk") {
+//                        @Override
+//                        public void mage(String str) throws IOException{
+//                            LogUtil.e("lyt",str);
+//                            try {
+//                                JSONObject jsonobject = new JSONObject(str);
+//                                if( !jsonobject.isNull("message")){
+//                                    mHandler.obtainMessage(0, str).sendToTarget();
+//                                }else{
+//                                    return;
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    };
+//                    Map map = new HashMap();
+//                    map.put("key",getkeys);
+//                    con.connect(map);
+//                    if(!connected){
+//                        //网络故障处理！！！
+//                        getArticlesThread.sleep(10000);
+//                    }
+//                }
+//
+//                LogUtil.e("lyt","通讯关闭");
+//            }catch (Exception e){
+//
+//            }
+//        }
+//    };
+//    Runnable  watchTask = new Runnable() {
+//        @Override
+//        public void run() {
+//
+//            // 开启定时器，每隔10秒刷新一次
+//            timer = new Timer();
+//            mTimerTask = new TimerTask() {
+//                @Override
+//                public void run() {
+//                    // TODO Auto-generated method stub
+//                    boolean isalive = getArticlesThread.isAlive();
+//                    if (isalive) {
+//                        LogUtil.e("out", "线程正常运行！");
+//                    } else {
+//                        LogUtil.e("out", "线程挂了");
+//
+//                    }
+//                }
+//            };
+//            timer.scheduleAtFixedRate(mTimerTask, 0, 5000);
+//        }
+//    };
 
     @SuppressWarnings("deprecation")
     private void showNotification(String contentText,CharSequence contentTitle) {
@@ -194,22 +251,24 @@ public class PsmsService extends Service {
         LogUtil.e("out", "服务销毁了");
         super.onDestroy();
     }
+    Subscriber<String> Observer;
     public class mBinder extends Binder {
         @Override
         protected boolean onTransact(int code, Parcel data, Parcel reply,
                                      int flags) throws RemoteException {
             return super.onTransact(code, data, reply, flags);
         }
-        public PsmsService getService() {
+        public PsmsService getService(Subscriber<String> Observer) {
+            PsmsService.this.Observer=Observer;
             return PsmsService.this;
         }
     }
-    boolean ismsg=false;
-    public void setmessage(boolean msg){
-        ismsg=msg;
-    }
-    public boolean getmessage(){
-        return ismsg;
+    public void unsubscribe(){
+        if(null!=Observer&&!Observer.isUnsubscribed()){
+            LogUtil.e("lyt","解除sb");
+            Observer.unsubscribe();
+            Observer=null;
+        };
     }
 
     class SocketHandler extends Handler {
@@ -221,7 +280,9 @@ public class PsmsService extends Service {
             switch (msg.what) {
                 case 0:
                     try {
-                        JSONObject jsonobject=new JSONObject((String) msg.obj);
+
+                        JSONObject jsonobject= (JSONObject) msg.obj;
+
                         String message=(String) jsonobject.get("message");
                         String to=(String) jsonobject.get("to");
                         String type=(String) jsonobject.get("type");
@@ -238,7 +299,19 @@ public class PsmsService extends Service {
                         com.jcd.psms.Entity.Message list = new com.jcd.psms.Entity.Message(null,null,Username,to,type,message);
                         MessageDao mMessageDao = PsmsApplication.getInstances().getDaoSession().getMessageDao();
                         mMessageDao.insert(list);
-                        setmessage(true);
+    ;
+                        Observable<String> sender = Observable.create(new Observable.OnSubscribe<String>() {
+
+                            @Override
+                            public void call(Subscriber<? super String> subscriber) {
+                                subscriber.onNext("消息！");
+                            }
+
+                        }).subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                           .observeOn(AndroidSchedulers.mainThread()); // 指定 Subscriber 的回调发生在主线程
+                        if(null!=Observer) {
+                            sender.subscribe(Observer);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -274,17 +347,17 @@ public class PsmsService extends Service {
                 }
             }else if(action.equals("PsmsService")){
                 LogUtil.e("out", "连接结束！----------------------------------------------------------------");
-                isrun=false;
-                mTask.stoprunable();
-                timer.cancel();
+                as.stop();
                 unregisterreceiver();
-
+//                isrun=false;
+//                mTask.stoprunable();
+//                timer.cancel();
             }
         }
 
     }
-
-    public interface Runnable2 extends Runnable{
-        public void stoprunable();
-    }
+//
+//    public interface Runnable2 extends Runnable{
+//        public void stoprunable();
+//    }
 }

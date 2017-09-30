@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:paddingRight="5dp"
-            android:text="未刷卡"
+            android:text="未打卡"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -61,8 +61,8 @@
             android:textSize="14sp" 
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@drawable/it_event_button_login_blue"
-            android:text="刷卡"
+            android:background="@drawable/it_event_button_login_red"
+            android:text="打卡"
             android:textColor="@color/white" />
     </LinearLayout>
 

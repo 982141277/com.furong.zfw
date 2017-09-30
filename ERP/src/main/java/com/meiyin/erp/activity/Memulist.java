@@ -152,7 +152,7 @@ public class Memulist extends Activity implements XListView.IXListViewListener, 
 			spn.add(new Spinner_Entity("费用申请单", "13"));
 			
 			Spinner memu_spn1 = (Spinner) findViewById(R.id.memu_spn1);
-			if(names.equals("wenhui")||names.equals("wangshun")||names.equals("tanghuiling")||names.equals("xuliang")||names.equals("chenqing")||names.equals("chenxianhua")){
+			if(names.equals("wenhui")||names.equals("wangshun")||names.equals("tanghuiling")||names.equals("xuliang")||names.equals("chenqing")||names.equals("xiaoxueliang")){
 				memu_spn1.setVisibility(ViewGroup.VISIBLE);		
 			}else{
 				memu_spn1.setVisibility(ViewGroup.GONE);

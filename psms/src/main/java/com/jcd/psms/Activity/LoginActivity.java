@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebChromeClient;
@@ -21,6 +22,7 @@ import com.jcd.psms.Util.APIUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 
 /**
  * Created by Administrator on 2017/6/8 0008.
@@ -32,16 +34,16 @@ public class LoginActivity extends Activity {
 
     @BindView(R.id.progress)
     ProgressBar mprogress;
-
+    CalledByJs  js;
     boolean isAnimStart;
     int currentProgress;
-
+    String Tag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         ButterKnife.bind(this);
-
+        Tag=getClass().getSimpleName();
         webview.setBackgroundColor(0);
         webview.getBackground().setAlpha(2);
         //设置Web视图
@@ -75,9 +77,9 @@ public class LoginActivity extends Activity {
                 return true;
             }
         });//限制在webview中打开网页，不用默认浏览器
-
+        js= new CalledByJs(LoginActivity.this,LoginActivity.this);
         webview.loadUrl(APIUtil.PSMS_LOGIN);
-        webview.addJavascriptInterface(new CalledByJs(LoginActivity.this,LoginActivity.this), "login");
+        webview.addJavascriptInterface(js, "login");
         webview.setWebChromeClient(new WebChromeClient(){
 
             @Override
@@ -97,6 +99,27 @@ public class LoginActivity extends Activity {
 
         });
     }
+
+    Subscriber<String> receiver = new Subscriber<String>() {
+
+        @Override
+        public void onCompleted() {
+
+            //数据接收完成时调用
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+            //发生错误调用
+        }
+
+        @Override
+        public void onNext(String s) {
+            Log.e(Tag,s);
+            webview.loadUrl("javascript:ShowMessage()");
+        }
+    };
 /**
  * progressBar消失动画
  */
@@ -127,6 +150,7 @@ public class LoginActivity extends Activity {
             });
             anim.start();
         }
+
     /**
      * progressBar递增动画
      */
@@ -137,8 +161,28 @@ public class LoginActivity extends Activity {
         animator.start();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        js.setmContext(null,null);
+        Log.e(Tag,"onDestroy");
+        try {
+            if (webview != null) {
+                webview.removeAllViews();
+                webview.destroy();
+                webview = null;
+             }
+             if(mprogress!=null){
+                 mprogress=null;
+             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-//		Intent intent = new Intent();
+
+
+    //		Intent intent = new Intent();
 //        intent.setAction("android.intent.action.VIEW");
 //        Uri content_url = Uri.parse("http://10.85.239.165:8080/jfjk/html5/psms/login.html");
 //        intent.setData(content_url);

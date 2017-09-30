@@ -16,8 +16,15 @@ public class APIUtil {
     public static String PSMS_MAIN="file:///"+FileUtil.gethtmlpath()+"/h5/html/main.html";
     //机房监控登录页面
     public static String PSMS_LOGIN="file:///"+FileUtil.gethtmlpath()+"/h5/html/login.html";
+    //机房监控详情
+    public static String PSMS_MAIN_DETAIL="file:///"+FileUtil.gethtmlpath()+"/h5/html/psms_ecahrt.html";
+    //机房监控历史数据全屏
+    public static String PSMS_MAIN_SCREEN="file:///"+FileUtil.gethtmlpath()+"/h5/html/psms_screen.html";
+
     //机房监控告警
     public static String PSMS_MESSAGE=API+"check_center/meinn.mn?c=connection&f=getmessage";
+    //机房监控告警1
+    public static String PSMS_MESSAGE1=API+"check_center";
     //资源文件更新地址
     public static String PSMS_UPDATE=API+"jfjk/html5/psms-android";
 

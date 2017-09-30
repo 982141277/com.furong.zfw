@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/circular_bead"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/circular_bead">
+        <LinearLayout
+            android:id="@+id/linear_purchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/head_red"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="采购申请单"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:padding="10dp"/>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/purchase_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_purchase"
+            android:layout_above="@+id/purchase_approval"
+            >
+
+        </ListView>
+
+
+        <Button
+            android:id="@+id/purchase_approval"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ridiobutton_red"
+
+            android:text="@string/shenpia"
+            android:textColor="@color/white"
+            android:textSize="@dimen/MYbz"/>
+    </RelativeLayout>
+
+</LinearLayout>

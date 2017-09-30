@@ -183,7 +183,7 @@ public class CompanyChopDetailsActivity extends Activity{
 			}
 		});
 	}
-	// 员工转正申请单详情
+	//
 	private class JsonHandler extends MJsonHttpHandler {
 		private Dialog progressDialog;
 

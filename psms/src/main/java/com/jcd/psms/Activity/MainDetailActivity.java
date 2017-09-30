@@ -10,29 +10,29 @@ import android.webkit.WebViewClient;
 import com.jcd.psms.CalledByJs;
 import com.jcd.psms.R;
 import com.jcd.psms.Util.APIUtil;
-import com.jcd.psms.Util.SlowlyProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AboutActivity extends Activity {
+/**
+ * Created by Administrator on 2017/8/21 0021.
+ */
 
-    @BindView(R.id.aboutwebview)
+public class MainDetailActivity extends Activity {
+    @BindView(R.id.detailwebview)
     WebView webview;
 
-    private SlowlyProgressBar slowlyProgressBar;
-
+//    private SlowlyProgressBar slowlyProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_activity);
+        setContentView(R.layout.maindetail_activity);
         ButterKnife.bind(this);
-        webview = (WebView) findViewById(R.id.aboutwebview);
         webview.setBackgroundColor(0);
         webview.getBackground().setAlpha(2);
         //设置Web视图
         WebSettings webSettings = webview.getSettings();
-            webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowContentAccess(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAllowFileAccess(true);
@@ -41,13 +41,13 @@ public class AboutActivity extends Activity {
         webSettings.setDomStorageEnabled(true);//支持Html5标签
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webview.getSettings().setDefaultTextEncodingName("GBK");//设置编码格式
-        slowlyProgressBar =
-                new SlowlyProgressBar
-                        (
-                                findViewById(R.id.aboutprogress),
-                                getWindowManager().getDefaultDisplay().getWidth()
-                        )
-                        .setViewHeight(3);
+//        slowlyProgressBar =
+//                new SlowlyProgressBar
+//                        (
+//                                findViewById(R.id.detailprogress),
+//                                getWindowManager().getDefaultDisplay().getWidth()
+//                        )
+//                        .setViewHeight(3);
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -58,26 +58,24 @@ public class AboutActivity extends Activity {
                 return true;
             }
         });//限制在webview中打开网页，不用默认浏览器
-
-        webview.loadUrl(APIUtil.PSMS_ABOUT);
-        webview.addJavascriptInterface(new CalledByJs(AboutActivity.this, AboutActivity.this), "about");
-        webview.setWebChromeClient(new WebChromeClient() {
+        webview.loadUrl(APIUtil.PSMS_MAIN_DETAIL);
+        webview.addJavascriptInterface(new CalledByJs(MainDetailActivity.this,MainDetailActivity.this), "ecahrtdetail");
+        webview.setWebChromeClient(new WebChromeClient(){
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                slowlyProgressBar.setProgress(newProgress);
+//                slowlyProgressBar.setProgress(newProgress);
             }
 
         });
     }
-
     @Override
     public void finish() {
         super.finish();
-        if (slowlyProgressBar != null) {
-            slowlyProgressBar.destroy();
-            slowlyProgressBar = null;
-        }
+//        if(slowlyProgressBar!=null){
+//            slowlyProgressBar.destroy();
+//            slowlyProgressBar = null;
+//        }
     }
 }

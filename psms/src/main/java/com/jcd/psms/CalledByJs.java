@@ -39,6 +39,11 @@ public class CalledByJs {
         this.activity=activity;
     }
 
+    public void setmContext(Context context,Activity activity) {
+        this.activity = activity;
+        this.mContext = context;
+    }
+
     //在js中被调用的方法
     @JavascriptInterface
     public void callFromJsToast(String js){
@@ -109,6 +114,17 @@ public class CalledByJs {
             return str;
         }else{
             return "";
+        }
+
+    }
+    //&删除消息
+    @JavascriptInterface
+    public void deleteMessage(String js){
+        MessageDao mMessageDao = PsmsApplication.getInstances().getDaoSession().getMessageDao();
+        String[] msg = js.split(",");
+        for (int i=0;i<msg.length;i++) {
+            String m=msg[i];
+            mMessageDao.deleteByKey(Long.valueOf(m));
         }
 
     }

@@ -65,6 +65,11 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 
 /**
  * @param外勤列表详情
@@ -75,7 +80,7 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 	private GeoCoder mSearch;
 //	 定位相关
 	private LocationClient mLocClient;
-	public MyLocationListenner myListener = new MyLocationListenner();
+
 	private AlertDialog dialog;
 	private TextView heads;
 	private LinearLayout submit_dialog;
@@ -91,7 +96,7 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 	private ImageView map_img;
 	LatLng lat;
 	private ClientAddress_EntityDao ClientAddressDao;
-	private TextView go_isbrush_text,out_isbrush_text,go_brush_buttn,out_brush_buttn;
+	private TextView go_isbrush_text,out_isbrush_text,go_brush_buttn,out_brush_buttn,locationing_address;
 	private String id ,id1;
 	private TextView go_brushtime_text,go_brushaddress_text,out_brushtime_text,out_brushaddress_text;
 	private List<ClientAddress_Entity> li;
@@ -106,22 +111,25 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 		content = getApplicationContext();
 		sp = getSharedPreferences(SPConstant.SHAREDPREFERENCES_NAME,
 				Context.MODE_PRIVATE);
+		dhu = new Dialog_Http_Util();
+		locationing_address = (TextView) findViewById(R.id.locationing_address);
+		findView();
 		if(!im.isProviderEnabled(LocationManager.GPS_PROVIDER)){
 			ToastManager.getInstance(content).showToast(
 					"请开启手机GPS定位系统！");
 			Intent intent=new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 			startActivityForResult(intent, 0);
+		}else{
+			// 初始化搜索模块，注册事件监听
+			mSearch = GeoCoder.newInstance();
+			mSearch.setOnGetGeoCodeResultListener(new Getcode());
+			getLocation();// 定位
 		}
 		initHeader();
 		ClientAddressDao = MyApplication.getInstance().getDaoSession().getClientAddress_EntityDao();
 		// 查询本地是否存储地址
 		li = ClientAddressDao.queryBuilder().where(ClientAddress_EntityDao.Properties.Id.eq(getIntent().getStringExtra("id"))).list();
 
-
-		dhu = new Dialog_Http_Util();
-		// 初始化搜索模块，注册事件监听
-		mSearch = GeoCoder.newInstance();
-		mSearch.setOnGetGeoCodeResultListener(new Getcode());
 		dialog = new AlertDialog.Builder(this).create();
 		map_img = (ImageView) findViewById(R.id.map_img);
 		map_img.setVisibility(ViewGroup.GONE);
@@ -131,170 +139,7 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 		adapter.setList(list);
 		owd_listview.setAdapter(adapter);
 		adapter.setOnRightItemClickListener(this);
-		adapter.setOnRightItemClickListener(new onAdapterItemClick() {
-			@Override
-			public void onRightItemClick(View v, final int position) {
-				// TODO Auto-generated method stub
-				dhu.showWaitingDialog(OutWorkDetailsActivity.this, "正在定位..", true);
-				getLocation();// 定位
-				final String OUTTYPE = getIntent().getStringExtra("outtype");
-				lat = null;
-				if (li.size() < 1) {
-					if (OUTTYPE.equals("客户拜访")) {
-						String shi=list.get(position).getShi();
-						if(shi.equals("")){
-							shi=list.get(position).getQu();
-							}
-						mSearch.geocode(new GeoCodeOption().city(shi).address(list.get(position)
-														.getTargetaddress()));
-					} else if (OUTTYPE.equals("外出办事")) {
-						String nameString = "长沙";
-						String address = list.get(position).getTargetaddress();
-						if (address.contains("市")) {
-							int s = address.indexOf("市");
-							nameString = address.substring(s - 2, s);
-						}
-						LogUtil.e("lyt", nameString);
-						mSearch.geocode(new GeoCodeOption().city(nameString)
-								.address(list.get(position).getTargetaddress()));
-					}
-				} else {
-					String shi=li.get(position).getShi();
-					if(shi.equals("")){
-						shi=li.get(position).getQu();
-						}
-					mSearch.geocode(new GeoCodeOption().city(shi).address(
-							list.get(position).getTargetaddress()));
 
-				}
-				submit_dialog = (LinearLayout) LayoutInflater.from(content)
-						.inflate(R.layout.submit_dialog, null);
-				heads = (TextView) submit_dialog.findViewById(R.id.heads);
-				Button button_t = (Button) submit_dialog
-						.findViewById(R.id.button_t);
-				Button button_f = (Button) submit_dialog
-						.findViewById(R.id.button_f);
-				button_t.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						if (location.equals("") || longitude.equals("")
-								|| latitude.equals("")) {
-							ToastManager.getInstance(content).showToast(
-									"刷卡地址不能为空！");
-							return;
-						}
-						if (lat == null) {
-							ToastManager.getInstance(content).showToast(
-									"地址不正确,定位失败！");
-							dialog.dismiss();
-							if(OUTTYPE.equals("客户拜访")){
-							return;
-							}
-						}
-						boolean scope = SpatialRelationUtil
-								.isCircleContainsPoint(lat, 500,
-										new LatLng(Double.valueOf(latitude),
-												Double.valueOf(longitude)));
-						if (OUTTYPE.equals("客户拜访")) {
-							if (scope) {
-								dhu.showWaitingDialog(
-										OutWorkDetailsActivity.this, "正在加载..",
-										false);
-								String key = sp.getString(SPConstant.MY_TOKEN,
-										"");
-								RequestParams params = new RequestParams();
-								params.setContentEncoding("utf_8");
-								params.put("key", key);// key
-								params.put("id", list.get(position).getId());// 主键id
-								params.put("isbrush", 1);// 是否刷卡
-								params.put("brushaddress", location);// 刷卡地址
-								params.put("longitude", longitude);// 经度
-								params.put("latitude", latitude);// 纬度
-								AsyncHttpclient_Util
-										.post(APIURL.UPDATEBRUSH, content,
-												params, new BrushJsonHandler());
-								dialog.dismiss();
-							} else {
-								heads.setText("不在指定位置范围内,是否继续刷卡？");
-								dialog.show();
-								dialog.getWindow().setContentView(submit_dialog);
-//								ToastManager.getInstance(content).showToast(
-//										"不在指定位置范围内,是否继续刷卡？");
-								Button button_t = (Button) submit_dialog
-										.findViewById(R.id.button_t);
-								Button button_f = (Button) submit_dialog
-										.findViewById(R.id.button_f);
-								button_t.setOnClickListener(new OnClickListener() {
-
-									@Override
-									public void onClick(View arg0) {
-										// TODO Auto-generated method stub
-										dhu.showWaitingDialog(
-												OutWorkDetailsActivity.this, "正在加载..",
-												false);
-										String key = sp.getString(SPConstant.MY_TOKEN,
-												"");
-										RequestParams params = new RequestParams();
-										params.setContentEncoding("utf_8");
-										params.put("key", key);// key
-										params.put("id", list.get(position).getId());// 主键id
-										params.put("isbrush", 2);// 是否刷卡
-										params.put("brushaddress", location);// 刷卡地址
-										params.put("longitude", longitude);// 经度
-										params.put("latitude", latitude);// 纬度
-										AsyncHttpclient_Util
-												.post(APIURL.UPDATEBRUSH, content,
-														params, new BrushJsonHandler());
-										dialog.dismiss();
-									}
-								});
-								button_f.setOnClickListener(new OnClickListener() {
-
-									@Override
-									public void onClick(View arg0) {
-										// TODO Auto-generated method stub
-										dialog.dismiss();
-									}
-								});
-							}
-
-						} else if (OUTTYPE.equals("外出办事")) {
-							dhu.showWaitingDialog(OutWorkDetailsActivity.this,
-									"正在加载..", false);
-							String key = sp.getString(SPConstant.MY_TOKEN, "");
-							RequestParams params = new RequestParams();
-							params.setContentEncoding("utf_8");
-							params.put("key", key);// key
-							params.put("id", list.get(position).getId());// 主键id
-							params.put("isbrush", 1);// 是否刷卡
-							params.put("brushaddress", location);// 刷卡地址
-							params.put("longitude", longitude);// 经度
-							params.put("latitude", latitude);// 纬度
-							AsyncHttpclient_Util.post(APIURL.UPDATEBRUSH,
-									content, params, new BrushJsonHandler());
-							dialog.dismiss();
-						}
-
-					}
-				});
-				button_f.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						dialog.dismiss();
-					}
-				});
-				if(!location.equals("")){
-
-				}else{
-					ToastManager.getInstance(content).showToast(
-							"定位失败，请重新刷卡定位！");
-				}
-			}
-		});
 		map_img.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -308,7 +153,7 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 			}
 		});
 		httpoutwork(li.size());
-		findView();
+
 	}
 	/*
 	 * 初始化标题UI
@@ -328,6 +173,7 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 	}
 	private void findView() {
 		// TODO Auto-generated method stub
+
 		go_brush_buttn=(TextView) findViewById(R.id.go_brush_buttn);
 		go_brush_buttn.setOnClickListener(new OnClickListener() {
 
@@ -361,9 +207,9 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 		RequestParams params = new RequestParams();
 		String key = sp.getString(SPConstant.MY_TOKEN, "");
 		params.put("key", key);// key
-		if (li < 1) {
+//		if (li < 1) {
 			params.put("isneedclientInfo", 1);// 地址
-		}
+//		}
 		params.put("_id", getIntent().getStringExtra("id"));//主键id
 		AsyncHttpclient_Util.post(APIURL.OUTWORK_DETAIL, content, params,
 				new outworkdetailsJsonHandler(li));
@@ -418,11 +264,11 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 				if(brush_type.equals("3")){
 					id = kaoqing.getString("id");
 					if(kaoqing.getString("isbrush").equals("0")){
-						go_isbrush_text.setText("未刷卡");
+						go_isbrush_text.setText("未打卡");
 						go_isbrush_text.setTextColor(getResources().getColor(R.color.dark_red));
 						go_brush_buttn.setVisibility(ViewGroup.VISIBLE);
 						}else if(kaoqing.getString("isbrush").equals("1")){
-						go_isbrush_text.setText("已刷卡");
+						go_isbrush_text.setText("已打卡");
 						go_brush_buttn.setVisibility(ViewGroup.GONE);
 						go_brushaddress_text.setText(kaoqing.getString("brushaddress"));
 						go_brushtime_text.setText(kaoqing.getString("brushtime"));
@@ -431,11 +277,11 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 				}else if(brush_type.equals("4")){
 					id1 = kaoqing.getString("id");
 					if(kaoqing.getString("isbrush").equals("0")){
-						out_isbrush_text.setText("未刷卡");
+						out_isbrush_text.setText("未打卡");
 						out_isbrush_text.setTextColor(getResources().getColor(R.color.dark_red));
 						out_brush_buttn.setVisibility(ViewGroup.VISIBLE);
 						}else if(kaoqing.getString("isbrush").equals("1")){
-						out_isbrush_text.setText("已刷卡");
+						out_isbrush_text.setText("已打卡");
 						out_brush_buttn.setVisibility(ViewGroup.GONE);
 						out_brushaddress_text.setText(kaoqing.getString("brushaddress"));
 						out_brushtime_text.setText(kaoqing.getString("brushtime"));
@@ -532,14 +378,14 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 
 	private void getLocation() {
 		// 定位初始化
-		mLocClient = new LocationClient(this);
-		mLocClient.registerLocationListener(myListener);
+		mLocClient = new LocationClient(getApplicationContext());
+		mLocClient.registerLocationListener(new MyLocationListenner());
 
 		LocationClientOption option = new LocationClientOption();
 		option.setIsNeedAddress(true);
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-//		option.setScanSpan(5000); // 定位时间间隔
+		option.setScanSpan(10000); // 定位时间间隔
 		mLocClient.setLocOption(option);
 
 		mLocClient.start();
@@ -555,7 +401,8 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 
 			if (location == null) {
 				ToastManager.getInstance(content).showToast("定位失败！！！");
-				dhu.dismissWaitingDialog();
+				locationing_address.setText("地址：定位失败！");
+
 				return;
 			}
 			double longitude = location.getLongitude();
@@ -569,16 +416,22 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 			OutWorkDetailsActivity.this.longitude = String.valueOf(longitude);
 			OutWorkDetailsActivity.this.latitude = String.valueOf(latitude);
 			String addr = location.getAddrStr();
-			if (addr != null) {
+			if (addr != null&&!addr.equals("")) {
+				LogUtil.e("xx", addr);
 				OutWorkDetailsActivity.this.location=addr;
-				dhu.dismissWaitingDialog();
+				Observable<String> sender = Observable.create(new Observable.OnSubscribe<String>() {
+
+					@Override
+					public void call(Subscriber<? super String> subscriber) {
+						subscriber.onNext(OutWorkDetailsActivity.this.location);
+					}
+
+				}).subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+						.observeOn(AndroidSchedulers.mainThread()); // 指定 Subscriber 的回调发生在主线程
+
+				sender.subscribe(receiver);
 				sp.edit().putString(SPConstant.LOCATION, addr)
 						.commit();
-				heads.setText((Html.fromHtml("确定在</font><font color=\"#058b05\">"
-						+ addr + "</font>刷卡吗？", imgGetter, null)));
-				dialog.show();
-				dialog.getWindow().setContentView(submit_dialog);
-				LogUtil.e("xx", addr);
 			} else {
 			if (longitude > 0 && latitude > 0) {
 				LogUtil.e("lyt", "经度："+longitude+"纬度："+latitude+"地理编码");
@@ -588,11 +441,10 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 						.location(ptCenter));
 			} else {
 				ToastManager.getInstance(content).showToast("定位失败！！！");
-				dhu.dismissWaitingDialog();
+//				dhu.dismissWaitingDialog();
 			}
 			}
-			// 停止定位
-			mLocClient.stop();
+
 		}
 
 		@Override
@@ -625,33 +477,93 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 		@Override
 		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 			// TODO Auto-generated method stub
-			if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-				Toast.makeText(OutWorkDetailsActivity.this, "抱歉，未能找到结果！",
-						Toast.LENGTH_LONG).show();
-				dhu.dismissWaitingDialog();
+			if (result == null ||result.getAddress().equals("")||result.getAddress()==null|| result.error != SearchResult.ERRORNO.NO_ERROR) {
+				Toast.makeText(OutWorkDetailsActivity.this,"定位失败！重新定位中...",Toast.LENGTH_LONG).show();
+//				dhu.dismissWaitingDialog();
 				return;
 			}
-			dhu.dismissWaitingDialog();
+//			dhu.dismissWaitingDialog();
 			location = result.getAddress();
+			Observable<String> sender = Observable.create(new Observable.OnSubscribe<String>() {
+
+				@Override
+				public void call(Subscriber<? super String> subscriber) {
+					subscriber.onNext(location);
+				}
+
+			}).subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+					.observeOn(AndroidSchedulers.mainThread()); // 指定 Subscriber 的回调发生在主线程
+
+			sender.subscribe(receiver);
 			sp.edit().putString(SPConstant.LOCATION, result.getAddress())
 					.commit();
-			heads.setText((Html.fromHtml("确定在</font><font color=\"#058b05\">"
-					+ location + "</font>刷卡吗？", imgGetter, null)));
-			dialog.show();
-			dialog.getWindow().setContentView(submit_dialog);
+//			heads.setText((Html.fromHtml("确定在</font><font color=\"#058b05\">"
+//					+ location + "</font>刷卡吗？", imgGetter, null)));
+//			dialog.show();
+//			dialog.getWindow().setContentView(submit_dialog);
+
 			// Toast.makeText(OutWorkDetailsActivity.this, result.getAddress(),
 			// Toast.LENGTH_LONG).show();
+			ReverseGeoCodeResult.AddressComponent ADDRESS=result.getAddressDetail();
+			if(null!=ADDRESS){
+				Toast.makeText(OutWorkDetailsActivity.this,ADDRESS.city+ADDRESS.province+result.getAddressDetail().street+result.getAddressDetail().streetNumber+result.getAddressDetail().district,Toast.LENGTH_LONG).show();
+				LogUtil.e("xxxx", ADDRESS.city+ADDRESS.province+result.getAddressDetail().street+result.getAddressDetail().streetNumber+result.getAddressDetail().district);
+				String province =ADDRESS.province;
+				String city =ADDRESS.city;
 
-			String province = result.getAddressDetail().province;
-			String city = result.getAddressDetail().city;
 			if (province != null && city != null) {
 				// Toast.makeText(OutWorkDetailsActivity.this,
 				// city+province+result.getAddressDetail().street+result.getAddressDetail().streetNumber+result.getAddressDetail().district,
 				// Toast.LENGTH_LONG).show();
 
 			}
+			}
 		}
 	}
+
+
+	Subscriber<String> receiver = new Subscriber<String>() {
+
+		@Override
+		public void onCompleted() {
+
+			//数据接收完成时调用
+		}
+
+		@Override
+		public void onError(Throwable e) {
+
+			//发生错误调用
+		}
+
+		@Override
+		public void onNext(String s) {
+			locationing_address.setText("地址："+s+"！");
+
+		}
+	};
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// 停止定位
+		if(null!=mLocClient&&mLocClient.isStarted()){
+			mLocClient.stop();
+			mLocClient=null;
+		}
+		if(null!=receiver&&!receiver.isUnsubscribed()){
+			LogUtil.e("lyt","解除sb");
+			receiver.unsubscribe();
+			receiver=null;
+		};
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+	}
+
 	//上下班打卡。。。
 	private void Brush(final String id){
 		LogUtil.e("lyt", id);
@@ -662,6 +574,9 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 				.findViewById(R.id.button_t);
 		Button button_f = (Button) submit_dialog
 				.findViewById(R.id.button_f);
+		heads.setText("是否确认打卡？");
+		dialog.show();
+		dialog.getWindow().setContentView(submit_dialog);
 		button_t.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -669,7 +584,7 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 				if (location.equals("") || longitude.equals("")
 						|| latitude.equals("")) {
 					ToastManager.getInstance(content).showToast(
-							"刷卡地址不能为空！");
+							"打卡地址不能为空！");
 					return;
 				}
 					dhu.showWaitingDialog(OutWorkDetailsActivity.this,
@@ -724,15 +639,20 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 		// TODO Auto-generated method stub
 			switch (v.getId()) {
 			case R.id.brush_text:
-			dhu.showWaitingDialog(OutWorkDetailsActivity.this, "正在定位..", true);
-			getLocation();// 定位
+//			dhu.showWaitingDialog(OutWorkDetailsActivity.this, "正在打卡..", true);
+
 			final String OUTTYPE = getIntent().getStringExtra("outtype");
 			lat = null;
 			if (li.size() < 1) {
 				if (OUTTYPE.equals("客户拜访")) {
 					String shi=list.get(position).getShi();
-					if(shi.equals("")){
+					if(null==shi||shi.equals("")){
 						shi=list.get(position).getQu();
+						}
+						if(null==shi||shi.equals("")){
+							ToastManager.getInstance(content).showToast(
+									"客户地址填写不正确！");
+							return;
 						}
 					mSearch.geocode(new GeoCodeOption().city(shi).address(list.get(position)
 													.getTargetaddress()));
@@ -749,9 +669,14 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 				}
 			} else {
 				String shi=li.get(position).getShi();
-				if(shi.equals("")){
+				if(null==shi||shi.equals("")){
 					shi=li.get(position).getQu();
 					}
+				if(null==shi||shi.equals("")){
+					ToastManager.getInstance(content).showToast(
+							"客户地址填写不正确！");
+					return;
+				}
 				mSearch.geocode(new GeoCodeOption().city(shi).address(
 						list.get(position).getTargetaddress()));
 
@@ -763,6 +688,10 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 					.findViewById(R.id.button_t);
 			Button button_f = (Button) submit_dialog
 					.findViewById(R.id.button_f);
+			heads.setText((Html.fromHtml("确定在</font><font color=\"#058b05\">"
+						+ location + "</font>刷卡吗？", imgGetter, null)));
+				dialog.show();
+				dialog.getWindow().setContentView(submit_dialog);
 			button_t.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -892,3 +821,167 @@ public class OutWorkDetailsActivity extends Activity implements onAdapterItemCli
 
 
 }
+//		adapter.setOnRightItemClickListener(new onAdapterItemClick() {
+//			@Override
+//			public void onRightItemClick(View v, final int position) {
+//				// TODO Auto-generated method stub
+//				dhu.showWaitingDialog(OutWorkDetailsActivity.this, "正在打卡..", true);
+//
+//				final String OUTTYPE = getIntent().getStringExtra("outtype");
+//				lat = null;
+//				if (li.size() < 1) {
+//					if (OUTTYPE.equals("客户拜访")) {
+//						String shi=list.get(position).getShi();
+//						if(null==shi||shi.equals("")){
+//							shi=list.get(position).getQu();
+//							}
+//						mSearch.geocode(new GeoCodeOption().city(shi).address(list.get(position)
+//														.getTargetaddress()));
+//					} else if (OUTTYPE.equals("外出办事")) {
+//						String nameString = "长沙";
+//						String address = list.get(position).getTargetaddress();
+//						if (address.contains("市")) {
+//							int s = address.indexOf("市");
+//							nameString = address.substring(s - 2, s);
+//						}
+//						LogUtil.e("lyt", nameString);
+//						mSearch.geocode(new GeoCodeOption().city(nameString)
+//								.address(list.get(position).getTargetaddress()));
+//					}
+//				} else {
+//					String shi=li.get(position).getShi();
+//					if(null==shi||shi.equals("")){
+//						shi=li.get(position).getQu();
+//						}
+//					mSearch.geocode(new GeoCodeOption().city(shi).address(
+//							list.get(position).getTargetaddress()));
+//
+//				}
+//				submit_dialog = (LinearLayout) LayoutInflater.from(content)
+//						.inflate(R.layout.submit_dialog, null);
+//				heads = (TextView) submit_dialog.findViewById(R.id.heads);
+//				Button button_t = (Button) submit_dialog
+//						.findViewById(R.id.button_t);
+//				Button button_f = (Button) submit_dialog
+//						.findViewById(R.id.button_f);
+//				button_t.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View arg0) {
+//						// TODO Auto-generated method stub
+//						if (location.equals("") || longitude.equals("")
+//								|| latitude.equals("")) {
+//							ToastManager.getInstance(content).showToast(
+//									"刷卡地址不能为空！");
+//							return;
+//						}
+//						if (lat == null) {
+//							ToastManager.getInstance(content).showToast(
+//									"地址不正确,定位失败！");
+//							dialog.dismiss();
+//							if(OUTTYPE.equals("客户拜访")){
+//							return;
+//							}
+//						}
+//						boolean scope = SpatialRelationUtil
+//								.isCircleContainsPoint(lat, 500,
+//										new LatLng(Double.valueOf(latitude),
+//												Double.valueOf(longitude)));
+//						if (OUTTYPE.equals("客户拜访")) {
+//							if (scope) {
+//								dhu.showWaitingDialog(
+//										OutWorkDetailsActivity.this, "正在加载..",
+//										false);
+//								String key = sp.getString(SPConstant.MY_TOKEN,
+//										"");
+//								RequestParams params = new RequestParams();
+//								params.setContentEncoding("utf_8");
+//								params.put("key", key);// key
+//								params.put("id", list.get(position).getId());// 主键id
+//								params.put("isbrush", 1);// 是否刷卡
+//								params.put("brushaddress", location);// 刷卡地址
+//								params.put("longitude", longitude);// 经度
+//								params.put("latitude", latitude);// 纬度
+//								AsyncHttpclient_Util
+//										.post(APIURL.UPDATEBRUSH, content,
+//												params, new BrushJsonHandler());
+//								dialog.dismiss();
+//							} else {
+//								heads.setText("不在指定位置范围内,是否继续刷卡？");
+//								dialog.show();
+//								dialog.getWindow().setContentView(submit_dialog);
+////								ToastManager.getInstance(content).showToast(
+////										"不在指定位置范围内,是否继续刷卡？");
+//								Button button_t = (Button) submit_dialog
+//										.findViewById(R.id.button_t);
+//								Button button_f = (Button) submit_dialog
+//										.findViewById(R.id.button_f);
+//								button_t.setOnClickListener(new OnClickListener() {
+//
+//									@Override
+//									public void onClick(View arg0) {
+//										// TODO Auto-generated method stub
+//										dhu.showWaitingDialog(
+//												OutWorkDetailsActivity.this, "正在加载..",
+//												false);
+//										String key = sp.getString(SPConstant.MY_TOKEN,
+//												"");
+//										RequestParams params = new RequestParams();
+//										params.setContentEncoding("utf_8");
+//										params.put("key", key);// key
+//										params.put("id", list.get(position).getId());// 主键id
+//										params.put("isbrush", 2);// 是否刷卡
+//										params.put("brushaddress", location);// 刷卡地址
+//										params.put("longitude", longitude);// 经度
+//										params.put("latitude", latitude);// 纬度
+//										AsyncHttpclient_Util
+//												.post(APIURL.UPDATEBRUSH, content,
+//														params, new BrushJsonHandler());
+//										dialog.dismiss();
+//									}
+//								});
+//								button_f.setOnClickListener(new OnClickListener() {
+//
+//									@Override
+//									public void onClick(View arg0) {
+//										// TODO Auto-generated method stub
+//										dialog.dismiss();
+//									}
+//								});
+//							}
+//
+//						} else if (OUTTYPE.equals("外出办事")) {
+//							dhu.showWaitingDialog(OutWorkDetailsActivity.this,
+//									"正在加载..", false);
+//							String key = sp.getString(SPConstant.MY_TOKEN, "");
+//							RequestParams params = new RequestParams();
+//							params.setContentEncoding("utf_8");
+//							params.put("key", key);// key
+//							params.put("id", list.get(position).getId());// 主键id
+//							params.put("isbrush", 1);// 是否刷卡
+//							params.put("brushaddress", location);// 刷卡地址
+//							params.put("longitude", longitude);// 经度
+//							params.put("latitude", latitude);// 纬度
+//							AsyncHttpclient_Util.post(APIURL.UPDATEBRUSH,
+//									content, params, new BrushJsonHandler());
+//							dialog.dismiss();
+//						}
+//
+//					}
+//				});
+//				button_f.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View arg0) {
+//						// TODO Auto-generated method stub
+//						dialog.dismiss();
+//					}
+//				});
+//				if(!location.equals("")){
+//
+//				}else{
+//					ToastManager.getInstance(content).showToast(
+//							"定位失败，请重新刷卡定位！");
+//				}
+//			}
+//		});

@@ -18,15 +18,15 @@ public class APIURL {
 	/**
 	 * 外网接口
 	 */
-	public static final String API ="192.168.3.80";
-	public static final String MY_CENTER ="";
+//	public static final String API ="192.168.3.80";
+//	public static final String MY_CENTER ="";
 	/**
 	 * 外网接口
 	 */
 	
-	public static final String APIS ="222.240.140.30";
-//	public static final String API ="222.240.140.30";
-//	public static final String MY_CENTER ="";
+//	public static final String APIS ="222.240.140.30";
+	public static final String API ="222.240.140.30";
+	public static final String MY_CENTER ="";
 	//Code下载
 	public static final String ERP_VERSION_XML_URL ="http://"+API+"/itsm_new/upload/erp_updateInfo.xml";
 //			"http://"+API+"/itsm_new/androidupload!loadfileinfo.it";//下载版本信息
@@ -53,6 +53,12 @@ public class APIURL {
 		public static final String ADDARTICLE3="http://"+API+"/check/requisitionmobile!selectaccompanyId2.ac";
 		//新增请购申请单
 		public static final String ADD_REQUISITION="http://"+API+"/check/requisitionmobile!requisitionaddApply.ac";
+		//请购申请单核价员列表
+		public static final String PURCHASEORDERSLIST="http://"+API+"/check/requisitionmobile!assessor.ac";
+		//请购申请单财务副总审批
+		public static final String PURCHASEORDERSAPPROVAL="http://"+API+"/check/requisitionmobile!finaDeptGenManagerPondering.ac";
+		//请购申请单核价员审批
+		public static final String PURCHASEORDERSAPPROVALS="http://"+API+"/check/requisitionmobile!HeJiaYuanShenHe.ac";
 		//申请单列表
 		public static final String MEMUAPI ="http://"+API+"/check/mobile!showAllapply.ac";
 		//新增申请单权限获取申请列表

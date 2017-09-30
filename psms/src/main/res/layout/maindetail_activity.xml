@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/about_activity"
+    android:id="@+id/activity_account"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jcd.psms.Activity.AboutActivity">
+    tools:context="com.jcd.psms.Activity.MainDetailActivity">
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorwhite"
         ></View>
     <TextView
-        android:id="@+id/aboutprogress"
+        android:id="@+id/detailprogress"
         android:background="@color/colorgreens"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
     <WebView
-        android:id="@+id/aboutwebview"
-        android:layout_below="@+id/aboutprogress"
+        android:id="@+id/detailwebview"
+        android:layout_below="@+id/detailprogress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"

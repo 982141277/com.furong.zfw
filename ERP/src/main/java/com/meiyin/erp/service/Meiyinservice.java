@@ -296,7 +296,8 @@ public class Meiyinservice extends Service {
 				String idString = "";
 				for (int i = 0; i < urls.length; i++) {
 					if(urls[i].contains("topic_code")){
-						idString=urls[i].substring(11);
+						int dex=urls[i].indexOf("topic_code");
+						idString=urls[i].substring(dex+11);
 					}
 				}
 				type = "公告";
